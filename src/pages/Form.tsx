@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { Control } from "react-hook-form";
 import { Title } from "../components/Title";
-import { Categories, IField } from "../formFieldNames";
+import { IField } from "../formFieldNames";
 import { CustomInput } from "../components/CustomInput";
 import { CustomSelect } from "../components/CustomSelect";
 
@@ -55,7 +55,7 @@ export const Form: FC<IForm> = ({ formTitle, fields, control, errors, dataForEdi
                 error={errors[element.id]}
                 errorMessage={errors[element.id]?.message}
                 defaultValue={
-                  Categories.filter(
+                  element?.items.filter(
                     (el) => el.text === dataForEditing.filter((el) => el?.id === element?.id)[0]?.value
                   )[0]?.id
                 }
