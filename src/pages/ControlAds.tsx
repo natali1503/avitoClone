@@ -59,14 +59,14 @@ export function PostingAds() {
   return (
     <Box display={"flex"} flexDirection={"column"} alignItems={"center"} justifyContent={"center"} gap={"3rem"}>
       <Title title={creationMode ? "Форма размещения" : "Форма редактирования"} />
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} style={{ width: "100%" }}>
         <Box
           display={"flex"}
           flexDirection={"column"}
           alignItems={"center"}
           justifyContent={"center"}
           gap={"1rem"}
-          maxWidth={"30rem"}
+          width={"100%"}
         >
           {currentStep === 1 && (
             <Form

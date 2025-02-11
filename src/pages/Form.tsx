@@ -17,7 +17,7 @@ interface IForm {
 
 export const Form: FC<IForm> = ({ formTitle, fields, control, errors, dataForEditing }) => {
   return (
-    <Box display={"flex"} flexDirection={"column"} alignItems={"center"} justifyContent={"center"} gap={"3rem"}>
+    <Box display={"flex"} flexDirection={"column"} gap={"3rem"}>
       <Title title={formTitle} />
 
       <Box
@@ -26,7 +26,7 @@ export const Form: FC<IForm> = ({ formTitle, fields, control, errors, dataForEdi
         alignItems={"center"}
         justifyContent={"center"}
         gap={"1rem"}
-        maxWidth={"30rem"}
+        maxWidth={"38rem"}
       >
         {fields.map((element, i) => {
           if (element.typeField === "input") {
@@ -38,7 +38,9 @@ export const Form: FC<IForm> = ({ formTitle, fields, control, errors, dataForEdi
                 text={element.text}
                 required={element.required}
                 error={errors[element.id]}
+                errorMessage={errors[element.id]?.message}
                 defaultValue={dataForEditing.filter((el) => el.id === element.id)[0]?.value}
+                adornment={element.adornment}
               />
             );
           } else if (element.typeField === "select" && element?.items) {
@@ -51,6 +53,7 @@ export const Form: FC<IForm> = ({ formTitle, fields, control, errors, dataForEdi
                 items={element.items}
                 required={element.required}
                 error={errors[element.id]}
+                errorMessage={errors[element.id]?.message}
                 defaultValue={
                   Categories.filter(
                     (el) => el.text === dataForEditing.filter((el) => el?.id === element?.id)[0]?.value
