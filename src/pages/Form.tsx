@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { Control } from "react-hook-form";
 import { Title } from "../components/Title";
-import { IField } from "../formFieldNames";
+import { IField } from "../FormField/formFieldNames";
 import { CustomInput } from "../components/CustomInput";
 import { CustomSelect } from "../components/CustomSelect";
 
@@ -16,6 +16,8 @@ interface IForm {
 }
 
 export const Form: FC<IForm> = ({ formTitle, fields, control, errors, dataForEditing }) => {
+  console.log(fields);
+
   return (
     <Box display={"flex"} flexDirection={"column"} gap={"3rem"}>
       <Title title={formTitle} />

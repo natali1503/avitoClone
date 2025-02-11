@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { useForm, useWatch } from "react-hook-form";
 import { Title } from "../components/Title";
-import { Categories, CommonFields, FieldsByType } from "../formFieldNames";
+import { Categories, CommonFields, FieldsByType } from "../FormField/formFieldNames";
 
 import { CustomButton } from "../components/CustomButton";
 import { createAd, updatingAd } from "../api-actions";

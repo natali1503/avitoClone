@@ -1,3 +1,5 @@
+import { RealEstate } from "./realEstate";
+
 export const CategoriesId = {
   REAL_ESTATE: "realEstate",
   AUTO: "auto",
@@ -32,7 +34,14 @@ export const CommonFields: IField[] = [
 ];
 
 const formFieldRealEstate: IField[] = [
-  { id: "propertyType", text: "Тип недвижимости", typeField: "input", type: "string", required: true },
+  {
+    id: "propertyType",
+    text: "Тип недвижимости",
+    typeField: "select",
+    type: "string",
+    required: true,
+    items: RealEstate,
+  },
   {
     id: "area",
     text: "Площадь в квадратных метрах",

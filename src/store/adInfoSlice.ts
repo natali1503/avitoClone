@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { getAdById } from "../api-actions";
 import { AdResponse } from "../api/AdResponse";
-import { Categories, CommonFields, FieldsByType } from "../formFieldNames";
+import { Categories, CommonFields, FieldsByType } from "../FormField/formFieldNames";
 
 const adInfoSlice = createSlice({
   name: "adInfo",

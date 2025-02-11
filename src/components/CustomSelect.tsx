@@ -1,7 +1,7 @@
 import { Box, FormControl, FormHelperText, FormLabel, MenuItem, Select } from "@mui/material";
 import { FC } from "react";
 import { Control, Controller } from "react-hook-form";
-import { ICategories } from "../formFieldNames";
+import { ICategories } from "../FormField/formFieldNames";
 
 interface ICustomSelect {
   name: string;
