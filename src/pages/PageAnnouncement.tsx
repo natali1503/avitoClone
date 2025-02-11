@@ -1,53 +1,33 @@
-import { useEffect, useState } from "react";
-
-import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { Box, Typography } from "@mui/material";
-
 import { useDispatch, useSelector } from "react-redux";
-import { getAdById } from "../api-actions";
-import { AppDispatch, RootState } from "../store";
-import { Categories, CommonFields, FieldsByType } from "../formFieldNames";
+
 import { CustomButton } from "../components/CustomButton";
-import { PageAnnouncementSkeleton } from "./PageAnnouncementSkeleton";
+import { AppDispatch, RootState } from "../store";
 import { RouterPath } from "../router/routerPath";
+import { getAdById } from "../api-actions";
+
+import { PageAnnouncementSkeleton } from "./PageAnnouncementSkeleton";
+import { formattingDataForOutput } from "../store/adInfoSlice";
 
 export function PageAnnouncement() {
   const idUrl = useParams();
-  const { loading, data } = useSelector((state: RootState) => state.adInfo);
+  const { loading, dataToDisplay, data } = useSelector((state: RootState) => state.adInfo);
+
   const dispatch = useDispatch<AppDispatch>();
-  const [dataToDisplay, setDataToDisplay] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (idUrl.id) {
       dispatch(getAdById({ id: idUrl.id }));
     }
-  }, [dispatch]);
+  }, [dispatch, idUrl.id]);
 
   useEffect(() => {
-    if (!data) return;
-    setDataToDisplay(() => test());
-  }, [data]);
-
-  function test() {
-    const dataToDisplay: { [key in string]: string }[] = [];
-    const idCommonFields = CommonFields.map((el) => el.id);
-    const idType = Categories.filter((el) => el.text === data.type)[0].id;
-    const additionalFieldsByType = FieldsByType[idType];
-    const idAdditionalFieldsByType = additionalFieldsByType.map((el) => el.id);
-
-    for (const [key, value] of Object.entries(data)) {
-      if (idCommonFields.includes(key)) {
-        const field = CommonFields.filter((el) => el.id === key)[0];
-        dataToDisplay.push({ fieldName: field.text, value });
-      }
-      if (idAdditionalFieldsByType.includes(key)) {
-        const field = additionalFieldsByType.filter((el) => el.id === key)[0];
-        dataToDisplay.push({ fieldName: field.text, value });
-      }
-    }
-
-    return dataToDisplay;
-  }
+    if (data) dispatch(formattingDataForOutput());
+  }, [dispatch, data]);
 
   return loading ? (
     <PageAnnouncementSkeleton />
@@ -65,7 +45,12 @@ export function PageAnnouncement() {
             </Box>
           ))}
       </Box>
-      <CustomButton text='Редактировать' href={RouterPath.Form} />
+      <CustomButton
+        text='Редактировать'
+        onClick={() => {
+          navigate(RouterPath.Form, { state: { id: idUrl.id } });
+        }}
+      />
     </Box>
   );
 }

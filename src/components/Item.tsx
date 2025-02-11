@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { RouterPath } from "../router/routerPath";
+
 import { CustomButton } from "./CustomButton";
 
 interface IItem {
@@ -21,16 +21,15 @@ export function Item(props: IItem) {
       sx={{
         display: "flex",
         flexDirection: "row",
-        border: "1px solid",
+        border: "1px solid rgba(0, 0, 0, 0.23)",
         borderRadius: "10px",
         justifyContent: "space-around",
         padding: "20px 30px",
-
         gap: "5rem",
         alignItems: "center",
       }}
     >
-      <Box width={"80px"} height={"80px"} sx={{ border: "1px solid", borderRadius: "10px" }}>
+      <Box width={"80px"} height={"80px"} sx={{ border: "1px solid rgba(0, 0, 0, 0.23)", borderRadius: "10px" }}>
         Img
       </Box>
       <Box display={"flex"} flexDirection={"column"} gap={"5px"}>

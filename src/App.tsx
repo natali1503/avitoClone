@@ -1,5 +1,5 @@
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import { PostingAds } from "./pages/PostingAds";
+import { PostingAds } from "./pages/ControlAds";
 import { ListAnnouncement } from "./pages/ListAnnouncement";
 import { PageAnnouncement } from "./pages/PageAnnouncement";
 import { RouterPath } from "./router/routerPath";
@@ -10,7 +10,7 @@ function App() {
   const [theme] = useMode();
   return (
     <ThemeProvider theme={theme}>
-      <Box width={"100%"} minHeight={"100vh"} padding={"6rem 4rem"}>
+      <Box width={"100%"} minHeight={"100vh"} padding={"4rem 4rem"}>
         <Router>
           <Routes>
             <Route path='/' element={<ListAnnouncement />} />

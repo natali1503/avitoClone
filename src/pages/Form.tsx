@@ -1,47 +1,66 @@
 import { Box } from "@mui/material";
-import { useForm, useWatch } from "react-hook-form";
+import { Control } from "react-hook-form";
 import { Title } from "../components/Title";
-import { Categories, CommonFields, FieldsByType } from "../formFieldNames";
+import { Categories, IField } from "../formFieldNames";
 import { CustomInput } from "../components/CustomInput";
 import { CustomSelect } from "../components/CustomSelect";
-import { CustomButton } from "../components/CustomButton";
-import { createAd } from "../api-actions";
+
 import { FC } from "react";
 
 interface IForm {
   formTitle: string;
+  fields: IField[];
+  control: Control;
+  errors: any;
+  dataForEditing?: any;
 }
 
-const Form: FC<IForm> = ({ formTitle }) => {
+export const Form: FC<IForm> = ({ formTitle, fields, control, errors, dataForEditing }) => {
   return (
     <Box display={"flex"} flexDirection={"column"} alignItems={"center"} justifyContent={"center"} gap={"3rem"}>
       <Title title={formTitle} />
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Box
-          display={"flex"}
-          flexDirection={"column"}
-          alignItems={"center"}
-          justifyContent={"center"}
-          gap={"1rem"}
-          maxWidth={"30rem"}
-        >
-          {CommonFields.map((element, i) => {
-            if (element.typeField === "input") {
-              return <CustomInput key={+i} name={element.id} control={control} text={element.text} />;
-            } else if (element.typeField === "select" && element?.items) {
-              return (
-                <CustomSelect key={+i} name={element.id} control={control} text={element.text} items={element.items} />
-              );
-            }
-          })}
 
-          {type &&
-            FieldsByType[type].map((element, i) => (
-              <CustomInput key={+i} name={element.id} control={control} text={element.text} />
-            ))}
-          <CustomButton text='Отправить' type='submit' />
-        </Box>
-      </form>
+      <Box
+        display={"flex"}
+        flexDirection={"column"}
+        alignItems={"center"}
+        justifyContent={"center"}
+        gap={"1rem"}
+        maxWidth={"30rem"}
+      >
+        {fields.map((element, i) => {
+          if (element.typeField === "input") {
+            return (
+              <CustomInput
+                key={+i}
+                name={element.id}
+                control={control}
+                text={element.text}
+                required={element.required}
+                error={errors[element.id]}
+                defaultValue={dataForEditing.filter((el) => el.id === element.id)[0]?.value}
+              />
+            );
+          } else if (element.typeField === "select" && element?.items) {
+            return (
+              <CustomSelect
+                key={+i}
+                name={element.id}
+                control={control}
+                text={element.text}
+                items={element.items}
+                required={element.required}
+                error={errors[element.id]}
+                defaultValue={
+                  Categories.filter(
+                    (el) => el.text === dataForEditing.filter((el) => el?.id === element?.id)[0]?.value
+                  )[0]?.id
+                }
+              />
+            );
+          }
+        })}
+      </Box>
     </Box>
   );
 };

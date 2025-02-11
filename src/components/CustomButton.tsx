@@ -1,24 +1,27 @@
 import { Box, Button } from "@mui/material";
+import { FC } from "react";
 
 interface ICustomButton {
   text: string;
   href?: string;
   onClick?: () => void;
   type?: "submit" | "reset" | "button";
+  disabled?: boolean;
 }
 
-export function CustomButton(props: ICustomButton) {
+export const CustomButton: FC<ICustomButton> = ({ text, href, onClick, type, disabled = true }) => {
   return (
     <Box>
       <Button
-        href={props?.href}
+        href={href}
         variant='outlined'
         sx={{ textTransform: "none" }}
-        onClick={props?.onClick}
-        type={props?.type}
+        onClick={onClick}
+        type={type}
+        disabled={!disabled}
       >
-        {props.text}
+        {text}
       </Button>
     </Box>
   );
-}
+};
