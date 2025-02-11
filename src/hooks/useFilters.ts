@@ -38,8 +38,16 @@ export function useFilters({ adList }: useFilterProps) {
 }
 
 function filterAdList(adList: AdResponse[], searchName: string = "", categories: string = "") {
-  if (!categories) return adList;
-  const categorieText = Categories.filter((el) => el.id === categories)[0].text;
-  console.log(categorieText);
-  return adList.filter((ad) => ad.type === categorieText);
+  console.log(searchName);
+  if (!categories && !searchName) return adList;
+  let result = [...adList];
+  if (categories) {
+    console.log(searchName);
+    const categorieText = Categories.filter((el) => el.id === categories)[0].text;
+    result = result.filter((ad) => ad.type === categorieText);
+  }
+  if (searchName) {
+    result = result.filter((ad) => ad.name.toLocaleLowerCase().includes(searchName));
+  }
+  return result;
 }

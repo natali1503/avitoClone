@@ -23,8 +23,9 @@ interface IFilters {
 }
 
 export const FiltersPanel: FC<IFilters> = ({ searchName, setSearchName, categories, setCategories }) => {
-  function handleChange(e) {
-    setSearchName(e.target.value);
+  function handleChange(event) {
+    const value = event.target.value as string;
+    setSearchName(value.toLocaleLowerCase());
   }
 
   function handleChangeSelect(event: SelectChangeEvent) {
