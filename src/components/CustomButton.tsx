@@ -11,7 +11,7 @@ interface ICustomButton {
 
 export const CustomButton: FC<ICustomButton> = ({ text, href, onClick, type, disabled = true }) => {
   return (
-    <Box>
+    <Box display={"flex"}>
       <Button
         href={href}
         variant='outlined'

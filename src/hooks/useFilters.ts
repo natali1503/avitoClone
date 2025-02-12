@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import { AdResponse } from "../api/AdResponse";
-import { Categories } from "../FormField/formFieldNames";
+import { Categories } from "../FormField/Categories";
 
 type useFilterProps = {
   adList: AdResponse[] | null;
 };
-// Реализован поиск объявления по названию
-// Реализована фильтрация по категории объявления
 // Дополнительно: при выборе значения для фильтра по категории появляются дополнительные фильтры по обязательным полям выбранной категории
 
 export function useFilters({ adList }: useFilterProps) {

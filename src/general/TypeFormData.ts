@@ -3,7 +3,7 @@ interface IAd {
   name: string;
   description: string;
   location: string;
-  photo: string;
+  photo: File[] | "";
   type: string;
 }
 interface IAdRealEstat extends IAd {
@@ -24,4 +24,4 @@ interface IAdServices extends IAd {
   cost: string;
   workSchedule: string;
 }
-export type AdResponse = IAdRealEstat | IAdAuto | IAdServices;
+export type TypeFormData = IAdRealEstat | IAdAuto | IAdServices;

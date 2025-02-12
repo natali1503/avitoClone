@@ -1,13 +1,14 @@
 import { Box, FormControl, FormHelperText, FormLabel, MenuItem, Select } from "@mui/material";
 import { FC } from "react";
 import { Control, Controller } from "react-hook-form";
-import { ICategories } from "../FormField/formFieldNames";
+import { IItem } from "../FormField/formFieldNames";
+import { TypeFormData } from "../general/TypeFormData";
 
 interface ICustomSelect {
   name: string;
-  control: Control;
-  text: string;
-  items: ICategories[];
+  control: Control<TypeFormData>;
+  fieldName: string;
+  items: IItem[];
   required?: boolean;
   error: boolean;
   defaultValue?: string;
@@ -17,7 +18,7 @@ interface ICustomSelect {
 export const CustomSelect: FC<ICustomSelect> = ({
   name,
   control,
-  text,
+  fieldName,
   items,
   required,
   error,
@@ -26,7 +27,7 @@ export const CustomSelect: FC<ICustomSelect> = ({
 }) => {
   return (
     <FormControl fullWidth sx={{ display: "flex", flexDirection: "row", alignItems: "center", gap: 2 }}>
-      <FormLabel sx={{ width: "12rem" }}>{text}</FormLabel>
+      <FormLabel sx={{ width: "12rem" }}>{fieldName}</FormLabel>
       <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%" }}>
         <Controller
           name={name}
@@ -34,7 +35,18 @@ export const CustomSelect: FC<ICustomSelect> = ({
           defaultValue={defaultValue}
           rules={required ? { required: "Заполните обязательное поле" } : undefined}
           render={({ field }) => (
-            <Select {...field} value={field.value} error={error} fullWidth sx={{ fontSize: "1.8rem", width: "25rem" }}>
+            <Select
+              {...field}
+              onChange={(e) => {
+                console.log(field.value);
+                const selectedItem = items.filter((item) => item.id === e.target.value)[0];
+                field.onChange(selectedItem.text);
+              }}
+              value={items.find((item) => item.text === field.value)?.id || ""}
+              error={error}
+              fullWidth
+              sx={{ fontSize: "1.4rem", width: "25rem" }}
+            >
               {items.map((item, i) => (
                 <MenuItem key={+i} value={item.id}>
                   {item.text}

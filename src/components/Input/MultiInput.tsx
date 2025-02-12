@@ -1,15 +1,16 @@
 import { Box, FormControl, FormHelperText, FormLabel, InputAdornment, OutlinedInput } from "@mui/material";
 import { FC } from "react";
 import { Control, Controller } from "react-hook-form";
+import { TypeFormData } from "../../general/TypeFormData";
 
 interface IMultiInput {
   type: string;
   name: string;
-  control: Control;
-  text: string;
+  control: Control<TypeFormData>;
+  fieldName: string;
   required?: boolean;
   error: boolean;
-  defaultValue?: string;
+  defaultValue?: string | number;
   adornment?: string;
   errorMessage?: string;
 }
@@ -18,7 +19,7 @@ export const MultiInput: FC<IMultiInput> = ({
   type,
   name,
   control,
-  text,
+  fieldName,
   required,
   error,
   defaultValue = "",
@@ -42,7 +43,7 @@ export const MultiInput: FC<IMultiInput> = ({
             height: "8rem",
           }}
         >
-          <FormLabel sx={{ width: "12rem" }}>{text}</FormLabel>
+          <FormLabel sx={{ width: "12rem" }}>{fieldName}</FormLabel>
           <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%" }}>
             <OutlinedInput
               type={type}

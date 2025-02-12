@@ -1,3 +1,5 @@
+import { IItem } from "./formFieldNames";
+
 export const ServiceTypeId = {
   REPAIR: "repair",
   CLEANING: "cleaning",
@@ -6,7 +8,7 @@ export const ServiceTypeId = {
   CONSULTING: "consulting",
 };
 
-export const ServiceTypes: { id: string; text: string }[] = [
+export const ServiceTypes: IItem[] = [
   { id: ServiceTypeId.REPAIR, text: "Ремонт" },
   { id: ServiceTypeId.CLEANING, text: "Уборка" },
   { id: ServiceTypeId.DELIVERY, text: "Доставка" },

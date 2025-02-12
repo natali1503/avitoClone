@@ -1,35 +1,55 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { getAdById } from "../api-actions";
+
+import { CommonFields, FieldsByType } from "../FormField/formFieldNames";
+import { Categories } from "../FormField/Categories";
 import { AdResponse } from "../api/AdResponse";
-import { Categories, CommonFields, FieldsByType } from "../FormField/formFieldNames";
+import { getAdById } from "../api-actions";
+
+export interface IAdToDisplay {
+  id: string;
+  fieldName: string;
+  value: string | number;
+}
+
+export interface IDataToDisplay {
+  data: IAdToDisplay[];
+  photo: string;
+}
 
 const adInfoSlice = createSlice({
   name: "adInfo",
-  initialState: { loading: false, data: <AdResponse | null>null, dataToDisplay: null, error: null },
+  initialState: {
+    loading: false,
+    data: <AdResponse | null>null,
+    dataToDisplay: <IDataToDisplay | null>null,
+    error: null,
+  },
   reducers: {
     formattingDataForOutput: (state) => {
-      const dataToDisplay: { [key in string]: string }[] = [];
+      if (!state.data) return;
+      const dataToDisplay: IDataToDisplay = { data: [], photo: "" };
+
       const idCommonFields = CommonFields.map((el) => el.id);
       const idType = Categories.filter((el) => el.text === state?.data?.type)[0].id;
       const additionalFieldsByType = FieldsByType[idType];
       const idAdditionalFieldsByType = additionalFieldsByType.map((el) => el.id);
-      const photo = {};
+
       for (const [key, value] of Object.entries(state.data)) {
         if (idCommonFields.includes(key)) {
           const field = CommonFields.filter((el) => el.id === key)[0];
           if (field.id !== "photo") {
-            dataToDisplay.push({ id: field.id, fieldName: field.text, value });
+            dataToDisplay.data.push({ id: field.id, fieldName: field.fieldName, value });
           } else {
-            photo.photo = value;
+            dataToDisplay.photo = value as string;
           }
         }
         if (idAdditionalFieldsByType.includes(key)) {
           const field = additionalFieldsByType.filter((el) => el.id === key)[0];
-          dataToDisplay.push({ id: field.id, fieldName: field.text, value });
+          dataToDisplay.data.push({ id: field.id, fieldName: field.fieldName, value });
         }
       }
 
-      state.dataToDisplay = { data: dataToDisplay, photo };
+      state.dataToDisplay = dataToDisplay;
     },
   },
   extraReducers: (builder) => {

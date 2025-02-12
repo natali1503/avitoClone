@@ -1,3 +1,5 @@
+import { IItem } from "./formFieldNames";
+
 export const AutoId = {
   TOYOTA: "toyota",
   BMW: "bmw",
@@ -6,7 +8,7 @@ export const AutoId = {
   FORD: "ford",
 };
 
-export const CarBrands: { id: string; text: string }[] = [
+export const CarBrands: IItem[] = [
   { id: AutoId.TOYOTA, text: "Toyota" },
   { id: AutoId.BMW, text: "BMW" },
   { id: AutoId.MERCEDES, text: "Mercedes-Benz" },

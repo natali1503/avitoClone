@@ -1,16 +1,19 @@
+import { SubmitHandler, useForm, useWatch } from "react-hook-form";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { Box } from "@mui/material";
-import { useForm, useWatch } from "react-hook-form";
-import { Title } from "../components/Title";
-import { Categories, CommonFields, FieldsByType } from "../FormField/formFieldNames";
-
-import { CustomButton } from "../components/CustomButton";
-import { createAd, updatingAd } from "../api-actions";
-import { Form } from "./Form";
 import { useState } from "react";
 
-import { useLocation, useNavigate } from "react-router-dom";
+import { CommonFields, FieldsByType } from "../FormField/formFieldNames";
+import { CustomButton } from "../components/CustomButton";
+import { TypeFormData } from "../general/TypeFormData";
+import { createAd, updatingAd } from "../api-actions";
+import { Categories } from "../FormField/Categories";
 import { RouterPath } from "../router/routerPath";
-import { useSelector } from "react-redux";
+import { getIdByText } from "../utils/getIdByText";
+import { toBase64 } from "../utils/toBase64";
+import { Title } from "../components/Title";
+import { Form } from "../components/Form";
 import { RootState } from "../store";
 
 export function PostingAds() {
@@ -19,35 +22,37 @@ export function PostingAds() {
     trigger,
     formState: { errors },
     handleSubmit,
-  } = useForm({ mode: "onTouched" });
+  } = useForm<TypeFormData>({ mode: "onTouched" });
 
   const { dataToDisplay } = useSelector((state: RootState) => state.adInfo);
 
   const location = useLocation();
 
-  const dataForEditing = dataToDisplay || [];
+  const dataForEditing = dataToDisplay || null;
   const type =
-    useWatch({ control, name: "type" }) ||
+    getIdByText(Categories, useWatch({ control, name: "type" })) ||
     Categories.filter((el) => el.text === dataForEditing?.data?.filter((el) => el?.id === "type")[0]?.value)[0]?.id ||
     "";
 
   const [currentStep, setCurrentStep] = useState(1);
   const navigate = useNavigate();
-  const creationMode = !dataForEditing.length;
+  const creationMode = !dataForEditing?.data.length;
 
-  const onSubmit = async (data: any) => {
-    const categorie = Categories.filter((el) => el.id === data.type)[0];
+  const onSubmit: SubmitHandler<TypeFormData> = async (data: TypeFormData) => {
+    // const categorie = Categories.filter((el) => el.id === data.type)[0];
+
     const controller = new AbortController();
     const signal = controller.signal;
 
-    const file = data.photo;
-    const test = (data.photo && (await toBase64(file[0]))) || "";
-
     if (creationMode) {
-      await createAd({ ...data, type: categorie.text, photo: test }, signal);
+      const file = data.photo;
+      const fileString = (file && (await toBase64(file[0]))) || "";
+      // await createAd({ ...data, type: categorie.text, photo: test }, signal);
+      await createAd({ ...data, photo: fileString }, signal);
       navigate(RouterPath.List);
     } else {
-      await updatingAd({ ...data, type: categorie.text }, location.state.id, signal);
+      // await updatingAd({ ...data, type: categorie.text }, location.state.id, signal);
+      await updatingAd({ ...data }, location.state.id, signal);
       navigate(RouterPath.List);
     }
   };
@@ -61,7 +66,6 @@ export function PostingAds() {
 
     if (isValid) handleClick(2);
   };
-  console.log(dataForEditing);
 
   return (
     <Box display={"flex"} flexDirection={"column"} alignItems={"center"} justifyContent={"center"} gap={"3rem"}>
@@ -82,7 +86,6 @@ export function PostingAds() {
               control={control}
               errors={errors}
               dataForEditing={dataForEditing?.data}
-              photoForEditing={dataForEditing?.photo}
             />
           )}
 
@@ -92,7 +95,7 @@ export function PostingAds() {
               formTitle={"Шаг 2"}
               control={control}
               errors={errors}
-              dataForEditing={dataForEditing.data}
+              dataForEditing={dataForEditing?.data}
             />
           )}
 
@@ -109,10 +112,3 @@ export function PostingAds() {
     </Box>
   );
 }
-const toBase64 = (file: File): Promise<string> =>
-  new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = (error) => reject(error);
-  });

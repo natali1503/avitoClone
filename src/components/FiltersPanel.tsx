@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 
 import { FC } from "react";
-import { Categories } from "../FormField/formFieldNames";
+import { Categories } from "../FormField/Categories";
 
 interface IFilters {
   searchName: string;
@@ -23,9 +23,9 @@ interface IFilters {
 }
 
 export const FiltersPanel: FC<IFilters> = ({ searchName, setSearchName, categories, setCategories }) => {
-  function handleChange(event) {
-    const value = event.target.value as string;
-    setSearchName(value.toLocaleLowerCase());
+  function handleChange(e: React.ChangeEvent<{ value: unknown }>) {
+    const value = e.target.value as string;
+    setSearchName(value.toLocaleLowerCase);
   }
 
   function handleChangeSelect(event: SelectChangeEvent) {
@@ -59,7 +59,7 @@ export const FiltersPanel: FC<IFilters> = ({ searchName, setSearchName, categori
           },
         }}
         variant='standard'
-        sx={{ fontSize: "1.4rem", minWidth: "30rem" }}
+        sx={{ fontSize: "1.4rem", minWidth: "15rem", width: "30rem" }}
       />
 
       <FormControl fullWidth sx={{ display: "flex", flexDirection: "row", alignItems: "center", gap: 2 }}>

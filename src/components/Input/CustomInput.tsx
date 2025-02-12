@@ -1,17 +1,18 @@
 import { Control } from "react-hook-form";
 import { FC } from "react";
 
-import { FileInput } from "./FileInput";
+import { TypeFormData } from "../../general/TypeFormData";
 import { MultiInput } from "./MultiInput";
+import { FileInput } from "./FileInput";
 
 interface ICustomInput {
   type: string;
   name: string;
-  control: Control;
-  text: string;
+  control: Control<TypeFormData>;
+  fieldName: string;
   required?: boolean;
   error: boolean;
-  defaultValue?: string;
+  defaultValue?: string | number;
   adornment?: string;
   errorMessage?: string;
 }
@@ -20,7 +21,7 @@ export const CustomInput: FC<ICustomInput> = ({
   type,
   name,
   control,
-  text,
+  fieldName,
   required,
   error,
   defaultValue = "",
@@ -34,7 +35,7 @@ export const CustomInput: FC<ICustomInput> = ({
         type={type}
         name={name}
         control={control}
-        text={text}
+        fieldName={fieldName}
         required={required}
         error={error}
         defaultValue={defaultValue}
@@ -45,10 +46,9 @@ export const CustomInput: FC<ICustomInput> = ({
       <FileInput
         name={name}
         control={control}
-        text={text}
+        fieldName={fieldName}
         required={required}
         error={error}
-        defaultValue={defaultValue}
         errorMessage={errorMessage}
       />
     );

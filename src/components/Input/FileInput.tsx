@@ -1,24 +1,23 @@
 import { Box, FormControl, FormHelperText, FormLabel } from "@mui/material";
 import { FC } from "react";
 import { Control, Controller } from "react-hook-form";
+import { TypeFormData } from "../../general/TypeFormData";
 
 interface IFileInput {
   name: string;
-  control: Control;
-  text: string;
+  control: Control<TypeFormData>;
+  fieldName: string;
   required?: boolean;
   error: boolean;
-  defaultValue?: string;
   errorMessage?: string;
 }
 
 export const FileInput: FC<IFileInput> = ({
   name,
   control,
-  text,
+  fieldName,
   required,
   error,
-  defaultValue = "",
 
   errorMessage,
 }) => {
@@ -26,7 +25,6 @@ export const FileInput: FC<IFileInput> = ({
     <Controller
       name={name}
       control={control}
-      defaultValue={defaultValue}
       rules={required ? { required: "Заполните обязательное поле" } : undefined}
       render={({ field }) => (
         <FormControl
@@ -39,7 +37,7 @@ export const FileInput: FC<IFileInput> = ({
             height: "8rem",
           }}
         >
-          <FormLabel sx={{ width: "12rem" }}>{text}</FormLabel>
+          <FormLabel sx={{ width: "12rem" }}>{fieldName}</FormLabel>
           <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%" }}>
             <input type='file' onChange={(e) => field.onChange(e.target.files)} />
 

@@ -1,7 +1,7 @@
-import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Box, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
+import { Box, Typography } from "@mui/material";
+import { useEffect } from "react";
 
 import { CustomButton } from "../components/CustomButton";
 import { AppDispatch, RootState } from "../store";
@@ -40,7 +40,7 @@ export function PageAnnouncement() {
       <Box display={"flex"} flexDirection={"row"} gap={"5rem"}>
         <Box width={"30rem"} height={"30rem"}>
           <ImageWithPlaceholder
-            src={(dataToDisplay && dataToDisplay.photo.photo) || ""}
+            src={(dataToDisplay && dataToDisplay.photo) || ""}
             alt={`Изображение по объявлению ${dataToDisplay?.data[0].value}`}
           />
         </Box>

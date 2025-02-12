@@ -1,23 +1,23 @@
-import { Box } from "@mui/material";
 import { Control } from "react-hook-form";
-import { Title } from "../components/Title";
-import { IField } from "../FormField/formFieldNames";
-
-import { CustomSelect } from "../components/CustomSelect";
-
+import { Box } from "@mui/material";
 import { FC } from "react";
+
 import { CustomInput } from "../components/Input/CustomInput";
+import { CustomSelect } from "../components/CustomSelect";
+import { TypeFormData } from "../general/TypeFormData";
+import { IField } from "../FormField/formFieldNames";
+import { IAdToDisplay } from "../store/adInfoSlice";
+import { Title } from "../components/Title";
 
 interface IForm {
   formTitle: string;
   fields: IField[];
-  control: Control;
+  control: Control<TypeFormData>;
   errors: any;
-  dataForEditing?: any;
-  photoForEditing?: any;
+  dataForEditing?: IAdToDisplay[];
 }
 
-export const Form: FC<IForm> = ({ formTitle, fields, control, errors, dataForEditing, photoForEditing }) => {
+export const Form: FC<IForm> = ({ formTitle, fields, control, errors, dataForEditing }) => {
   return (
     <Box display={"flex"} flexDirection={"column"} gap={"3rem"}>
       <Title title={formTitle} />
@@ -38,7 +38,7 @@ export const Form: FC<IForm> = ({ formTitle, fields, control, errors, dataForEdi
                 type={element.type}
                 name={element.id}
                 control={control}
-                text={element.text}
+                fieldName={element.fieldName}
                 required={element.required}
                 error={errors[element.id]}
                 errorMessage={errors[element.id]?.message}
@@ -52,7 +52,7 @@ export const Form: FC<IForm> = ({ formTitle, fields, control, errors, dataForEdi
                 key={+i}
                 name={element.id}
                 control={control}
-                text={element.text}
+                fieldName={element.fieldName}
                 items={element.items}
                 required={element.required}
                 error={errors[element.id]}
