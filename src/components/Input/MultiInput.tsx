@@ -1,7 +1,15 @@
-import { Box, FormControl, FormHelperText, FormLabel, InputAdornment, OutlinedInput } from "@mui/material";
-import { FC } from "react";
-import { Control, Controller } from "react-hook-form";
-import { TypeFormData } from "../../general/TypeFormData";
+import {
+  Box,
+  FormControl,
+  FormHelperText,
+  FormLabel,
+  InputAdornment,
+  OutlinedInput,
+} from '@mui/material';
+import { FC } from 'react';
+import { Control, Controller } from 'react-hook-form';
+
+import { TypeFormData } from '../../general/TypeFormData';
 
 interface IMultiInput {
   type: string;
@@ -22,8 +30,8 @@ export const MultiInput: FC<IMultiInput> = ({
   fieldName,
   required,
   error,
-  defaultValue = "",
-  adornment = "",
+  defaultValue = '',
+  adornment = '',
   errorMessage,
 }) => {
   return (
@@ -31,27 +39,36 @@ export const MultiInput: FC<IMultiInput> = ({
       name={id}
       control={control}
       defaultValue={defaultValue}
-      rules={required ? { required: "Заполните обязательное поле" } : undefined}
+      rules={required ? { required: 'Заполните обязательное поле' } : undefined}
       render={({ field }) => (
         <FormControl
           sx={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            gap: "2rem",
-            width: "100%",
-            height: "8rem",
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: '2rem',
+            width: '100%',
+            height: '8rem',
           }}
         >
-          <FormLabel sx={{ width: "12rem" }}>{fieldName}</FormLabel>
-          <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%" }}>
+          <FormLabel sx={{ width: '12rem' }}>{fieldName}</FormLabel>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              width: '100%',
+            }}
+          >
             <OutlinedInput
               type={type}
               fullWidth
               {...field}
-              sx={{ fontSize: "1.4rem", width: "25rem" }}
+              sx={{ fontSize: '1.4rem', width: '25rem' }}
               error={error}
-              endAdornment={<InputAdornment position='end'>{adornment}</InputAdornment>}
+              endAdornment={
+                <InputAdornment position='end'>{adornment}</InputAdornment>
+              }
             />
 
             {error && <FormHelperText>{errorMessage}</FormHelperText>}

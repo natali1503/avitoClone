@@ -1,8 +1,16 @@
-import { Box, FormControl, FormHelperText, FormLabel, MenuItem, Select } from "@mui/material";
-import { FC } from "react";
-import { Control, Controller } from "react-hook-form";
-import { IItem } from "../general/FormField/formFieldNames";
-import { TypeFormData } from "../general/TypeFormData";
+import { Control, Controller } from 'react-hook-form';
+import { FC } from 'react';
+import {
+  Box,
+  FormControl,
+  FormHelperText,
+  FormLabel,
+  MenuItem,
+  Select,
+} from '@mui/material';
+
+import { IItem } from '../general/FormField/formFieldNames';
+import { TypeFormData } from '../general/TypeFormData';
 
 interface ICustomSelect {
   id: keyof TypeFormData;
@@ -22,30 +30,49 @@ export const CustomSelect: FC<ICustomSelect> = ({
   items,
   required,
   error,
-  defaultValue = "",
+  defaultValue = '',
   errorMessage,
 }) => {
   return (
-    <FormControl fullWidth sx={{ display: "flex", flexDirection: "row", alignItems: "center", gap: 2 }}>
-      <FormLabel sx={{ width: "12rem" }}>{fieldName}</FormLabel>
-      <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%" }}>
+    <FormControl
+      fullWidth
+      sx={{
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 2,
+      }}
+    >
+      <FormLabel sx={{ width: '12rem' }}>{fieldName}</FormLabel>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          width: '100%',
+        }}
+      >
         <Controller
           name={id}
           control={control}
           defaultValue={defaultValue}
-          rules={required ? { required: "Заполните обязательное поле" } : undefined}
+          rules={
+            required ? { required: 'Заполните обязательное поле' } : undefined
+          }
           render={({ field }) => (
             <Select
               {...field}
               onChange={(e) => {
                 console.log(field.value);
-                const selectedItem = items.filter((item) => item.id === e.target.value)[0];
+                const selectedItem = items.filter(
+                  (item) => item.id === e.target.value,
+                )[0];
                 field.onChange(selectedItem.text);
               }}
-              value={items.find((item) => item.text === field.value)?.id || ""}
+              value={items.find((item) => item.text === field.value)?.id || ''}
               error={error}
               fullWidth
-              sx={{ fontSize: "1.4rem", width: "25rem" }}
+              sx={{ fontSize: '1.4rem', width: '25rem' }}
             >
               {items.map((item, i) => (
                 <MenuItem key={+i} value={item.id}>

@@ -1,9 +1,10 @@
-import { Control } from "react-hook-form";
-import { FC } from "react";
+import { FC } from 'react';
+import { Control } from 'react-hook-form';
 
-import { TypeFormData } from "../../general/TypeFormData";
-import { MultiInput } from "./MultiInput";
-import { FileInput } from "./FileInput";
+import { TypeFormData } from '../../general/TypeFormData';
+
+import { FileInput } from './FileInput';
+import { MultiInput } from './MultiInput';
 
 interface ICustomInput {
   type: string;
@@ -24,13 +25,13 @@ export const CustomInput: FC<ICustomInput> = ({
   fieldName,
   required,
   error,
-  defaultValue = "",
-  adornment = "",
+  defaultValue = '',
+  adornment = '',
 
   errorMessage,
 }) => {
   {
-    return type !== "file" ? (
+    return type !== 'file' ? (
       <MultiInput
         type={type}
         id={id}

@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
-import { AdResponse } from "../api/AdResponse";
-import { Categories } from "../general/FormField/Categories";
+import { useEffect, useState } from 'react';
+
+import { AdResponse } from '../api/AdResponse';
+import { Categories } from '../general/FormField/Categories';
 
 type useFilterProps = {
   adList: AdResponse[] | null;
@@ -8,14 +9,14 @@ type useFilterProps = {
 // Дополнительно: при выборе значения для фильтра по категории появляются дополнительные фильтры по обязательным полям выбранной категории
 
 export function useFilters({ adList }: useFilterProps) {
-  const [searchName, setSearchName] = useState("");
-  const [categories, setCategories] = useState("");
+  const [searchName, setSearchName] = useState('');
+  const [categories, setCategories] = useState('');
 
   const [filteredData, setFilteredData] = useState<AdResponse[]>([]);
 
   function resetFilters() {
-    setSearchName("");
-    setCategories("");
+    setSearchName('');
+    setCategories('');
   }
 
   useEffect(() => {
@@ -35,15 +36,22 @@ export function useFilters({ adList }: useFilterProps) {
   };
 }
 
-function filterAdList(adList: AdResponse[], searchName: string = "", categories: string = "") {
+function filterAdList(
+  adList: AdResponse[],
+  searchName: string = '',
+  categories: string = '',
+) {
   if (!categories && !searchName) return adList;
   let result = [...adList];
   if (categories) {
-    const categorieText = Categories.filter((el) => el.id === categories)[0].text;
+    const categorieText = Categories.filter((el) => el.id === categories)[0]
+      .text;
     result = result.filter((ad) => ad.type === categorieText);
   }
   if (searchName) {
-    result = result.filter((ad) => ad.name.toLocaleLowerCase().includes(searchName));
+    result = result.filter((ad) =>
+      ad.name.toLocaleLowerCase().includes(searchName),
+    );
   }
   return result;
 }

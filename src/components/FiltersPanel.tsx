@@ -1,19 +1,19 @@
-import SearchIcon from "@mui/icons-material/Search";
-import CloseIcon from "@mui/icons-material/Close";
+import CloseIcon from '@mui/icons-material/Close';
+import SearchIcon from '@mui/icons-material/Search';
 import {
   Box,
   FormControl,
   IconButton,
   InputAdornment,
+  InputLabel,
   MenuItem,
   Select,
   SelectChangeEvent,
   TextField,
-  InputLabel,
-} from "@mui/material";
+} from '@mui/material';
+import { FC } from 'react';
 
-import { FC } from "react";
-import { Categories } from "../general/FormField/Categories";
+import { Categories } from '../general/FormField/Categories';
 
 interface IFilters {
   searchName: string;
@@ -22,7 +22,12 @@ interface IFilters {
   setCategories: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const FiltersPanel: FC<IFilters> = ({ searchName, setSearchName, categories, setCategories }) => {
+export const FiltersPanel: FC<IFilters> = ({
+  searchName,
+  setSearchName,
+  categories,
+  setCategories,
+}) => {
   function handleChange(e: React.ChangeEvent<{ value: unknown }>) {
     const value = e.target.value as string;
     setSearchName(value.toLocaleLowerCase);
@@ -34,7 +39,7 @@ export const FiltersPanel: FC<IFilters> = ({ searchName, setSearchName, categori
   }
 
   return (
-    <Box display={"flex"} flexDirection={"row"} gap={"1.5rem"}>
+    <Box display={'flex'} flexDirection={'row'} gap={'1.5rem'}>
       <TextField
         placeholder='Введите название объявления'
         value={searchName}
@@ -50,7 +55,7 @@ export const FiltersPanel: FC<IFilters> = ({ searchName, setSearchName, categori
               <IconButton
                 size='small'
                 onClick={() => {
-                  setSearchName("");
+                  setSearchName('');
                 }}
               >
                 <CloseIcon />
@@ -59,22 +64,34 @@ export const FiltersPanel: FC<IFilters> = ({ searchName, setSearchName, categori
           },
         }}
         variant='standard'
-        sx={{ fontSize: "1.4rem", minWidth: "15rem", width: "30rem" }}
+        sx={{ fontSize: '1.4rem', minWidth: '15rem', width: '30rem' }}
       />
 
-      <FormControl fullWidth sx={{ display: "flex", flexDirection: "row", alignItems: "center", gap: 2 }}>
+      <FormControl
+        fullWidth
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          gap: 2,
+        }}
+      >
         <InputLabel>Категории объявления</InputLabel>
         <Select
           onChange={handleChangeSelect}
           value={categories}
           endAdornment={
             categories && (
-              <IconButton size='small' onClick={() => setCategories("")} sx={{ mr: "1rem" }}>
+              <IconButton
+                size='small'
+                onClick={() => setCategories('')}
+                sx={{ mr: '1rem' }}
+              >
                 <CloseIcon />
               </IconButton>
             )
           }
-          sx={{ fontSize: "1.4rem", minWidth: "30rem", height: "3rem" }}
+          sx={{ fontSize: '1.4rem', minWidth: '30rem', height: '3rem' }}
         >
           {Categories.map((item, i) => (
             <MenuItem key={+i} value={item.id}>

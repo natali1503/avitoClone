@@ -1,16 +1,17 @@
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import { PostingAds } from "./pages/ControlAds";
-import { ListAnnouncement } from "./pages/ListAnnouncement";
-import { PageAnnouncement } from "./pages/PageAnnouncement";
-import { RouterPath } from "./router/routerPath";
-import { Box, ThemeProvider } from "@mui/material";
-import { useMode } from "./theme";
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import { Box, ThemeProvider } from '@mui/material';
+
+import { ListAnnouncement } from './pages/ListAnnouncement';
+import { PageAnnouncement } from './pages/PageAnnouncement';
+import { RouterPath } from './router/routerPath';
+import { PostingAds } from './pages/ControlAds';
+import { useMode } from './theme';
 
 function App() {
   const [theme] = useMode();
   return (
     <ThemeProvider theme={theme}>
-      <Box width={"100%"} minHeight={"100vh"} padding={"4rem 4rem"}>
+      <Box width={'100%'} minHeight={'100vh'} padding={'4rem 4rem'}>
         <Router>
           <Routes>
             <Route path='/' element={<ListAnnouncement />} />

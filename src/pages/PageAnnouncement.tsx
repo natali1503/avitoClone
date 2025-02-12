@@ -1,21 +1,22 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { Box, Typography } from "@mui/material";
-import { useEffect } from "react";
+import { Box, Typography } from '@mui/material';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import { CustomButton } from "../components/CustomButton";
-import { AppDispatch, RootState } from "../store";
-import { RouterPath } from "../router/routerPath";
-import { getAdById } from "../api-actions";
-
-import { PageAnnouncementSkeleton } from "../components/Skeleton/PageAnnouncementSkeleton";
-import { formattingDataForOutput } from "../store/adInfoSlice";
-import { ImageWithPlaceholder } from "../components/Image";
-import { Title } from "../components/Title";
+import { getAdById } from '../api-actions';
+import { CustomButton } from '../components/CustomButton';
+import { ImageWithPlaceholder } from '../components/Image';
+import { PageAnnouncementSkeleton } from '../components/Skeleton/PageAnnouncementSkeleton';
+import { Title } from '../components/Title';
+import { RouterPath } from '../router/routerPath';
+import { AppDispatch, RootState } from '../store';
+import { formattingDataForOutput } from '../store/adInfoSlice';
 
 export function PageAnnouncement() {
   const idUrl = useParams();
-  const { loading, dataToDisplay, data } = useSelector((state: RootState) => state.adInfo);
+  const { loading, dataToDisplay, data } = useSelector(
+    (state: RootState) => state.adInfo,
+  );
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
@@ -35,19 +36,24 @@ export function PageAnnouncement() {
   return loading ? (
     <PageAnnouncementSkeleton />
   ) : (
-    <Box display={"flex"} flexDirection={"column"} gap={"5rem"}>
-      <Title title={"Страница объявления"} />
-      <Box display={"flex"} flexDirection={"row"} gap={"5rem"}>
-        <Box width={"30rem"} height={"30rem"}>
+    <Box display={'flex'} flexDirection={'column'} gap={'5rem'}>
+      <Title title={'Страница объявления'} />
+      <Box display={'flex'} flexDirection={'row'} gap={'5rem'}>
+        <Box width={'30rem'} height={'30rem'}>
           <ImageWithPlaceholder
-            src={(dataToDisplay && dataToDisplay.photo) || ""}
+            src={(dataToDisplay && dataToDisplay.photo) || ''}
             alt={`Изображение по объявлению ${dataToDisplay?.data[0].value}`}
           />
         </Box>
-        <Box display={"flex"} flexDirection={"column"} gap={"2rem"}>
+        <Box display={'flex'} flexDirection={'column'} gap={'2rem'}>
           {dataToDisplay &&
             dataToDisplay.data.map((el, i) => (
-              <Box key={+i} display={"flex"} flexDirection={"column"} gap={"0.5rem"}>
+              <Box
+                key={+i}
+                display={'flex'}
+                flexDirection={'column'}
+                gap={'0.5rem'}
+              >
                 <Typography variant='h5'>{el?.fieldName}</Typography>
                 <Typography>{el?.value}</Typography>
               </Box>

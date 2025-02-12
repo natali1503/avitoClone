@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 
 interface IUsePagination {
   quantityAd: number;
@@ -11,5 +11,11 @@ export function usePagination({ quantityAd }: IUsePagination) {
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
 
-  return { currentPage, totalPages, indexOfLastItem, indexOfFirstItem, setCurrentPage };
+  return {
+    currentPage,
+    totalPages,
+    indexOfLastItem,
+    indexOfFirstItem,
+    setCurrentPage,
+  };
 }

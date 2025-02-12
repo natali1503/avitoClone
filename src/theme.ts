@@ -1,4 +1,4 @@
-import { createTheme } from "@mui/material/styles";
+import { createTheme } from '@mui/material/styles';
 
 export const themeSettings = (): object => {
   const breakpoints = {
@@ -12,11 +12,11 @@ export const themeSettings = (): object => {
   };
   return {
     palette: {
-      primary: { main: "#1E88E5" },
-      secondary: { main: "#f5f6f5" },
+      primary: { main: '#1E88E5' },
+      secondary: { main: '#f5f6f5' },
       background: {
-        default: "#f5f6f5",
-        paper: "#fff",
+        default: '#f5f6f5',
+        paper: '#fff',
       },
     },
     breakpoints,
@@ -32,24 +32,24 @@ export const themeSettings = (): object => {
         fontSize: 24,
       },
       h4: {
-        fontSize: "3.4rem",
+        fontSize: '3.4rem',
         fontWeight: 400,
         [`@media (max-width:${breakpoints.values.lg}px)`]: {
-          fontSize: "2.5rem",
+          fontSize: '2.5rem',
         },
       },
       h5: {
-        fontSize: "2.4rem",
+        fontSize: '2.4rem',
         fontWeight: 400,
         [`@media (max-width:${breakpoints.values.md}px)`]: {
-          fontSize: "2rem",
+          fontSize: '2rem',
         },
       },
       h6: {
-        fontSize: "2rem",
+        fontSize: '2rem',
         fontWeight: 500,
         [`@media (max-width:${breakpoints.values.lg}px)`]: {
-          fontSize: "1.6rem",
+          fontSize: '1.6rem',
         },
       },
     },
@@ -57,11 +57,11 @@ export const themeSettings = (): object => {
       MuiButton: {
         styleOverrides: {
           root: {
-            fontSize: "1.5rem",
-            height: "4.2rem",
+            fontSize: '1.5rem',
+            height: '4.2rem',
             [`@media (max-width:${breakpoints.values.lg}px)`]: {
-              fontSize: "1.2rem", //
-              padding: "2px 6px",
+              fontSize: '1.2rem', //
+              padding: '2px 6px',
             },
           },
         },
@@ -69,14 +69,14 @@ export const themeSettings = (): object => {
       MuiFormLabel: {
         styleOverrides: {
           root: {
-            fontSize: "1.2rem",
+            fontSize: '1.2rem',
           },
         },
       },
       MuiInputBase: {
         styleOverrides: {
           root: {
-            fontSize: "1.6rem",
+            fontSize: '1.6rem',
           },
         },
       },

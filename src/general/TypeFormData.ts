@@ -3,7 +3,7 @@ interface IAd {
   name: string;
   description: string;
   location: string;
-  photo: File[] | "";
+  photo: File[] | '';
   type: string;
 }
 interface IAdRealEstat extends IAd {
