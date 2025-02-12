@@ -2,19 +2,22 @@ import { Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 import { CustomButton } from "./CustomButton";
+import { FC } from "react";
+import { ImageWithPlaceholder } from "./image";
 
 interface IItem {
   id: number;
   name: string;
   location: string;
   type: string;
+  photo?: string;
 }
 
-export function Item(props: IItem) {
+export const Item: FC<IItem> = ({ id, name, location, type, photo }) => {
   const navigate = useNavigate();
 
   function handleClick() {
-    navigate(`/item/${props.id}`);
+    navigate(`/item/${id}`);
   }
   return (
     <Box
@@ -29,16 +32,16 @@ export function Item(props: IItem) {
         alignItems: "center",
       }}
     >
-      <Box width={"80px"} height={"80px"} sx={{ border: "1px solid rgba(0, 0, 0, 0.23)", borderRadius: "10px" }}>
-        Img
+      <Box width={"8rem"} height={"8rem"} sx={{ border: "1px solid rgba(0, 0, 0, 0.23)", borderRadius: "10px" }}>
+        <ImageWithPlaceholder src={photo} alt={`Изображение по объявлению ${name}`} />
       </Box>
       <Box display={"flex"} flexDirection={"column"} gap={"5px"}>
-        <Typography>{props.name}</Typography>
-        <Typography>{props.location}</Typography>
-        <Typography>{props.type}</Typography>
+        <Typography>{name}</Typography>
+        <Typography>{location}</Typography>
+        <Typography>{type}</Typography>
       </Box>
 
       <CustomButton text='Открыть' onClick={handleClick} />
     </Box>
   );
-}
+};

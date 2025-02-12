@@ -20,13 +20,13 @@ export const getAdById = createAsyncThunk<AdResponse, { id: string; signal: Abor
   }
 );
 
-export const createAd = async (params: any) => {
+export const createAd = async (params: any, signal: AbortSignal) => {
   console.log(params);
-  const response = await api.post(APIRoute.createAd.path, params);
+  const response = await api.post(APIRoute.createAd.path, params, { signal });
   if (response.status === 200) return response.data;
 };
-export const updatingAd = async (params: any, id: string) => {
+export const updatingAd = async (params: any, id: string, signal: AbortSignal) => {
   console.log(params);
-  const response = await api.put(`${APIRoute.updateAdById.path}/${id}`, params);
+  const response = await api.put(`${APIRoute.updateAdById.path}/${id}`, params, { signal });
   if (response.status === 200) return response.data;
 };

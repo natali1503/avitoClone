@@ -1,26 +1,24 @@
-import { Box, FormControl, FormHelperText, FormLabel, InputAdornment, OutlinedInput } from "@mui/material";
+import { Box, FormControl, FormHelperText, FormLabel } from "@mui/material";
 import { FC } from "react";
 import { Control, Controller } from "react-hook-form";
 
-interface ICustomInput {
+interface IFileInput {
   name: string;
   control: Control;
   text: string;
   required?: boolean;
   error: boolean;
   defaultValue?: string;
-  adornment?: string;
   errorMessage?: string;
 }
 
-export const CustomInput: FC<ICustomInput> = ({
+export const FileInput: FC<IFileInput> = ({
   name,
   control,
   text,
   required,
   error,
   defaultValue = "",
-  adornment = "",
 
   errorMessage,
 }) => {
@@ -43,13 +41,8 @@ export const CustomInput: FC<ICustomInput> = ({
         >
           <FormLabel sx={{ width: "12rem" }}>{text}</FormLabel>
           <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%" }}>
-            <OutlinedInput
-              fullWidth
-              {...field}
-              sx={{ fontSize: "1.8rem", width: "25rem" }}
-              error={error}
-              endAdornment={<InputAdornment position='end'>{adornment}</InputAdornment>}
-            />
+            <input type='file' onChange={(e) => field.onChange(e.target.files)} />
+
             {error && <FormHelperText>{errorMessage}</FormHelperText>}
           </Box>
         </FormControl>

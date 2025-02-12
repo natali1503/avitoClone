@@ -1,4 +1,4 @@
-import { RealEstate } from "./realEstate";
+import { RealEstate } from "./RealEstate";
 
 export const CategoriesId = {
   REAL_ESTATE: "realEstate",
@@ -26,11 +26,11 @@ export interface IField {
   adornment?: string;
 }
 export const CommonFields: IField[] = [
-  { id: "name", text: "Название объявления", typeField: "input", type: "string", required: true },
-  { id: "description", text: "Описание объявления", typeField: "input", type: "string", required: true },
-  { id: "location", text: "Локация объявления", typeField: "input", type: "string", required: true },
-  { id: "photo", text: "Фото", typeField: "input", type: "string", required: false },
-  { id: "type", text: "Тип объявления", typeField: "select", type: "string", required: true, items: Categories },
+  { id: "name", text: "Название объявления", typeField: "input", type: "text", required: true },
+  { id: "description", text: "Описание объявления", typeField: "input", type: "text", required: true },
+  { id: "location", text: "Локация объявления", typeField: "input", type: "text", required: true },
+  { id: "photo", text: "Фото", typeField: "input", type: "file", required: false },
+  { id: "type", text: "Тип объявления", typeField: "select", type: "text", required: true, items: Categories },
 ];
 
 const formFieldRealEstate: IField[] = [
@@ -38,7 +38,7 @@ const formFieldRealEstate: IField[] = [
     id: "propertyType",
     text: "Тип недвижимости",
     typeField: "select",
-    type: "string",
+    type: "text",
     required: true,
     items: RealEstate,
   },
@@ -54,14 +54,14 @@ const formFieldRealEstate: IField[] = [
   { id: "price", text: "Цена в рублях", typeField: "input", type: "number", required: true },
 ];
 const formFieldAuto: IField[] = [
-  { id: "brand", text: "Марка автомобиля", typeField: "input", type: "string", required: true },
-  { id: "model", text: "Модель автомобиля", typeField: "input", type: "string", required: true },
+  { id: "brand", text: "Марка автомобиля", typeField: "input", type: "text", required: true },
+  { id: "model", text: "Модель автомобиля", typeField: "input", type: "text", required: true },
   { id: "year", text: "Год выпуска", typeField: "input", type: "number", required: true },
   { id: "mileage", text: "Пробег в километрах", typeField: "input", type: "number", required: false, adornment: "км" },
 ];
 
 const formFieldServices: IField[] = [
-  { id: "serviceType", text: "Тип услуги", typeField: "input", type: "string", required: true },
+  { id: "serviceType", text: "Тип услуги", typeField: "input", type: "text", required: true },
   {
     id: "experience",
     text: "Опыт работы в годах",
@@ -71,7 +71,7 @@ const formFieldServices: IField[] = [
     adornment: "лет",
   },
   { id: "cost", text: "Стоимость услуги в рублях", typeField: "input", type: "number", required: true },
-  { id: "workSchedule", text: "График работы", typeField: "input", type: "string", required: false },
+  { id: "workSchedule", text: "График работы", typeField: "input", type: "text", required: false },
 ];
 
 export const FieldsByType = {

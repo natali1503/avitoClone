@@ -13,11 +13,15 @@ const adInfoSlice = createSlice({
       const idType = Categories.filter((el) => el.text === state?.data?.type)[0].id;
       const additionalFieldsByType = FieldsByType[idType];
       const idAdditionalFieldsByType = additionalFieldsByType.map((el) => el.id);
-
+      const photo = {};
       for (const [key, value] of Object.entries(state.data)) {
         if (idCommonFields.includes(key)) {
           const field = CommonFields.filter((el) => el.id === key)[0];
-          dataToDisplay.push({ id: field.id, fieldName: field.text, value });
+          if (field.id !== "photo") {
+            dataToDisplay.push({ id: field.id, fieldName: field.text, value });
+          } else {
+            photo.photo = value;
+          }
         }
         if (idAdditionalFieldsByType.includes(key)) {
           const field = additionalFieldsByType.filter((el) => el.id === key)[0];
@@ -25,7 +29,7 @@ const adInfoSlice = createSlice({
         }
       }
 
-      state.dataToDisplay = dataToDisplay;
+      state.dataToDisplay = { data: dataToDisplay, photo };
     },
   },
   extraReducers: (builder) => {
@@ -34,9 +38,9 @@ const adInfoSlice = createSlice({
         state.loading = true;
       })
       .addCase(getAdById.fulfilled, (state, action: PayloadAction<AdResponse>) => {
-        state.loading = false;
         state.error = null;
         state.data = action.payload;
+        state.loading = false;
       })
       .addCase(getAdById.rejected, (state) => {
         state.loading = false;

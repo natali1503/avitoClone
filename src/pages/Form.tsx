@@ -2,10 +2,11 @@ import { Box } from "@mui/material";
 import { Control } from "react-hook-form";
 import { Title } from "../components/Title";
 import { IField } from "../FormField/formFieldNames";
-import { CustomInput } from "../components/CustomInput";
+
 import { CustomSelect } from "../components/CustomSelect";
 
 import { FC } from "react";
+import { CustomInput } from "../components/Input/CustomInput";
 
 interface IForm {
   formTitle: string;
@@ -13,11 +14,10 @@ interface IForm {
   control: Control;
   errors: any;
   dataForEditing?: any;
+  photoForEditing?: any;
 }
 
-export const Form: FC<IForm> = ({ formTitle, fields, control, errors, dataForEditing }) => {
-  console.log(fields);
-
+export const Form: FC<IForm> = ({ formTitle, fields, control, errors, dataForEditing, photoForEditing }) => {
   return (
     <Box display={"flex"} flexDirection={"column"} gap={"3rem"}>
       <Title title={formTitle} />
@@ -35,13 +35,14 @@ export const Form: FC<IForm> = ({ formTitle, fields, control, errors, dataForEdi
             return (
               <CustomInput
                 key={+i}
+                type={element.type}
                 name={element.id}
                 control={control}
                 text={element.text}
                 required={element.required}
                 error={errors[element.id]}
                 errorMessage={errors[element.id]?.message}
-                defaultValue={dataForEditing.filter((el) => el.id === element.id)[0]?.value}
+                defaultValue={dataForEditing?.filter((el) => el.id === element.id)[0]?.value}
                 adornment={element.adornment}
               />
             );
@@ -58,7 +59,7 @@ export const Form: FC<IForm> = ({ formTitle, fields, control, errors, dataForEdi
                 errorMessage={errors[element.id]?.message}
                 defaultValue={
                   element?.items.filter(
-                    (el) => el.text === dataForEditing.filter((el) => el?.id === element?.id)[0]?.value
+                    (el) => el.text === dataForEditing?.filter((el) => el?.id === element?.id)[0]?.value
                   )[0]?.id
                 }
               />

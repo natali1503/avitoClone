@@ -28,7 +28,7 @@ export function PostingAds() {
   const dataForEditing = dataToDisplay || [];
   const type =
     useWatch({ control, name: "type" }) ||
-    Categories.filter((el) => el.text === dataForEditing?.filter((el) => el?.id === "type")[0]?.value)[0]?.id ||
+    Categories.filter((el) => el.text === dataForEditing?.data?.filter((el) => el?.id === "type")[0]?.value)[0]?.id ||
     "";
 
   const [currentStep, setCurrentStep] = useState(1);
@@ -37,11 +37,17 @@ export function PostingAds() {
 
   const onSubmit = async (data: any) => {
     const categorie = Categories.filter((el) => el.id === data.type)[0];
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    const file = data.photo;
+    const test = (data.photo && (await toBase64(file[0]))) || "";
+
     if (creationMode) {
-      await createAd({ ...data, type: categorie.text });
+      await createAd({ ...data, type: categorie.text, photo: test }, signal);
       navigate(RouterPath.List);
     } else {
-      await updatingAd({ ...data, type: categorie.text }, location.state.id);
+      await updatingAd({ ...data, type: categorie.text }, location.state.id, signal);
       navigate(RouterPath.List);
     }
   };
@@ -55,6 +61,7 @@ export function PostingAds() {
 
     if (isValid) handleClick(2);
   };
+  console.log(dataForEditing);
 
   return (
     <Box display={"flex"} flexDirection={"column"} alignItems={"center"} justifyContent={"center"} gap={"3rem"}>
@@ -74,7 +81,8 @@ export function PostingAds() {
               formTitle={"Шаг 1"}
               control={control}
               errors={errors}
-              dataForEditing={dataForEditing}
+              dataForEditing={dataForEditing?.data}
+              photoForEditing={dataForEditing?.photo}
             />
           )}
 
@@ -84,7 +92,7 @@ export function PostingAds() {
               formTitle={"Шаг 2"}
               control={control}
               errors={errors}
-              dataForEditing={dataForEditing}
+              dataForEditing={dataForEditing.data}
             />
           )}
 
@@ -101,3 +109,10 @@ export function PostingAds() {
     </Box>
   );
 }
+const toBase64 = (file: File): Promise<string> =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = (error) => reject(error);
+  });
