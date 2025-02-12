@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 
 import { FC } from "react";
-import { Categories } from "../FormField/Categories";
+import { Categories } from "../general/FormField/Categories";
 
 interface IFilters {
   searchName: string;

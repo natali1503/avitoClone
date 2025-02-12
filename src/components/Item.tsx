@@ -1,9 +1,9 @@
 import { Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-
-import { CustomButton } from "./CustomButton";
 import { FC } from "react";
-import { ImageWithPlaceholder } from "./image";
+
+import { ImageWithPlaceholder } from "./Image";
+import { CustomButton } from "./CustomButton";
 
 interface IItem {
   id: number;

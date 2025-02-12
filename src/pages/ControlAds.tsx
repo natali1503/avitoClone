@@ -4,17 +4,18 @@ import { useSelector } from "react-redux";
 import { Box } from "@mui/material";
 import { useState } from "react";
 
-import { CommonFields, FieldsByType } from "../FormField/formFieldNames";
+import { CommonFields, FieldsByType } from "../general/FormField/formFieldNames";
 import { CustomButton } from "../components/CustomButton";
 import { TypeFormData } from "../general/TypeFormData";
 import { createAd, updatingAd } from "../api-actions";
-import { Categories } from "../FormField/Categories";
+import { Categories } from "../general/FormField/Categories";
 import { RouterPath } from "../router/routerPath";
 import { getIdByText } from "../utils/getIdByText";
 import { toBase64 } from "../utils/toBase64";
 import { Title } from "../components/Title";
 import { Form } from "../components/Form";
 import { RootState } from "../store";
+import { AdResponse } from "../api/AdResponse";
 
 export function PostingAds() {
   const {
@@ -39,20 +40,16 @@ export function PostingAds() {
   const creationMode = !dataForEditing?.data.length;
 
   const onSubmit: SubmitHandler<TypeFormData> = async (data: TypeFormData) => {
-    // const categorie = Categories.filter((el) => el.id === data.type)[0];
-
     const controller = new AbortController();
     const signal = controller.signal;
+    const file = data.photo;
+    const fileString = (file && (await toBase64(file[0]))) || "";
 
     if (creationMode) {
-      const file = data.photo;
-      const fileString = (file && (await toBase64(file[0]))) || "";
-      // await createAd({ ...data, type: categorie.text, photo: test }, signal);
-      await createAd({ ...data, photo: fileString }, signal);
+      await createAd({ ...data, photo: fileString } as AdResponse, signal);
       navigate(RouterPath.List);
     } else {
-      // await updatingAd({ ...data, type: categorie.text }, location.state.id, signal);
-      await updatingAd({ ...data }, location.state.id, signal);
+      await updatingAd({ ...data, photo: fileString } as AdResponse, location.state.id, signal);
       navigate(RouterPath.List);
     }
   };
@@ -66,6 +63,7 @@ export function PostingAds() {
 
     if (isValid) handleClick(2);
   };
+  console.log(errors);
 
   return (
     <Box display={"flex"} flexDirection={"column"} alignItems={"center"} justifyContent={"center"} gap={"3rem"}>

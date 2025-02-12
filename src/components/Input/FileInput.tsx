@@ -4,7 +4,7 @@ import { Control, Controller } from "react-hook-form";
 import { TypeFormData } from "../../general/TypeFormData";
 
 interface IFileInput {
-  name: string;
+  id: keyof TypeFormData;
   control: Control<TypeFormData>;
   fieldName: string;
   required?: boolean;
@@ -13,7 +13,7 @@ interface IFileInput {
 }
 
 export const FileInput: FC<IFileInput> = ({
-  name,
+  id,
   control,
   fieldName,
   required,
@@ -23,7 +23,7 @@ export const FileInput: FC<IFileInput> = ({
 }) => {
   return (
     <Controller
-      name={name}
+      name={id}
       control={control}
       rules={required ? { required: "Заполните обязательное поле" } : undefined}
       render={({ field }) => (

@@ -5,7 +5,7 @@ import { TypeFormData } from "../../general/TypeFormData";
 
 interface IMultiInput {
   type: string;
-  name: string;
+  id: keyof TypeFormData;
   control: Control<TypeFormData>;
   fieldName: string;
   required?: boolean;
@@ -17,7 +17,7 @@ interface IMultiInput {
 
 export const MultiInput: FC<IMultiInput> = ({
   type,
-  name,
+  id,
   control,
   fieldName,
   required,
@@ -28,7 +28,7 @@ export const MultiInput: FC<IMultiInput> = ({
 }) => {
   return (
     <Controller
-      name={name}
+      name={id}
       control={control}
       defaultValue={defaultValue}
       rules={required ? { required: "Заполните обязательное поле" } : undefined}

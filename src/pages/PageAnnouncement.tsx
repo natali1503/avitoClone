@@ -10,7 +10,7 @@ import { getAdById } from "../api-actions";
 
 import { PageAnnouncementSkeleton } from "../components/Skeleton/PageAnnouncementSkeleton";
 import { formattingDataForOutput } from "../store/adInfoSlice";
-import { ImageWithPlaceholder } from "../components/image";
+import { ImageWithPlaceholder } from "../components/Image";
 import { Title } from "../components/Title";
 
 export function PageAnnouncement() {

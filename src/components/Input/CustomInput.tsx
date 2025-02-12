@@ -7,19 +7,19 @@ import { FileInput } from "./FileInput";
 
 interface ICustomInput {
   type: string;
-  name: string;
+  id: keyof TypeFormData;
   control: Control<TypeFormData>;
   fieldName: string;
   required?: boolean;
-  error: boolean;
   defaultValue?: string | number;
   adornment?: string;
+  error: boolean;
   errorMessage?: string;
 }
 
 export const CustomInput: FC<ICustomInput> = ({
   type,
-  name,
+  id,
   control,
   fieldName,
   required,
@@ -33,7 +33,7 @@ export const CustomInput: FC<ICustomInput> = ({
     return type !== "file" ? (
       <MultiInput
         type={type}
-        name={name}
+        id={id}
         control={control}
         fieldName={fieldName}
         required={required}
@@ -44,7 +44,7 @@ export const CustomInput: FC<ICustomInput> = ({
       />
     ) : (
       <FileInput
-        name={name}
+        id={id}
         control={control}
         fieldName={fieldName}
         required={required}

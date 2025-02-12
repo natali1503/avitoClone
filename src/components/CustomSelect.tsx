@@ -1,22 +1,22 @@
 import { Box, FormControl, FormHelperText, FormLabel, MenuItem, Select } from "@mui/material";
 import { FC } from "react";
 import { Control, Controller } from "react-hook-form";
-import { IItem } from "../FormField/formFieldNames";
+import { IItem } from "../general/FormField/formFieldNames";
 import { TypeFormData } from "../general/TypeFormData";
 
 interface ICustomSelect {
-  name: string;
+  id: keyof TypeFormData;
   control: Control<TypeFormData>;
   fieldName: string;
   items: IItem[];
   required?: boolean;
+  defaultValue?: string | number;
   error: boolean;
-  defaultValue?: string;
   errorMessage?: string;
 }
 
 export const CustomSelect: FC<ICustomSelect> = ({
-  name,
+  id,
   control,
   fieldName,
   items,
@@ -30,7 +30,7 @@ export const CustomSelect: FC<ICustomSelect> = ({
       <FormLabel sx={{ width: "12rem" }}>{fieldName}</FormLabel>
       <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", width: "100%" }}>
         <Controller
-          name={name}
+          name={id}
           control={control}
           defaultValue={defaultValue}
           rules={required ? { required: "Заполните обязательное поле" } : undefined}

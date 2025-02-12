@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { CommonFields, FieldsByType } from "../FormField/formFieldNames";
-import { Categories } from "../FormField/Categories";
+import { CommonFields, FieldsByType } from "../general/FormField/formFieldNames";
+import { Categories } from "../general/FormField/Categories";
 import { AdResponse } from "../api/AdResponse";
 import { getAdById } from "../api-actions";
 

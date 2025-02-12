@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { AdResponse } from "../api/AdResponse";
-import { Categories } from "../FormField/Categories";
+import { Categories } from "../general/FormField/Categories";
 
 type useFilterProps = {
   adList: AdResponse[] | null;
