@@ -20,9 +20,12 @@ export function PageAnnouncement() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const controller = new AbortController();
     if (idUrl.id) {
-      dispatch(getAdById({ id: idUrl.id }));
+      const signal = controller.signal;
+      dispatch(getAdById({ id: idUrl.id, signal }));
     }
+    return () => controller.abort();
   }, [dispatch, idUrl.id]);
 
   useEffect(() => {

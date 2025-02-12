@@ -22,7 +22,11 @@ export function ListAnnouncement() {
   });
 
   useEffect(() => {
-    dispatch(getAnnouncements());
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    dispatch(getAnnouncements(signal));
+    return () => controller.abort();
   }, [dispatch]);
 
   const { currentPage, totalPages, indexOfLastItem, indexOfFirstItem, setCurrentPage } = usePagination({

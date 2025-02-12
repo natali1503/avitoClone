@@ -38,11 +38,9 @@ export function useFilters({ adList }: useFilterProps) {
 }
 
 function filterAdList(adList: AdResponse[], searchName: string = "", categories: string = "") {
-  console.log(searchName);
   if (!categories && !searchName) return adList;
   let result = [...adList];
   if (categories) {
-    console.log(searchName);
     const categorieText = Categories.filter((el) => el.id === categories)[0].text;
     result = result.filter((ad) => ad.type === categorieText);
   }
