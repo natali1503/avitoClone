@@ -14,9 +14,7 @@ import { formattingDataForOutput } from '../store/adInfoSlice';
 
 export function PageAnnouncement() {
   const idUrl = useParams();
-  const { loading, dataToDisplay, data } = useSelector(
-    (state: RootState) => state.adInfo,
-  );
+  const { loading, dataToDisplay, data } = useSelector((state: RootState) => state.adInfo);
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
@@ -48,12 +46,7 @@ export function PageAnnouncement() {
         <Box display={'flex'} flexDirection={'column'} gap={'2rem'}>
           {dataToDisplay &&
             dataToDisplay.data.map((el, i) => (
-              <Box
-                key={+i}
-                display={'flex'}
-                flexDirection={'column'}
-                gap={'0.5rem'}
-              >
+              <Box key={+i} display={'flex'} flexDirection={'column'} gap={'0.5rem'}>
                 <Typography variant='h5'>{el?.fieldName}</Typography>
                 <Typography>{el?.value}</Typography>
               </Box>

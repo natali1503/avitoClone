@@ -11,14 +11,7 @@ interface ICustomButton {
   dataTestId?: string;
 }
 
-export const CustomButton: FC<ICustomButton> = ({
-  text,
-  href,
-  onClick,
-  type,
-  disabled = true,
-  dataTestId,
-}) => {
+export const CustomButton: FC<ICustomButton> = ({ text, href, onClick, type, disabled = true, dataTestId }) => {
   return (
     <Box display={'flex'}>
       <Button

@@ -1,8 +1,5 @@
 import { CategoriesValues } from '../general/FormField/Categories';
-import {
-  CommonFields,
-  FieldsByType,
-} from '../general/FormField/formFieldNames';
+import { CommonFields, FieldsByType } from '../general/FormField/formFieldNames';
 
 export function getIdFields(type: CategoriesValues | 'commonFields') {
   let id: string[] | null = null;

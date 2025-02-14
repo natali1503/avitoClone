@@ -3,10 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Categories, CategoriesValues } from '../general/FormField/Categories';
 import { getIdFields } from '../utils/getIdFields';
 import { AdResponse } from '../api/AdResponse';
-import {
-  CommonFields,
-  FieldsByType,
-} from '../general/FormField/formFieldNames';
+import { CommonFields, FieldsByType } from '../general/FormField/formFieldNames';
 import { getAdById } from '../api-actions';
 
 export interface IAdToDisplay {
@@ -34,8 +31,7 @@ const adInfoSlice = createSlice({
       const dataToDisplay: IDataToDisplay = { data: [], photo: '' };
 
       const idCommonFields = getIdFields('commonFields');
-      const idType = Categories.filter((el) => el.text === state?.data?.type)[0]
-        .id as CategoriesValues;
+      const idType = Categories.filter((el) => el.text === state?.data?.type)[0].id as CategoriesValues;
       const additionalFieldsByType = FieldsByType[idType];
       const idAdditionalFieldsByType = getIdFields(idType);
 
@@ -78,19 +74,15 @@ const adInfoSlice = createSlice({
       .addCase(getAdById.pending, (state) => {
         state.loading = true;
       })
-      .addCase(
-        getAdById.fulfilled,
-        (state, action: PayloadAction<AdResponse>) => {
-          state.error = null;
-          state.data = action.payload;
-          state.loading = false;
-        },
-      )
+      .addCase(getAdById.fulfilled, (state, action: PayloadAction<AdResponse>) => {
+        state.error = null;
+        state.data = action.payload;
+        state.loading = false;
+      })
       .addCase(getAdById.rejected, (state) => {
         state.loading = false;
       });
   },
 });
-export const { formattingDataForOutput, updatedDataToDisplay } =
-  adInfoSlice.actions;
+export const { formattingDataForOutput, updatedDataToDisplay } = adInfoSlice.actions;
 export default adInfoSlice.reducer;

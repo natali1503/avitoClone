@@ -32,11 +32,7 @@ export function PostingAds() {
       await createAd({ ...data, photo: fileString } as AdResponse, signal);
       navigate(RouterPath.List);
     } else {
-      await updatingAd(
-        { ...data, photo: fileString } as AdResponse,
-        location.state.id,
-        signal,
-      );
+      await updatingAd({ ...data, photo: fileString } as AdResponse, location.state.id, signal);
       navigate(RouterPath.List);
     }
   };

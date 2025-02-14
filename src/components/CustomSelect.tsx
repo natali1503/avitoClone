@@ -1,14 +1,7 @@
 import { Control, Controller } from 'react-hook-form';
 //@ts-expect-error: for test
 import React, { FC } from 'react';
-import {
-  Box,
-  FormControl,
-  FormHelperText,
-  FormLabel,
-  MenuItem,
-  Select,
-} from '@mui/material';
+import { Box, FormControl, FormHelperText, FormLabel, MenuItem, Select } from '@mui/material';
 
 import { IItem } from '../general/FormField/formFieldNames';
 import { TypeFormData } from '../general/TypeFormData';
@@ -59,17 +52,13 @@ export const CustomSelect: FC<ICustomSelect> = ({
           name={id}
           control={control}
           defaultValue={defaultValue}
-          rules={
-            required ? { required: 'Заполните обязательное поле' } : undefined
-          }
+          rules={required ? { required: 'Заполните обязательное поле' } : undefined}
           render={({ field }) => (
             <Select
               {...field}
               data-testid={dataTestId}
               onChange={(e) => {
-                const selectedItem = items.filter(
-                  (item) => item.id === e.target.value,
-                )[0];
+                const selectedItem = items.filter((item) => item.id === e.target.value)[0];
                 field.onChange(selectedItem.text);
               }}
               value={items.find((item) => item.text === field.value)?.id || ''}
@@ -78,11 +67,7 @@ export const CustomSelect: FC<ICustomSelect> = ({
               sx={{ fontSize: '1.4rem', width: '25rem' }}
             >
               {items.map((item, i) => (
-                <MenuItem
-                  key={+i}
-                  value={item.id}
-                  data-testid={`${dataTestId}-${item.id}`}
-                >
+                <MenuItem key={+i} value={item.id} data-testid={`${dataTestId}-${item.id}`}>
                   {item.text}
                 </MenuItem>
               ))}

@@ -13,11 +13,7 @@ const store = ({ preloadedState } = {}) =>
 
 function render(ui, { initialState, ...renderOptions } = {}) {
   function Wrapper({ children }) {
-    return (
-      <Provider store={store({ preloadedState: initialState })}>
-        {children}
-      </Provider>
-    );
+    return <Provider store={store({ preloadedState: initialState })}>{children}</Provider>;
   }
 
   Wrapper.propTypes = {

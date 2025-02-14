@@ -11,9 +11,8 @@ type useFilterProps = {
 export function useFilters({ adList }: useFilterProps) {
   const [searchName, setSearchName] = useState('');
   const [categories, setCategories] = useState('');
-
   const [filteredData, setFilteredData] = useState<AdResponse[]>([]);
-
+  const notFoundData = !!adList && filteredData.length === 0;
   function resetFilters() {
     setSearchName('');
     setCategories('');
@@ -28,6 +27,7 @@ export function useFilters({ adList }: useFilterProps) {
 
   return {
     resetFilters,
+    notFoundData,
     searchName,
     setSearchName,
     categories,
@@ -36,22 +36,15 @@ export function useFilters({ adList }: useFilterProps) {
   };
 }
 
-function filterAdList(
-  adList: AdResponse[],
-  searchName: string = '',
-  categories: string = '',
-) {
+function filterAdList(adList: AdResponse[], searchName: string = '', categories: string = '') {
   if (!categories && !searchName) return adList;
   let result = [...adList];
   if (categories) {
-    const categorieText = Categories.filter((el) => el.id === categories)[0]
-      .text;
+    const categorieText = Categories.filter((el) => el.id === categories)[0].text;
     result = result.filter((ad) => ad.type === categorieText);
   }
   if (searchName) {
-    result = result.filter((ad) =>
-      ad.name.toLocaleLowerCase().includes(searchName),
-    );
+    result = result.filter((ad) => ad.name.toLocaleLowerCase().includes(searchName));
   }
   return result;
 }

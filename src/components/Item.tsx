@@ -32,15 +32,8 @@ export const Item: FC<IItem> = ({ id, name, location, type, photo }) => {
         alignItems: 'center',
       }}
     >
-      <Box
-        width={'8rem'}
-        height={'8rem'}
-        sx={{ border: '1px solid rgba(0, 0, 0, 0.23)', borderRadius: '10px' }}
-      >
-        <ImageWithPlaceholder
-          src={photo}
-          alt={`Изображение по объявлению ${name}`}
-        />
+      <Box width={'8rem'} height={'8rem'} sx={{ border: '1px solid rgba(0, 0, 0, 0.23)', borderRadius: '10px' }}>
+        <ImageWithPlaceholder src={photo} alt={`Изображение по объявлению ${name}`} />
       </Box>
       <Box display={'flex'} flexDirection={'column'} gap={'5px'}>
         <Typography>{name}</Typography>

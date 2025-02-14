@@ -19,21 +19,9 @@ interface IForm {
   dataTestId: string;
 }
 
-export const Form: FC<IForm> = ({
-  formTitle,
-  fields,
-  control,
-  errors,
-  dataForEditing,
-  dataTestId,
-}) => {
+export const Form: FC<IForm> = ({ formTitle, fields, control, errors, dataForEditing, dataTestId }) => {
   return (
-    <Box
-      display={'flex'}
-      flexDirection={'column'}
-      gap={'3rem'}
-      data-testid={dataTestId}
-    >
+    <Box display={'flex'} flexDirection={'column'} gap={'3rem'} data-testid={dataTestId}>
       <Title title={formTitle} />
 
       <Box
@@ -55,12 +43,8 @@ export const Form: FC<IForm> = ({
                 fieldName={element.fieldName}
                 required={element.required}
                 error={!!errors[element.id as keyof TypeFormData]}
-                errorMessage={
-                  errors[element.id as keyof TypeFormData]?.message || ''
-                }
-                defaultValue={
-                  dataForEditing?.filter((el) => el.id === element.id)[0]?.value
-                }
+                errorMessage={errors[element.id as keyof TypeFormData]?.message || ''}
+                defaultValue={dataForEditing?.filter((el) => el.id === element.id)[0]?.value}
                 adornment={element.adornment}
                 dataTestId={element.id}
               />
@@ -75,12 +59,8 @@ export const Form: FC<IForm> = ({
                 items={element.items}
                 required={element.required}
                 error={!!errors[element.id as keyof TypeFormData]}
-                errorMessage={
-                  errors[element.id as keyof TypeFormData]?.message || ''
-                }
-                defaultValue={
-                  dataForEditing?.filter((el) => el.id === element.id)[0].value
-                }
+                errorMessage={errors[element.id as keyof TypeFormData]?.message || ''}
+                defaultValue={dataForEditing?.filter((el) => el.id === element.id)[0].value}
                 dataTestId={element.id}
               />
             );

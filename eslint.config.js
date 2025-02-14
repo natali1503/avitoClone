@@ -27,21 +27,11 @@ export default tseslint.config(
       ...importPlugin.configs.recommended.rules,
       'import/no-unresolved': 'error',
       ...importPlugin.configs.typescript.rules,
-      'react-refresh/only-export-components': [
-        'warn',
-        { allowConstantExport: true },
-      ],
+      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       'import/order': [
         'error',
         {
-          groups: [
-            'builtin',
-            'external',
-            'internal',
-            'parent',
-            'sibling',
-            'index',
-          ],
+          groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
           'newlines-between': 'always',
           alphabetize: {
             order: 'ignore',

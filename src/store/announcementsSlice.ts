@@ -16,14 +16,11 @@ const announcementsSlice = createSlice({
       .addCase(getAnnouncements.pending, (state) => {
         state.loading = true;
       })
-      .addCase(
-        getAnnouncements.fulfilled,
-        (state, action: PayloadAction<AdResponse[]>) => {
-          state.loading = false;
-          state.error = null;
-          state.data = action.payload;
-        },
-      )
+      .addCase(getAnnouncements.fulfilled, (state, action: PayloadAction<AdResponse[]>) => {
+        state.loading = false;
+        state.error = null;
+        state.data = action.payload;
+      })
       .addCase(getAnnouncements.rejected, (state) => {
         state.loading = false;
       });

@@ -1,12 +1,5 @@
 import { Control, Controller } from 'react-hook-form';
-import {
-  Box,
-  FormControl,
-  FormHelperText,
-  FormLabel,
-  InputAdornment,
-  OutlinedInput,
-} from '@mui/material';
+import { Box, FormControl, FormHelperText, FormLabel, InputAdornment, OutlinedInput } from '@mui/material';
 //@ts-expect-error: for test
 import React, { FC } from 'react';
 
@@ -70,9 +63,7 @@ export const MultiInput: FC<IMultiInput> = ({
               {...field}
               sx={{ fontSize: '1.4rem', width: '25rem' }}
               error={error}
-              endAdornment={
-                <InputAdornment position='end'>{adornment}</InputAdornment>
-              }
+              endAdornment={<InputAdornment position='end'>{adornment}</InputAdornment>}
             />
 
             {error && <FormHelperText>{errorMessage}</FormHelperText>}

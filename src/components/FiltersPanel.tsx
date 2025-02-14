@@ -11,7 +11,6 @@ import {
   SelectChangeEvent,
   TextField,
 } from '@mui/material';
-//@ts-expect-error: for test
 import React, { FC } from 'react';
 
 import { Categories } from '../general/FormField/Categories';
@@ -23,15 +22,10 @@ interface IFilters {
   setCategories: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const FiltersPanel: FC<IFilters> = ({
-  searchName,
-  setSearchName,
-  categories,
-  setCategories,
-}) => {
+export const FiltersPanel: FC<IFilters> = ({ searchName, setSearchName, categories, setCategories }) => {
   function handleChange(e: React.ChangeEvent<{ value: unknown }>) {
     const value = e.target.value as string;
-    setSearchName(value.toLocaleLowerCase);
+    setSearchName(value.toLocaleLowerCase());
   }
 
   function handleChangeSelect(event: SelectChangeEvent) {
@@ -83,11 +77,7 @@ export const FiltersPanel: FC<IFilters> = ({
           value={categories}
           endAdornment={
             categories && (
-              <IconButton
-                size='small'
-                onClick={() => setCategories('')}
-                sx={{ mr: '1rem' }}
-              >
+              <IconButton size='small' onClick={() => setCategories('')} sx={{ mr: '1rem' }}>
                 <CloseIcon />
               </IconButton>
             )

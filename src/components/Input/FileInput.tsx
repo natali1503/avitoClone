@@ -15,15 +15,7 @@ interface IFileInput {
   dataTestId: string;
 }
 
-export const FileInput: FC<IFileInput> = ({
-  id,
-  control,
-  fieldName,
-  required,
-  error,
-  dataTestId,
-  errorMessage,
-}) => {
+export const FileInput: FC<IFileInput> = ({ id, control, fieldName, required, error, dataTestId, errorMessage }) => {
   return (
     <Controller
       name={id}
@@ -49,11 +41,7 @@ export const FileInput: FC<IFileInput> = ({
               width: '100%',
             }}
           >
-            <input
-              type='file'
-              onChange={(e) => field.onChange(e.target.files)}
-              data-testid={dataTestId}
-            />
+            <input type='file' onChange={(e) => field.onChange(e.target.files)} data-testid={dataTestId} />
 
             {error && <FormHelperText>{errorMessage}</FormHelperText>}
           </Box>
