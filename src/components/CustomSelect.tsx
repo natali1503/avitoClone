@@ -63,7 +63,6 @@ export const CustomSelect: FC<ICustomSelect> = ({
             <Select
               {...field}
               onChange={(e) => {
-                console.log(field.value);
                 const selectedItem = items.filter(
                   (item) => item.id === e.target.value,
                 )[0];

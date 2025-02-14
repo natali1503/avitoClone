@@ -2,11 +2,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { getAdById } from '../api-actions';
 import { AdResponse } from '../api/AdResponse';
-import { Categories } from '../general/FormField/Categories';
+import { Categories, CategoriesValues } from '../general/FormField/Categories';
 import {
   CommonFields,
   FieldsByType,
 } from '../general/FormField/formFieldNames';
+import { getIdFields } from '../utils/getIdFields';
 
 export interface IAdToDisplay {
   id: string;
@@ -32,13 +33,11 @@ const adInfoSlice = createSlice({
       if (!state.data) return;
       const dataToDisplay: IDataToDisplay = { data: [], photo: '' };
 
-      const idCommonFields = CommonFields.map((el) => el.id);
+      const idCommonFields = getIdFields('commonFields');
       const idType = Categories.filter((el) => el.text === state?.data?.type)[0]
-        .id;
+        .id as CategoriesValues;
       const additionalFieldsByType = FieldsByType[idType];
-      const idAdditionalFieldsByType = additionalFieldsByType.map(
-        (el) => el.id,
-      );
+      const idAdditionalFieldsByType = getIdFields(idType);
 
       for (const [key, value] of Object.entries(state.data)) {
         if (idCommonFields.includes(key)) {
@@ -65,6 +64,14 @@ const adInfoSlice = createSlice({
 
       state.dataToDisplay = dataToDisplay;
     },
+    updatedDataToDisplay: (state, action: PayloadAction<IAdToDisplay[]>) => {
+      if (!state.dataToDisplay) return;
+      const updatedData = [...action.payload];
+      state.dataToDisplay = {
+        data: updatedData,
+        photo: state.dataToDisplay?.photo,
+      };
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -84,5 +91,6 @@ const adInfoSlice = createSlice({
       });
   },
 });
-export const { formattingDataForOutput } = adInfoSlice.actions;
+export const { formattingDataForOutput, updatedDataToDisplay } =
+  adInfoSlice.actions;
 export default adInfoSlice.reducer;

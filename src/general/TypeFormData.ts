@@ -1,4 +1,4 @@
-interface IAd {
+export interface IAd {
   id: number;
   name: string;
   description: string;
