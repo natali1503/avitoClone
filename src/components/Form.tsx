@@ -1,6 +1,7 @@
-import { Box } from '@mui/material';
-import { FC } from 'react';
 import { Control, FieldErrors } from 'react-hook-form';
+import { Box } from '@mui/material';
+//@ts-expect-error: for test
+import React, { FC } from 'react';
 
 import { CustomSelect } from '../components/CustomSelect';
 import { CustomInput } from '../components/Input/CustomInput';
@@ -15,6 +16,7 @@ interface IForm {
   control: Control<TypeFormData>;
   errors: FieldErrors<TypeFormData>;
   dataForEditing?: IAdToDisplay[];
+  dataTestId: string;
 }
 
 export const Form: FC<IForm> = ({
@@ -23,9 +25,15 @@ export const Form: FC<IForm> = ({
   control,
   errors,
   dataForEditing,
+  dataTestId,
 }) => {
   return (
-    <Box display={'flex'} flexDirection={'column'} gap={'3rem'}>
+    <Box
+      display={'flex'}
+      flexDirection={'column'}
+      gap={'3rem'}
+      data-testid={dataTestId}
+    >
       <Title title={formTitle} />
 
       <Box
@@ -54,6 +62,7 @@ export const Form: FC<IForm> = ({
                   dataForEditing?.filter((el) => el.id === element.id)[0]?.value
                 }
                 adornment={element.adornment}
+                dataTestId={element.id}
               />
             );
           } else if (element.typeField === 'select' && element?.items) {
@@ -72,6 +81,7 @@ export const Form: FC<IForm> = ({
                 defaultValue={
                   dataForEditing?.filter((el) => el.id === element.id)[0].value
                 }
+                dataTestId={element.id}
               />
             );
           }

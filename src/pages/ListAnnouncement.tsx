@@ -1,6 +1,8 @@
-import { Box, Typography } from '@mui/material';
-import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Box, Typography } from '@mui/material';
+//@ts-expect-error: for test
+import React, { useEffect, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { getAnnouncements } from '../api-actions';
 import { CustomButton } from '../components/CustomButton';
@@ -32,7 +34,7 @@ export function ListAnnouncement() {
     dispatch(getAnnouncements(signal));
     return () => controller.abort();
   }, [dispatch]);
-
+  const navigate = useNavigate();
   const {
     currentPage,
     totalPages,
@@ -64,7 +66,11 @@ export function ListAnnouncement() {
             categories={categories}
             setCategories={setCategories}
           />
-          <CustomButton text='Разместить объявление' href={RouterPath.Form} />
+          <CustomButton
+            text='Разместить объявление'
+            dataTestId='creatingAd'
+            onClick={() => navigate(RouterPath.Form)}
+          />
         </Box>
         <Box
           display={'flex'}

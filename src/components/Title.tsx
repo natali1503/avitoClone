@@ -1,4 +1,6 @@
 import { Box, Typography } from '@mui/material';
+//@ts-expect-error: for test
+import React from 'react';
 
 interface ITitle {
   title: string;

@@ -1,5 +1,6 @@
 import { Pagination, Stack } from '@mui/material';
-import { FC } from 'react';
+//@ts-expect-error: for test
+import React, { FC } from 'react';
 
 interface ICustomPagination {
   currentPage: number;

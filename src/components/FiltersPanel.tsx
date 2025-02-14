@@ -11,7 +11,8 @@ import {
   SelectChangeEvent,
   TextField,
 } from '@mui/material';
-import { FC } from 'react';
+//@ts-expect-error: for test
+import React, { FC } from 'react';
 
 import { Categories } from '../general/FormField/Categories';
 

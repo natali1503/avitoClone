@@ -1,0 +1,5 @@
+{
+  "plugins": ["prettier-plugin-organize-imports"],
+  "importOrder": ["^node:.*", "<THIRD_PARTY_MODULES>", "^@/.*", "^[./]"],
+  "importOrderSortSpecifiers": true
+}

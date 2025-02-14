@@ -1,6 +1,8 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { SubmitHandler } from 'react-hook-form';
 import { useSelector } from 'react-redux';
+//@ts-expect-error: for test
+import React from 'react';
 
 import { FormCreateAd } from '../components/FormCreateAd';
 import { TypeFormData } from '../general/TypeFormData';

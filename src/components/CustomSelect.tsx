@@ -1,5 +1,6 @@
 import { Control, Controller } from 'react-hook-form';
-import { FC } from 'react';
+//@ts-expect-error: for test
+import React, { FC } from 'react';
 import {
   Box,
   FormControl,
@@ -21,6 +22,7 @@ interface ICustomSelect {
   defaultValue?: string | number;
   error: boolean;
   errorMessage?: string;
+  dataTestId: string;
 }
 
 export const CustomSelect: FC<ICustomSelect> = ({
@@ -32,6 +34,7 @@ export const CustomSelect: FC<ICustomSelect> = ({
   error,
   defaultValue = '',
   errorMessage,
+  dataTestId,
 }) => {
   return (
     <FormControl
@@ -62,6 +65,7 @@ export const CustomSelect: FC<ICustomSelect> = ({
           render={({ field }) => (
             <Select
               {...field}
+              data-testid={dataTestId}
               onChange={(e) => {
                 const selectedItem = items.filter(
                   (item) => item.id === e.target.value,
@@ -74,7 +78,11 @@ export const CustomSelect: FC<ICustomSelect> = ({
               sx={{ fontSize: '1.4rem', width: '25rem' }}
             >
               {items.map((item, i) => (
-                <MenuItem key={+i} value={item.id}>
+                <MenuItem
+                  key={+i}
+                  value={item.id}
+                  data-testid={`${dataTestId}-${item.id}`}
+                >
                   {item.text}
                 </MenuItem>
               ))}

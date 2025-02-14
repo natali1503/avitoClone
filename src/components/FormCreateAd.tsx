@@ -1,5 +1,6 @@
 import { SubmitHandler, useForm, useWatch } from 'react-hook-form';
-import { FC, useState } from 'react';
+//@ts-expect-error: for test
+import React, { FC, useState } from 'react';
 import { Box } from '@mui/material';
 
 import { IAd, TypeFormData } from '../general/TypeFormData';
@@ -61,6 +62,7 @@ export const FormCreateAd: FC<IFormCreateAd> = ({ onSubmit }) => {
               formTitle={'Шаг 1'}
               control={control}
               errors={errors}
+              dataTestId={'createAdStep1'}
             />
           )}
 
@@ -70,6 +72,7 @@ export const FormCreateAd: FC<IFormCreateAd> = ({ onSubmit }) => {
               formTitle={'Шаг 2'}
               control={control}
               errors={errors}
+              dataTestId={'createAdStep2'}
             />
           )}
 
@@ -78,6 +81,7 @@ export const FormCreateAd: FC<IFormCreateAd> = ({ onSubmit }) => {
               text='Далее'
               type='button'
               onClick={handleClickNextStep}
+              dataTestId='nextStep'
             />
           )}
 
@@ -89,7 +93,12 @@ export const FormCreateAd: FC<IFormCreateAd> = ({ onSubmit }) => {
                 onClick={() => handleClick(1)}
                 disabled={currentStep === 2}
               />
-              <CustomButton text='Отправить' type='submit' disabled={!!true} />
+              <CustomButton
+                text='Отправить'
+                type='submit'
+                disabled={!!true}
+                dataTestId='createAd'
+              />
             </Box>
           )}
         </Box>

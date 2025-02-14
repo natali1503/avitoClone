@@ -1,3 +1,4 @@
+import { Control, Controller } from 'react-hook-form';
 import {
   Box,
   FormControl,
@@ -6,8 +7,8 @@ import {
   InputAdornment,
   OutlinedInput,
 } from '@mui/material';
-import { FC } from 'react';
-import { Control, Controller } from 'react-hook-form';
+//@ts-expect-error: for test
+import React, { FC } from 'react';
 
 import { TypeFormData } from '../../general/TypeFormData';
 
@@ -20,6 +21,7 @@ interface IMultiInput {
   error: boolean;
   defaultValue?: string | number;
   adornment?: string;
+  dataTestId: string;
   errorMessage?: string;
 }
 
@@ -33,6 +35,7 @@ export const MultiInput: FC<IMultiInput> = ({
   defaultValue = '',
   adornment = '',
   errorMessage,
+  dataTestId,
 }) => {
   return (
     <Controller
@@ -61,6 +64,7 @@ export const MultiInput: FC<IMultiInput> = ({
             }}
           >
             <OutlinedInput
+              data-testid={dataTestId}
               type={type}
               fullWidth
               {...field}

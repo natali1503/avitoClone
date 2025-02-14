@@ -6,7 +6,7 @@ import announcementsSlice from './announcementsSlice';
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
 
-const rootReducer = combineReducers({
+export const rootReducer = combineReducers({
   adInfo: adInfoSlice,
   announcements: announcementsSlice,
 });

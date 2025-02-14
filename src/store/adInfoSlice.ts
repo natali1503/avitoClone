@@ -1,13 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { getAdById } from '../api-actions';
-import { AdResponse } from '../api/AdResponse';
 import { Categories, CategoriesValues } from '../general/FormField/Categories';
+import { getIdFields } from '../utils/getIdFields';
+import { AdResponse } from '../api/AdResponse';
 import {
   CommonFields,
   FieldsByType,
 } from '../general/FormField/formFieldNames';
-import { getIdFields } from '../utils/getIdFields';
+import { getAdById } from '../api-actions';
 
 export interface IAdToDisplay {
   id: string;

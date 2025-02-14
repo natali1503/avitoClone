@@ -1,5 +1,6 @@
-import { FC } from 'react';
 import { Control } from 'react-hook-form';
+//@ts-expect-error: for test
+import React, { FC } from 'react';
 
 import { TypeFormData } from '../../general/TypeFormData';
 
@@ -16,6 +17,7 @@ interface ICustomInput {
   adornment?: string;
   error: boolean;
   errorMessage?: string;
+  dataTestId: string;
 }
 
 export const CustomInput: FC<ICustomInput> = ({
@@ -27,7 +29,7 @@ export const CustomInput: FC<ICustomInput> = ({
   error,
   defaultValue = '',
   adornment = '',
-
+  dataTestId,
   errorMessage,
 }) => {
   {
@@ -42,6 +44,7 @@ export const CustomInput: FC<ICustomInput> = ({
         defaultValue={defaultValue}
         errorMessage={errorMessage}
         adornment={adornment}
+        dataTestId={dataTestId}
       />
     ) : (
       <FileInput
@@ -51,6 +54,7 @@ export const CustomInput: FC<ICustomInput> = ({
         required={required}
         error={error}
         errorMessage={errorMessage}
+        dataTestId={dataTestId}
       />
     );
   }

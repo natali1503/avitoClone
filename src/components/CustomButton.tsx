@@ -1,5 +1,6 @@
 import { Box, Button } from '@mui/material';
-import { FC } from 'react';
+//@ts-expect-error: for test
+import React, { FC } from 'react';
 
 interface ICustomButton {
   text: string;
@@ -7,6 +8,7 @@ interface ICustomButton {
   onClick?: () => void;
   type?: 'submit' | 'reset' | 'button';
   disabled?: boolean;
+  dataTestId?: string;
 }
 
 export const CustomButton: FC<ICustomButton> = ({
@@ -15,6 +17,7 @@ export const CustomButton: FC<ICustomButton> = ({
   onClick,
   type,
   disabled = true,
+  dataTestId,
 }) => {
   return (
     <Box display={'flex'}>
@@ -25,6 +28,7 @@ export const CustomButton: FC<ICustomButton> = ({
         onClick={onClick}
         type={type}
         disabled={!disabled}
+        data-testid={dataTestId}
       >
         {text}
       </Button>

@@ -1,4 +1,6 @@
 import { Box, Skeleton } from '@mui/material';
+//@ts-expect-error: for test
+import React from 'react';
 
 export function ItemSkeleton() {
   return (
