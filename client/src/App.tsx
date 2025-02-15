@@ -8,19 +8,20 @@ import { PageAnnouncement } from './pages/PageAnnouncement';
 import { RouterPath } from './router/routerPath';
 import { PostingAds } from './pages/ControlAds';
 import { useMode } from './theme';
+import { NotFoundPage } from './pages/NotFoundPage';
 
 function App() {
   const [theme] = useMode();
   return (
     <ThemeProvider theme={theme}>
-      <Box width={'100%'} minHeight={'100vh'} padding={'4rem 4rem'}>
+      <Box display='flex' flexDirection={'column'} width={'100%'} minHeight={'100vh'} padding={'4rem 4rem'}>
         <Router>
           <Routes>
             <Route path='/' element={<ListAnnouncement />} />
             <Route path={RouterPath.List} element={<ListAnnouncement />} />
             <Route path={RouterPath.Form} element={<PostingAds />} />
             <Route path={RouterPath.Item} element={<PageAnnouncement />} />
-            {/* <Route path='*' element={<NotFound />} /> */}
+            <Route path='*' element={<NotFoundPage />} />
           </Routes>
         </Router>
       </Box>
