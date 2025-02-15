@@ -21,7 +21,7 @@ export const themeSettings = (): object => {
     },
     breakpoints,
     typography: {
-      fontSize: 19.6,
+      fontSize: 22,
       h1: {
         fontSize: 30,
       },
@@ -34,23 +34,14 @@ export const themeSettings = (): object => {
       h4: {
         fontSize: '3.4rem',
         fontWeight: 400,
-        [`@media (max-width:${breakpoints.values.lg}px)`]: {
-          fontSize: '2.5rem',
-        },
       },
       h5: {
-        fontSize: '2.4rem',
+        fontSize: '2.2rem',
         fontWeight: 400,
-        [`@media (max-width:${breakpoints.values.md}px)`]: {
-          fontSize: '2rem',
-        },
       },
       h6: {
         fontSize: '2rem',
         fontWeight: 500,
-        [`@media (max-width:${breakpoints.values.lg}px)`]: {
-          fontSize: '1.6rem',
-        },
       },
     },
     components: {
@@ -60,10 +51,6 @@ export const themeSettings = (): object => {
             textTransform: 'none',
             fontSize: '1.5rem',
             height: '4.2rem',
-            [`@media (max-width:${breakpoints.values.lg}px)`]: {
-              fontSize: '1.2rem', //
-              padding: '2px 6px',
-            },
           },
         },
       },

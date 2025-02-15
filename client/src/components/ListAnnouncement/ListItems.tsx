@@ -7,13 +7,13 @@ import { AdResponse } from '../../api/AdResponse';
 import { Item } from './Item';
 
 interface IListItems {
-  dataToDisplay: AdResponse[] | null;
+  dataToDisplay: AdResponse[];
   notFoundData: boolean;
 }
 
 export const ListItems: FC<IListItems> = ({ dataToDisplay, notFoundData }) => {
-  const isData = !!dataToDisplay;
-  const isdataToDisplay = isData && dataToDisplay.length > 0;
+  const isData = dataToDisplay?.length === 0 && !notFoundData;
+  const isdataToDisplay = dataToDisplay.length > 0;
 
   return (
     <Box
@@ -37,7 +37,7 @@ export const ListItems: FC<IListItems> = ({ dataToDisplay, notFoundData }) => {
           />
         ))}
       {notFoundData && <Typography variant='h5'>Объявлений по выбранным параметрам нет</Typography>}
-      {!isData && <Typography variant='h5'>Пока объявлений нет</Typography>}
+      {isData && <Typography variant='h5'>Пока объявлений нет</Typography>}
     </Box>
   );
 };

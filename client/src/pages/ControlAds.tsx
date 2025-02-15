@@ -1,8 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { SubmitHandler } from 'react-hook-form';
-import { useSelector } from 'react-redux';
 //@ts-expect-error: for test
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { createAd, deleteAdById, updatingAd } from '../api/api-actions';
 import { FormCreateAd } from '../components/Forms/FormCreateAd';
@@ -11,12 +10,12 @@ import { TypeFormData } from '../general/TypeFormData';
 import { RouterPath } from '../router/routerPath';
 import { AdResponse } from '../api/AdResponse';
 import { toBase64 } from '../utils/toBase64';
-import { RootState } from '../store';
+import { IDataToDisplay } from '../store/adInfoSlice';
 
 export function PostingAds() {
-  const { dataToDisplay, data } = useSelector((state: RootState) => state.adInfo);
-  const dataForEditing = dataToDisplay || null;
   const location = useLocation();
+  const dataForEditing: IDataToDisplay = location.state?.dataToDisplay;
+  const id: string = location.state?.id;
   const navigate = useNavigate();
 
   const creationMode = !dataForEditing?.data.length;
@@ -32,13 +31,15 @@ export function PostingAds() {
       if (creationMode) {
         await createAd({ ...formData, photo: fileString } as AdResponse, signal);
       } else {
-        if (data?.type !== formData.type && data) {
+        const type = dataForEditing?.data.filter((el) => el.id === 'type')[0].value;
+
+        if (type !== formData.type && dataForEditing) {
           // Тип объявления меняется - создаём новое и удаляем старое
           await createAd({ ...formData, photo: fileString } as AdResponse, signal);
-          await deleteAdById(String(data.id), signal);
+          await deleteAdById(String(id), signal);
         } else {
           // Тип объявления не меняется
-          await updatingAd({ ...formData, photo: fileString } as AdResponse, location.state.id, signal);
+          await updatingAd({ ...formData, photo: fileString } as AdResponse, String(id), signal);
         }
       }
       navigate(RouterPath.List);

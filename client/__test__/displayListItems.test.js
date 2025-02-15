@@ -56,10 +56,10 @@ describe('Компонент ListItems', () => {
     expect(screen.getByText(/Объявлений по выбранным параметрам нет/i)).toBeInTheDocument();
   });
 
-  it('Должен отображать сообщение "Пока объявлений нет", если dataToDisplay=null', () => {
+  it('Должен отображать сообщение "Пока объявлений нет", если dataToDisplay=[]', () => {
     render(
       <MemoryRouter>
-        <ListItems dataToDisplay={null} notFoundData={true} />
+        <ListItems dataToDisplay={[]} notFoundData={false} />
       </MemoryRouter>,
     );
     expect(screen.getByText(/Пока объявлений нет/i)).toBeInTheDocument();

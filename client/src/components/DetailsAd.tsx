@@ -26,11 +26,13 @@ export const DetailsAd: FC<IDetailsAd> = ({ dataToDisplay, id }) => {
           alt={`Изображение по объявлению ${dataToDisplay?.data[0].value}`}
         />
       </Box>
-      <Box display={'flex'} flexDirection={'column'} gap={'2rem'} minWidth={'25rem'}>
+      <Box display={'flex'} flexDirection={'column'} gap={'2rem'} minWidth={'25rem'} flex={1}>
         {dataToDisplay &&
           dataToDisplay.data.map((el, i) => (
             <Box key={+i} display={'flex'} flexDirection={'column'} gap={'0.5rem'}>
-              <Typography variant='h5'>{el?.fieldName}</Typography>
+              <Typography variant='h5' sx={{ fontWeight: 500 }}>
+                {el?.fieldName}
+              </Typography>
               <Typography>{el?.value}</Typography>
             </Box>
           ))}
@@ -39,15 +41,15 @@ export const DetailsAd: FC<IDetailsAd> = ({ dataToDisplay, id }) => {
         <CustomButton
           text='Редактировать'
           onClick={() => {
-            navigate(RouterPath.Form, { state: { id } });
+            navigate(RouterPath.Form, { state: { id, dataToDisplay } });
           }}
         />
         <CustomButton
           text='Удалить'
-          onClick={() => {
+          onClick={async () => {
             const controller = new AbortController();
             const signal = controller.signal;
-            deleteAdById(id, signal);
+            await deleteAdById(id, signal);
             navigate(RouterPath.List);
           }}
           color='warning'

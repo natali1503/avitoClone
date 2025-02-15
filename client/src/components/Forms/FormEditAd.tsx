@@ -3,9 +3,9 @@ import { useDispatch } from 'react-redux';
 import { FC, useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 
+import { updatedDataToDisplay, IAdToDisplay, IDataToDisplay, reset } from '../../store/adInfoSlice';
 import { CommonFields, FieldsByType } from '../../general/FormField/formFieldNames';
 import { Categories, CategoriesValues } from '../../general/FormField/Categories';
-import { updatedDataToDisplay, IAdToDisplay, IDataToDisplay, reset } from '../../store/adInfoSlice';
 import { IAd, TypeFormData } from '../../general/TypeFormData';
 import { getIdByText } from '../../utils/getIdByText';
 import { getIdFields } from '../../utils/getIdFields';
@@ -77,7 +77,7 @@ export const FormEditAd: FC<IFormEditAd> = ({ onSubmit, dataForEditing }) => {
 
   return (
     <Box display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'} gap={'3rem'}>
-      <Title title={'Форма размещения'} />
+      <Title title={'Форма редактирования'} />
       <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
         <Box
           display={'flex'}

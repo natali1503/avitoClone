@@ -4,7 +4,7 @@ import { AdResponse } from '../api/AdResponse';
 import { Categories } from '../general/FormField/Categories';
 
 type useFilterProps = {
-  adList: AdResponse[] | null;
+  adList: AdResponse[];
 };
 // Дополнительно: при выборе значения для фильтра по категории появляются дополнительные фильтры по обязательным полям выбранной категории
 
@@ -12,7 +12,7 @@ export function useFilters({ adList }: useFilterProps) {
   const [searchName, setSearchName] = useState('');
   const [categories, setCategories] = useState('');
   const [filteredData, setFilteredData] = useState<AdResponse[]>([]);
-  const notFoundData = !!adList && filteredData.length === 0;
+  const notFoundData = (adList || []).length > 0 && filteredData.length === 0;
   function resetFilters() {
     setSearchName('');
     setCategories('');

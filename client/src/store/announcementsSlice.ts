@@ -7,7 +7,7 @@ const announcementsSlice = createSlice({
   name: 'announcements',
   initialState: {
     loading: false,
-    data: <AdResponse[] | null>null,
+    data: <AdResponse[] | []>[],
     error: null,
   },
   reducers: {},
