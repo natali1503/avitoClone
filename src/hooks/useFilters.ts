@@ -44,7 +44,7 @@ function filterAdList(adList: AdResponse[], searchName: string = '', categories:
     result = result.filter((ad) => ad.type === categorieText);
   }
   if (searchName) {
-    result = result.filter((ad) => ad.name.toLocaleLowerCase().includes(searchName));
+    result = result.filter((ad) => ad.name.toLocaleLowerCase().includes(searchName.toLocaleLowerCase()));
   }
   return result;
 }

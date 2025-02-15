@@ -4,13 +4,13 @@ import React from 'react';
 
 import { CommonFields, FieldsByType } from '../src/general/FormField/formFieldNames';
 import { Categories, CategoriesId } from '../src/general/FormField/Categories';
-import { createAd } from '../src/api-actions';
+import { createAd } from '../src/api/api-actions';
 import App from '../src/App';
 
 import { screen, render } from './test-utils';
 
-jest.mock('../src/api-actions', () => ({
-  ...jest.requireActual('../src/api-actions'),
+jest.mock('../src/api/api-actions', () => ({
+  ...jest.requireActual('../src/api/api-actions'),
   createAd: jest.fn(),
 }));
 

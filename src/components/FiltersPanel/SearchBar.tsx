@@ -1,7 +1,7 @@
 import { Box, IconButton, InputAdornment, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
-import { FC } from 'react';
+import React, { FC } from 'react';
 
 interface ISearchBar {
   searchName: string;

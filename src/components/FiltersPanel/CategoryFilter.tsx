@@ -37,7 +37,7 @@ export const CategoryFilter: FC<ICategoryFilter> = ({ categories, setCategories 
               </IconButton>
             )
           }
-          sx={{ fontSize: '1.4rem', minWidth: '30rem', height: '3rem' }}
+          sx={{ fontSize: '1.4rem', minWidth: '30rem' }}
         >
           {Categories.map((item, i) => (
             <MenuItem key={+i} value={item.id}>
