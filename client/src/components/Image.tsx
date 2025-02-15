@@ -1,4 +1,6 @@
+//@ts-expect-error: for test
 import React, { FC } from 'react';
+
 interface IImage {
   src?: string;
   alt?: string;

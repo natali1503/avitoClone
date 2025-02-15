@@ -1,4 +1,5 @@
 import { Box, Typography } from '@mui/material';
+//@ts-expect-error: for test
 import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 

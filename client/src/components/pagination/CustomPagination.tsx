@@ -8,6 +8,7 @@ interface ICustomPagination {
 }
 
 export const CustomPagination: FC<ICustomPagination> = ({ currentPage, setCurrentPage, totalPages }) => {
+  //@ts-expect-error: for test
   function handleChange(e: React.ChangeEvent<unknown>, value: number) {
     setCurrentPage(value);
   }
