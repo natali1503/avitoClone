@@ -7,7 +7,7 @@ import { Title } from '../Title';
 import { ItemSkeleton } from './ItemSkeleton';
 
 export const ListAnnouncementSkeleton: FC = () => {
-  const dataToDispay = Array(5).fill('');
+  const dataToDisplay = Array(5).fill('');
   return (
     <Box display={'flex'} flexDirection={'column'} gap={'2rem'}>
       <Title title='Список объявлений' />
@@ -17,7 +17,7 @@ export const ListAnnouncementSkeleton: FC = () => {
           <Skeleton width={'10rem'} height={'3rem'} variant='rectangular' sx={{ borderRadius: '4px' }} />
         </Box>
         <Box display={'flex'} flexDirection={'column'} justifyContent={'center'} gap={'1.5rem'}>
-          {dataToDispay && dataToDispay.map((_, i) => <ItemSkeleton key={+i} />)}
+          {dataToDisplay && dataToDisplay.map((_, i) => <ItemSkeleton key={+i} />)}
         </Box>
       </Box>
       <Skeleton width={'80rem'} height={'2.5rem'} variant='rectangular' sx={{ borderRadius: '4px' }} />

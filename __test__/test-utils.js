@@ -1,8 +1,9 @@
-import React from 'react';
 import { render as rtlRender } from '@testing-library/react';
-import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
+import { Provider } from 'react-redux';
 import PropTypes from 'prop-types';
+import React from 'react';
+
 import { rootReducer } from '../src/store';
 
 const store = ({ preloadedState } = {}) =>

@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material';
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { CustomButton } from './CustomButton';
@@ -11,9 +11,10 @@ interface IItem {
   location: string;
   type: string;
   photo?: string;
+  dataTestId: string;
 }
 
-export const Item: FC<IItem> = ({ id, name, location, type, photo }) => {
+export const Item: FC<IItem> = ({ id, name, location, type, photo, dataTestId }) => {
   const navigate = useNavigate();
 
   function handleClick() {
@@ -21,6 +22,7 @@ export const Item: FC<IItem> = ({ id, name, location, type, photo }) => {
   }
   return (
     <Box
+      data-testid={dataTestId}
       sx={{
         display: 'flex',
         flexDirection: 'row',

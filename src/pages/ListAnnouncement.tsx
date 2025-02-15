@@ -9,15 +9,20 @@ import { CustomPagination } from '../components/pagination/CustomPagination';
 import { CustomButton } from '../components/CustomButton';
 import { FiltersPanel } from '../components/FiltersPanel';
 import { usePagination } from '../hooks/usePagination';
-import { getAnnouncements } from '../api-actions';
+
 import { RouterPath } from '../router/routerPath';
 import { AppDispatch, RootState } from '../store';
 import { useFilters } from '../hooks/useFilters';
 import { Title } from '../components/Title';
 import { Item } from '../components/Item';
+import { getAnnouncements } from '../store/announcementsSlice';
+import { ListItems } from '../components/ListAnnouncement/ListItems';
+// import { getAnnouncements } from '../api-actions';
 
 export function ListAnnouncement() {
-  const { loading, data } = useSelector((state: RootState) => state.announcements);
+  const { loading, data } = useSelector((state: RootState) => {
+    return state.announcements;
+  });
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const { searchName, setSearchName, categories, setCategories, filteredData, notFoundData } = useFilters({
@@ -35,12 +40,9 @@ export function ListAnnouncement() {
     return () => controller.abort();
   }, [dispatch]);
 
-  const dataToDispay = useMemo(() => {
+  const dataToDisplay = useMemo(() => {
     return filteredData?.slice(indexOfFirstItem, indexOfLastItem);
   }, [filteredData, indexOfLastItem, indexOfFirstItem]);
-
-  const isData = !!data;
-  const isDataToDispay = dataToDispay.length > 0;
 
   return loading ? (
     <ListAnnouncementSkeleton />
@@ -61,21 +63,7 @@ export function ListAnnouncement() {
             onClick={() => navigate(RouterPath.Form)}
           />
         </Box>
-        <Box display={'flex'} flexDirection={'column'} justifyContent={'center'} gap={'1.5rem'}>
-          {isDataToDispay &&
-            dataToDispay.map((item) => (
-              <Item
-                key={item.id}
-                id={item.id}
-                name={item.name}
-                location={item.location}
-                type={item.type}
-                photo={item.photo}
-              />
-            ))}
-          {notFoundData && <Typography variant='h5'>Объявлений по выбранным параметрам нет</Typography>}
-          {!isData && <Typography variant='h5'>Пока объявлений нет</Typography>}
-        </Box>
+        <ListItems dataToDisplay={dataToDisplay} notFoundData={notFoundData} />
       </Box>
 
       <CustomPagination currentPage={currentPage} totalPages={totalPages || 0} setCurrentPage={setCurrentPage} />
