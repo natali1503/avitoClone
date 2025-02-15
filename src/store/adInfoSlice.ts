@@ -68,6 +68,10 @@ const adInfoSlice = createSlice({
         photo: state.dataToDisplay?.photo,
       };
     },
+    reset: (state) => {
+      state.data = null;
+      state.dataToDisplay = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -84,5 +88,5 @@ const adInfoSlice = createSlice({
       });
   },
 });
-export const { formattingDataForOutput, updatedDataToDisplay } = adInfoSlice.actions;
+export const { formattingDataForOutput, updatedDataToDisplay, reset } = adInfoSlice.actions;
 export default adInfoSlice.reducer;

@@ -1,18 +1,18 @@
 import { SubmitHandler, useForm, useWatch } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 
 import { CommonFields, FieldsByType } from '../../general/FormField/formFieldNames';
 import { Categories, CategoriesValues } from '../../general/FormField/Categories';
-import { updatedDataToDisplay, IAdToDisplay, IDataToDisplay } from '../../store/adInfoSlice';
+import { updatedDataToDisplay, IAdToDisplay, IDataToDisplay, reset } from '../../store/adInfoSlice';
 import { IAd, TypeFormData } from '../../general/TypeFormData';
 import { getIdByText } from '../../utils/getIdByText';
 import { getIdFields } from '../../utils/getIdFields';
 import { AppDispatch } from '../../store';
-
 import { CustomButton } from '../CustomButton';
 import { Title } from '../Title';
+
 import { Form } from './Form';
 
 interface IFormEditAd {
@@ -68,6 +68,12 @@ export const FormEditAd: FC<IFormEditAd> = ({ onSubmit, dataForEditing }) => {
       }
     }
   };
+
+  useEffect(() => {
+    return () => {
+      dispatch(reset());
+    };
+  }, [dispatch]);
 
   return (
     <Box display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'} gap={'3rem'}>

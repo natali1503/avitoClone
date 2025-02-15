@@ -1,4 +1,4 @@
-import { waitFor, within } from '@testing-library/react';
+import { within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 import React from 'react';
 
@@ -7,7 +7,7 @@ import { Categories, CategoriesId } from '../src/general/FormField/Categories';
 import { createAd } from '../src/api-actions';
 import App from '../src/App';
 
-import { store, screen, render } from './test-utils';
+import { screen, render } from './test-utils';
 
 jest.mock('../src/api-actions', () => ({
   ...jest.requireActual('../src/api-actions'),
@@ -75,5 +75,3 @@ describe('Создание объявления', () => {
     expect(createAd).toHaveBeenCalledTimes(1);
   });
 });
-//Отображение объявления с бэка
-//Открытие детальной информации

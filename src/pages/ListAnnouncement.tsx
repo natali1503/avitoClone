@@ -9,7 +9,6 @@ import { CustomPagination } from '../components/pagination/CustomPagination';
 import { CustomButton } from '../components/CustomButton';
 import { FiltersPanel } from '../components/FiltersPanel';
 import { usePagination } from '../hooks/usePagination';
-
 import { RouterPath } from '../router/routerPath';
 import { AppDispatch, RootState } from '../store';
 import { useFilters } from '../hooks/useFilters';

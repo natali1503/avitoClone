@@ -1,7 +1,9 @@
 import { Box, Typography } from '@mui/material';
 import React, { FC } from 'react';
-import { Item } from './Item';
+
 import { AdResponse } from '../../api/AdResponse';
+
+import { Item } from './Item';
 
 interface IListItems {
   dataToDisplay: AdResponse[] | null;

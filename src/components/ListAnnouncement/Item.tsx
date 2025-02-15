@@ -1,6 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import { ImageWithPlaceholder } from '../Image';
 import { CustomButton } from '../CustomButton';
 

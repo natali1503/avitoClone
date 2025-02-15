@@ -7,9 +7,9 @@ import { IAd, TypeFormData } from '../../general/TypeFormData';
 import { CommonFields, FieldsByType } from '../../general/FormField/formFieldNames';
 import { Categories, CategoriesValues } from '../../general/FormField/Categories';
 import { getIdByText } from '../../utils/getIdByText';
-
 import { CustomButton } from '../CustomButton';
 import { Title } from '../Title';
+
 import { Form } from './Form';
 
 interface IFormCreateAd {
