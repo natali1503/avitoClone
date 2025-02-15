@@ -1,13 +1,14 @@
-import { Box } from '@mui/material';
-import { FC } from 'react';
 import { Control, FieldErrors } from 'react-hook-form';
+import { Box } from '@mui/material';
+//@ts-expect-error: for test
+import React, { FC } from 'react';
 
-import { CustomSelect } from '../components/CustomSelect';
-import { CustomInput } from '../components/Input/CustomInput';
-import { Title } from '../components/Title';
-import { IField } from '../general/FormField/formFieldNames';
-import { TypeFormData } from '../general/TypeFormData';
-import { IAdToDisplay } from '../store/adInfoSlice';
+import { IField } from '../../general/FormField/formFieldNames';
+import { TypeFormData } from '../../general/TypeFormData';
+import { IAdToDisplay } from '../../store/adInfoSlice';
+import { Title } from '../Title';
+import { CustomInput } from '../Input/CustomInput';
+import { CustomSelect } from '../CustomSelect';
 
 interface IForm {
   formTitle: string;
@@ -15,17 +16,12 @@ interface IForm {
   control: Control<TypeFormData>;
   errors: FieldErrors<TypeFormData>;
   dataForEditing?: IAdToDisplay[];
+  dataTestId: string;
 }
 
-export const Form: FC<IForm> = ({
-  formTitle,
-  fields,
-  control,
-  errors,
-  dataForEditing,
-}) => {
+export const Form: FC<IForm> = ({ formTitle, fields, control, errors, dataForEditing, dataTestId }) => {
   return (
-    <Box display={'flex'} flexDirection={'column'} gap={'3rem'}>
+    <Box display={'flex'} flexDirection={'column'} gap={'3rem'} data-testid={dataTestId}>
       <Title title={formTitle} />
 
       <Box
@@ -47,13 +43,10 @@ export const Form: FC<IForm> = ({
                 fieldName={element.fieldName}
                 required={element.required}
                 error={!!errors[element.id as keyof TypeFormData]}
-                errorMessage={
-                  errors[element.id as keyof TypeFormData]?.message || ''
-                }
-                defaultValue={
-                  dataForEditing?.filter((el) => el.id === element.id)[0]?.value
-                }
+                errorMessage={errors[element.id as keyof TypeFormData]?.message || ''}
+                defaultValue={dataForEditing?.filter((el) => el.id === element.id)[0]?.value}
                 adornment={element.adornment}
+                dataTestId={element.id}
               />
             );
           } else if (element.typeField === 'select' && element?.items) {
@@ -66,12 +59,9 @@ export const Form: FC<IForm> = ({
                 items={element.items}
                 required={element.required}
                 error={!!errors[element.id as keyof TypeFormData]}
-                errorMessage={
-                  errors[element.id as keyof TypeFormData]?.message || ''
-                }
-                defaultValue={
-                  dataForEditing?.filter((el) => el.id === element.id)[0].value
-                }
+                errorMessage={errors[element.id as keyof TypeFormData]?.message || ''}
+                defaultValue={dataForEditing?.filter((el) => el.id === element.id)[0].value}
+                dataTestId={element.id}
               />
             );
           }

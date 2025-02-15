@@ -1,6 +1,7 @@
 import { Control, Controller } from 'react-hook-form';
 import { Box, FormControl, FormHelperText, FormLabel } from '@mui/material';
-import { FC } from 'react';
+//@ts-expect-error: for test
+import React, { FC } from 'react';
 
 import { TypeFormData } from '../../general/TypeFormData';
 
@@ -11,17 +12,10 @@ interface IFileInput {
   required?: boolean;
   error: boolean;
   errorMessage?: string;
+  dataTestId: string;
 }
 
-export const FileInput: FC<IFileInput> = ({
-  id,
-  control,
-  fieldName,
-  required,
-  error,
-
-  errorMessage,
-}) => {
+export const FileInput: FC<IFileInput> = ({ id, control, fieldName, required, error, dataTestId, errorMessage }) => {
   return (
     <Controller
       name={id}
@@ -47,10 +41,7 @@ export const FileInput: FC<IFileInput> = ({
               width: '100%',
             }}
           >
-            <input
-              type='file'
-              onChange={(e) => field.onChange(e.target.files)}
-            />
+            <input type='file' onChange={(e) => field.onChange(e.target.files)} data-testid={dataTestId} />
 
             {error && <FormHelperText>{errorMessage}</FormHelperText>}
           </Box>

@@ -11,27 +11,20 @@ export const PageAnnouncementSkeleton: FC = () => {
       <Title title={'Страница объявления'} />
       <Box display={'flex'} flexDirection={'row'} gap={'5rem'}>
         <Box width={'30rem'} height={'30rem'}>
-          <Skeleton
-            width={'30rem'}
-            height={'30rem'}
-            variant='rectangular'
-            sx={{ borderRadius: '10px' }}
-          />
+          <Skeleton width={'30rem'} height={'30rem'} variant='rectangular' sx={{ borderRadius: '10px' }} />
         </Box>
-        <Box display={'flex'} flexDirection={'column'} gap={'2rem'}>
+        <Box display={'flex'} flexDirection={'column'} gap={'2rem'} minWidth={'25rem'}>
           {fields.map((_, i) => (
-            <Box
-              key={+i}
-              display={'flex'}
-              flexDirection={'column'}
-              gap={'0.5rem'}
-            >
-              <Skeleton width={'15rem'} height={'2rem'} />
-              <Skeleton width={'17rem'} height={'1.4rem'} />
+            <Box key={+i} display={'flex'} flexDirection={'column'} gap={'0.5rem'}>
+              <Skeleton width={'15rem'} height={'2.5rem'} variant='rectangular' />
+              <Skeleton width={'27rem'} height={'1.9rem'} variant='rectangular' />
             </Box>
           ))}
         </Box>
-        <Skeleton width={'10.5rem'} height={'4.2rem'} />
+        <Box display={'flex'} flexDirection={'column'} gap={'2rem'}>
+          <Skeleton width={'10.5rem'} height={'4.2rem'} variant='rectangular' />
+          <Skeleton width={'10.5rem'} height={'4.2rem'} variant='rectangular' />
+        </Box>
       </Box>
     </Box>
   );

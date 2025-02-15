@@ -10,5 +10,5 @@ export const APIRoute = {
   getAds: { method: [APIMethod.GET], path: `/items` },
   getAdById: { method: [APIMethod.GET], path: `/items/` },
   updateAdById: { method: [APIMethod.PUT], path: `/items/` },
-  deleteAdById: { method: [APIMethod.DELETE], path: `/items/:id` },
+  deleteAdById: { method: [APIMethod.DELETE], path: `/items/` },
 };

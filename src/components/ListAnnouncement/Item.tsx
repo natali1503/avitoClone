@@ -1,9 +1,9 @@
 import { Box, Typography } from '@mui/material';
-import { FC } from 'react';
+import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { CustomButton } from './CustomButton';
-import { ImageWithPlaceholder } from './Image';
+import { ImageWithPlaceholder } from '../Image';
+import { CustomButton } from '../CustomButton';
 
 interface IItem {
   id: number;
@@ -11,9 +11,10 @@ interface IItem {
   location: string;
   type: string;
   photo?: string;
+  dataTestId: string;
 }
 
-export const Item: FC<IItem> = ({ id, name, location, type, photo }) => {
+export const Item: FC<IItem> = ({ id, name, location, type, photo, dataTestId }) => {
   const navigate = useNavigate();
 
   function handleClick() {
@@ -21,28 +22,21 @@ export const Item: FC<IItem> = ({ id, name, location, type, photo }) => {
   }
   return (
     <Box
+      data-testid={dataTestId}
       sx={{
         display: 'flex',
         flexDirection: 'row',
         border: '1px solid rgba(0, 0, 0, 0.23)',
         borderRadius: '10px',
-        justifyContent: 'space-around',
-        padding: '20px 30px',
-        gap: '5rem',
+        padding: '2rem 4rem',
+        gap: '8rem',
         alignItems: 'center',
       }}
     >
-      <Box
-        width={'8rem'}
-        height={'8rem'}
-        sx={{ border: '1px solid rgba(0, 0, 0, 0.23)', borderRadius: '10px' }}
-      >
-        <ImageWithPlaceholder
-          src={photo}
-          alt={`Изображение по объявлению ${name}`}
-        />
+      <Box width={'8rem'} height={'8rem'} sx={{ border: '1px solid rgba(0, 0, 0, 0.23)', borderRadius: '10px' }}>
+        <ImageWithPlaceholder src={photo} alt={`Изображение по объявлению ${name}`} />
       </Box>
-      <Box display={'flex'} flexDirection={'column'} gap={'5px'}>
+      <Box display={'flex'} flexDirection={'column'} gap={'0.5rem'} flex={1}>
         <Typography>{name}</Typography>
         <Typography>{location}</Typography>
         <Typography>{type}</Typography>

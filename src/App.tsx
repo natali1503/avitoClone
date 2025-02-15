@@ -1,5 +1,7 @@
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import { Box, ThemeProvider } from '@mui/material';
+//@ts-expect-error: for test
+import React from 'react';
 
 import { ListAnnouncement } from './pages/ListAnnouncement';
 import { PageAnnouncement } from './pages/PageAnnouncement';

@@ -1,4 +1,6 @@
 import { Box, Skeleton } from '@mui/material';
+//@ts-expect-error: for test
+import React from 'react';
 
 export function ItemSkeleton() {
   return (
@@ -14,12 +16,7 @@ export function ItemSkeleton() {
         alignItems: 'center',
       }}
     >
-      <Skeleton
-        width={'8rem'}
-        height={'8rem'}
-        variant='rectangular'
-        sx={{ borderRadius: '10px' }}
-      />
+      <Skeleton width={'8rem'} height={'8rem'} variant='rectangular' sx={{ borderRadius: '10px' }} />
 
       <Box display={'flex'} flexDirection={'column'} gap={'5px'}>
         <Skeleton width={'17rem'} height={'2rem'} />
@@ -27,12 +24,7 @@ export function ItemSkeleton() {
         <Skeleton width={'12rem'} height={'2rem'} />
       </Box>
 
-      <Skeleton
-        width={'6.5rem'}
-        height={'4.2rem'}
-        variant='rectangular'
-        sx={{ borderRadius: '4px' }}
-      />
+      <Skeleton width={'6.5rem'} height={'4.2rem'} variant='rectangular' sx={{ borderRadius: '4px' }} />
     </Box>
   );
 }

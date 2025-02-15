@@ -57,6 +57,7 @@ export const themeSettings = (): object => {
       MuiButton: {
         styleOverrides: {
           root: {
+            textTransform: 'none',
             fontSize: '1.5rem',
             height: '4.2rem',
             [`@media (max-width:${breakpoints.values.lg}px)`]: {
