@@ -22,7 +22,7 @@ export function ListAnnouncement() {
   });
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const { searchName, setSearchName, categories, setCategories, filteredData, notFoundData } = useFilters({
+  const { search, categories, filteredData, notFoundData, additionalFilters, resetFilters } = useFilters({
     adList: data,
   });
   const { currentPage, totalPages, indexOfLastItem, indexOfFirstItem, setCurrentPage } = usePagination({
@@ -46,21 +46,29 @@ export function ListAnnouncement() {
   ) : (
     <Box display={'flex'} flexDirection={'column'} gap={'2rem'}>
       <Title title='Список объявлений' />
-      <Box display={'flex'} flexDirection={'column'} gap={'2rem'}>
-        <Box display={'flex'} flexDirection={'row'} gap={'1.5rem'} justifyContent={'space-between'}>
-          <FiltersPanel
-            searchName={searchName}
-            setSearchName={setSearchName}
-            categories={categories}
-            setCategories={setCategories}
-          />
+      <Box
+        display={'flex'}
+        flexDirection={'column'}
+        gap={'2rem'}
+        //  sx={{ backgroundColor: ' rgb(245, 246, 245)' }}
+      >
+        <Box display={'flex'} flexDirection={'row'} gap={'1.5rem'} justifyContent={'flex-end'}>
           <CustomButton
             text='Разместить объявление'
             dataTestId='creatingAd'
             onClick={() => navigate(RouterPath.Form)}
           />
         </Box>
-        <ListItems dataToDisplay={dataToDisplay} notFoundData={notFoundData} />
+        <Box display={'flex'} flexDirection={'row'} gap={'1.5rem'}>
+          <FiltersPanel
+            search={search}
+            categories={categories}
+            additionalFilters={additionalFilters}
+            resetFilters={resetFilters}
+          />
+
+          <ListItems dataToDisplay={dataToDisplay} notFoundData={notFoundData} />
+        </Box>
       </Box>
 
       <CustomPagination currentPage={currentPage} totalPages={totalPages || 0} setCurrentPage={setCurrentPage} />

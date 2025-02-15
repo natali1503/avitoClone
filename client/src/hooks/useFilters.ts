@@ -1,21 +1,25 @@
 import { useEffect, useState } from 'react';
 
+import { Categories, CategoriesValues } from '../general/FormField/Categories';
+import { FieldsByType, IField } from '../general/FormField/formFieldNames';
 import { AdResponse } from '../api/AdResponse';
-import { Categories } from '../general/FormField/Categories';
 
 type useFilterProps = {
   adList: AdResponse[];
 };
-// Дополнительно: при выборе значения для фильтра по категории появляются дополнительные фильтры по обязательным полям выбранной категории
 
 export function useFilters({ adList }: useFilterProps) {
   const [searchName, setSearchName] = useState('');
-  const [categories, setCategories] = useState('');
+  const [categories, setCategories] = useState<CategoriesValues | ''>('');
   const [filteredData, setFilteredData] = useState<AdResponse[]>([]);
+  const [additionalFiltersState, setAdditionalFiltersState] = useState<{ [key in string]: string }>({});
   const notFoundData = (adList || []).length > 0 && filteredData.length === 0;
+  const [listAdditionalFilters, setListAdditionalFilters] = useState<IField[]>([]);
+
   function resetFilters() {
     setSearchName('');
     setCategories('');
+    setAdditionalFiltersState({});
   }
 
   useEffect(() => {
@@ -25,14 +29,37 @@ export function useFilters({ adList }: useFilterProps) {
     }
   }, [adList, searchName, categories]);
 
+  useEffect(() => {
+    if (categories) {
+      setListAdditionalFilters(FieldsByType[categories]);
+      {
+        id: value: '';
+      }
+      const tempAdditionalFiltersState = FieldsByType[categories].reduce(
+        (acc, el) => {
+          acc[el.id] = '';
+          return acc;
+        },
+        {} as { [key in string]: string },
+      );
+      setAdditionalFiltersState(tempAdditionalFiltersState);
+    } else {
+      setListAdditionalFilters([]);
+      setAdditionalFiltersState({});
+    }
+  }, [categories]);
+
   return {
+    search: {
+      searchName,
+      setSearchName,
+    },
+    categories: { categories, setCategories },
     resetFilters,
     notFoundData,
-    searchName,
-    setSearchName,
-    categories,
-    setCategories,
+
     filteredData,
+    additionalFilters: { listAdditionalFilters, additionalFiltersState, setAdditionalFiltersState },
   };
 }
 

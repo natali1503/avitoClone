@@ -8,8 +8,8 @@ export function ItemSkeleton() {
       sx={{
         display: 'flex',
         flexDirection: 'row',
-        border: '1px solid rgba(0, 0, 0, 0.23)',
-        borderRadius: '10px',
+        borderRadius: '4px',
+        border: '1px solid rgb(224,224,224)',
         justifyContent: 'space-around',
         padding: '20px 30px',
         gap: '5rem',

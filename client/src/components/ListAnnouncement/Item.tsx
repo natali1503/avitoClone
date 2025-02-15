@@ -27,14 +27,14 @@ export const Item: FC<IItem> = ({ id, name, location, type, photo, dataTestId })
       sx={{
         display: 'flex',
         flexDirection: 'row',
-        border: '1px solid rgba(0, 0, 0, 0.23)',
-        borderRadius: '10px',
+        borderRadius: '4px',
+        border: '1px solid rgb(224,224,224)',
         padding: '2rem 4rem',
         gap: '8rem',
         alignItems: 'center',
       }}
     >
-      <Box width={'8rem'} height={'8rem'} sx={{ border: '1px solid rgba(0, 0, 0, 0.23)', borderRadius: '10px' }}>
+      <Box width={'8rem'} height={'8rem'}>
         <ImageWithPlaceholder src={photo} alt={`Изображение по объявлению ${name}`} />
       </Box>
       <Box display={'flex'} flexDirection={'column'} gap={'0.5rem'} flex={1}>

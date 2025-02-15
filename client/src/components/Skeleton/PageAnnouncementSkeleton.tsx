@@ -11,7 +11,7 @@ export const PageAnnouncementSkeleton: FC = () => {
       <Title title={'Страница объявления'} />
       <Box display={'flex'} flexDirection={'row'} gap={'5rem'}>
         <Box width={'30rem'} height={'30rem'}>
-          <Skeleton width={'30rem'} height={'30rem'} variant='rectangular' sx={{ borderRadius: '10px' }} />
+          <Skeleton width={'30rem'} height={'30rem'} variant='rectangular' sx={{ borderRadius: '4px' }} />
         </Box>
         <Box display={'flex'} flexDirection={'column'} gap={'2rem'} minWidth={'25rem'}>
           {fields.map((_, i) => (
