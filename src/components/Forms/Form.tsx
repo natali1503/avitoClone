@@ -2,13 +2,12 @@ import { Control, FieldErrors } from 'react-hook-form';
 import { Box } from '@mui/material';
 //@ts-expect-error: for test
 import React, { FC } from 'react';
-
-import { CustomSelect } from '../components/CustomSelect';
-import { CustomInput } from '../components/Input/CustomInput';
-import { Title } from '../components/Title';
-import { IField } from '../general/FormField/formFieldNames';
-import { TypeFormData } from '../general/TypeFormData';
-import { IAdToDisplay } from '../store/adInfoSlice';
+import { IField } from '../../general/FormField/formFieldNames';
+import { TypeFormData } from '../../general/TypeFormData';
+import { IAdToDisplay } from '../../store/adInfoSlice';
+import { Title } from '../Title';
+import { CustomInput } from '../Input/CustomInput';
+import { CustomSelect } from '../CustomSelect';
 
 interface IForm {
   formTitle: string;

@@ -4,10 +4,10 @@ import { useSelector } from 'react-redux';
 //@ts-expect-error: for test
 import React from 'react';
 
-import { FormCreateAd } from '../components/FormCreateAd';
+import { FormCreateAd } from '../components/Forms/FormCreateAd';
 import { TypeFormData } from '../general/TypeFormData';
 import { createAd, updatingAd } from '../api-actions';
-import { FormEditAd } from '../components/FormEditAd';
+import { FormEditAd } from '../components/Forms/FormEditAd';
 import { RouterPath } from '../router/routerPath';
 import { AdResponse } from '../api/AdResponse';
 import { toBase64 } from '../utils/toBase64';

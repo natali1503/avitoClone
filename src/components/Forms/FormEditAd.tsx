@@ -3,16 +3,16 @@ import { useDispatch } from 'react-redux';
 import { FC, useState } from 'react';
 import { Box } from '@mui/material';
 
-import { CommonFields, FieldsByType } from '../general/FormField/formFieldNames';
-import { Categories, CategoriesValues } from '../general/FormField/Categories';
-import { updatedDataToDisplay, IAdToDisplay, IDataToDisplay } from '../store/adInfoSlice';
-import { IAd, TypeFormData } from '../general/TypeFormData';
-import { getIdByText } from '../utils/getIdByText';
-import { getIdFields } from '../utils/getIdFields';
-import { AppDispatch } from '../store';
+import { CommonFields, FieldsByType } from '../../general/FormField/formFieldNames';
+import { Categories, CategoriesValues } from '../../general/FormField/Categories';
+import { updatedDataToDisplay, IAdToDisplay, IDataToDisplay } from '../../store/adInfoSlice';
+import { IAd, TypeFormData } from '../../general/TypeFormData';
+import { getIdByText } from '../../utils/getIdByText';
+import { getIdFields } from '../../utils/getIdFields';
+import { AppDispatch } from '../../store';
 
-import { CustomButton } from './CustomButton';
-import { Title } from './Title';
+import { CustomButton } from '../CustomButton';
+import { Title } from '../Title';
 import { Form } from './Form';
 
 interface IFormEditAd {
@@ -88,6 +88,7 @@ export const FormEditAd: FC<IFormEditAd> = ({ onSubmit, dataForEditing }) => {
               control={control}
               errors={errors}
               dataForEditing={dataForEditing?.data}
+              dataTestId={'editAdStep1'}
             />
           )}
 
@@ -98,6 +99,7 @@ export const FormEditAd: FC<IFormEditAd> = ({ onSubmit, dataForEditing }) => {
               control={control}
               errors={errors}
               dataForEditing={dataForEditing?.data}
+              dataTestId={'editAdStep2'}
             />
           )}
 

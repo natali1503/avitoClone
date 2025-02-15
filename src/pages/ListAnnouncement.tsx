@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 //@ts-expect-error: for test
 import React, { useEffect, useMemo } from 'react';
-import { Box, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { Box } from '@mui/material';
 
 import { ListAnnouncementSkeleton } from '../components/Skeleton/ListAnnouncementSkeleton';
 import { CustomPagination } from '../components/pagination/CustomPagination';
@@ -14,7 +14,6 @@ import { RouterPath } from '../router/routerPath';
 import { AppDispatch, RootState } from '../store';
 import { useFilters } from '../hooks/useFilters';
 import { Title } from '../components/Title';
-import { Item } from '../components/Item';
 import { getAnnouncements } from '../store/announcementsSlice';
 import { ListItems } from '../components/ListAnnouncement/ListItems';
 // import { getAnnouncements } from '../api-actions';
