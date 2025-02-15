@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { RouterPath } from '../router/routerPath';
 import { IDataToDisplay } from '../store/adInfoSlice';
+import { deleteAdById } from '../api/api-actions';
 
 import { CustomButton } from './CustomButton';
 import { ImageWithPlaceholder } from './Image';
@@ -24,7 +25,7 @@ export const DetailsAd: FC<IDetailsAd> = ({ dataToDisplay, id }) => {
           alt={`Изображение по объявлению ${dataToDisplay?.data[0].value}`}
         />
       </Box>
-      <Box display={'flex'} flexDirection={'column'} gap={'2rem'}>
+      <Box display={'flex'} flexDirection={'column'} gap={'2rem'} minWidth={'25rem'}>
         {dataToDisplay &&
           dataToDisplay.data.map((el, i) => (
             <Box key={+i} display={'flex'} flexDirection={'column'} gap={'0.5rem'}>
@@ -33,12 +34,25 @@ export const DetailsAd: FC<IDetailsAd> = ({ dataToDisplay, id }) => {
             </Box>
           ))}
       </Box>
-      <CustomButton
-        text='Редактировать'
-        onClick={() => {
-          navigate(RouterPath.Form, { state: { id } });
-        }}
-      />
+      <Box display={'flex'} flexDirection={'column'} gap={'2rem'}>
+        <CustomButton
+          text='Редактировать'
+          onClick={() => {
+            navigate(RouterPath.Form, { state: { id } });
+          }}
+        />
+        <CustomButton
+          text='Удалить'
+          onClick={() => {
+            const controller = new AbortController();
+            const signal = controller.signal;
+            deleteAdById(id, signal);
+            navigate(RouterPath.List);
+          }}
+          color='warning'
+          sx={{ minWidth: '100%' }}
+        />
+      </Box>
     </Box>
   );
 };

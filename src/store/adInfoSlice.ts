@@ -4,7 +4,7 @@ import { Categories, CategoriesValues } from '../general/FormField/Categories';
 import { getIdFields } from '../utils/getIdFields';
 import { AdResponse } from '../api/AdResponse';
 import { CommonFields, FieldsByType } from '../general/FormField/formFieldNames';
-import { getAdById } from '../api-actions';
+import { getAdById } from '../api/api-actions';
 
 export interface IAdToDisplay {
   id: string;

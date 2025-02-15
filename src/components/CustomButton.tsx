@@ -1,8 +1,8 @@
-import { Box, Button } from '@mui/material';
+import { Box, Button, ButtonProps } from '@mui/material';
 //@ts-expect-error: for test
 import React, { FC } from 'react';
 
-interface ICustomButton {
+interface ICustomButton extends ButtonProps {
   text: string;
   href?: string;
   onClick?: () => void;
@@ -11,17 +11,25 @@ interface ICustomButton {
   dataTestId?: string;
 }
 
-export const CustomButton: FC<ICustomButton> = ({ text, href, onClick, type, disabled = true, dataTestId }) => {
+export const CustomButton: FC<ICustomButton> = ({
+  text,
+  href,
+  onClick,
+  type,
+  disabled = true,
+  dataTestId,
+  ...props
+}) => {
   return (
     <Box display={'flex'}>
       <Button
         href={href}
         variant='outlined'
-        sx={{ textTransform: 'none' }}
         onClick={onClick}
         type={type}
         disabled={!disabled}
         data-testid={dataTestId}
+        {...props}
       >
         {text}
       </Button>

@@ -6,16 +6,15 @@ import { Box } from '@mui/material';
 
 import { ListAnnouncementSkeleton } from '../components/Skeleton/ListAnnouncementSkeleton';
 import { CustomPagination } from '../components/pagination/CustomPagination';
+import { ListItems } from '../components/ListAnnouncement/ListItems';
 import { CustomButton } from '../components/CustomButton';
-import { FiltersPanel } from '../components/FiltersPanel';
+import { FiltersPanel } from '../components/FiltersPanel/FiltersPanel';
 import { usePagination } from '../hooks/usePagination';
 import { RouterPath } from '../router/routerPath';
 import { AppDispatch, RootState } from '../store';
 import { useFilters } from '../hooks/useFilters';
 import { Title } from '../components/Title';
-import { getAnnouncements } from '../store/announcementsSlice';
-import { ListItems } from '../components/ListAnnouncement/ListItems';
-// import { getAnnouncements } from '../api-actions';
+import { getAnnouncements } from '../api/api-actions';
 
 export function ListAnnouncement() {
   const { loading, data } = useSelector((state: RootState) => {

@@ -1,21 +1,7 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-// import { getAnnouncements } from '../api-actions';
+import { getAnnouncements } from '../api/api-actions';
 import { AdResponse } from '../api/AdResponse';
-import { APIRoute } from '../api/APIRoute';
-import { api } from '../api';
-
-export const getAnnouncements = createAsyncThunk<AdResponse[], AbortSignal>(
-  'announcements/getAnnouncements',
-  async (signal) => {
-    try {
-      const response = await api.get(APIRoute.getAds.path, { signal });
-      if (response.status === 200) return response.data;
-    } catch (e) {
-      console.log(e);
-    }
-  },
-);
 
 const announcementsSlice = createSlice({
   name: 'announcements',

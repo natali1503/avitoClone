@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 
 import { AppDispatch, RootState } from '../store';
-import { getAdById } from '../api-actions';
+import { getAdById } from '../api/api-actions';
 import { formattingDataForOutput } from '../store/adInfoSlice';
 
 export function useDetailsAd() {

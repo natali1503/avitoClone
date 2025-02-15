@@ -28,16 +28,15 @@ export const Item: FC<IItem> = ({ id, name, location, type, photo, dataTestId })
         flexDirection: 'row',
         border: '1px solid rgba(0, 0, 0, 0.23)',
         borderRadius: '10px',
-        justifyContent: 'space-around',
-        padding: '20px 30px',
-        gap: '5rem',
+        padding: '2rem 4rem',
+        gap: '8rem',
         alignItems: 'center',
       }}
     >
       <Box width={'8rem'} height={'8rem'} sx={{ border: '1px solid rgba(0, 0, 0, 0.23)', borderRadius: '10px' }}>
         <ImageWithPlaceholder src={photo} alt={`Изображение по объявлению ${name}`} />
       </Box>
-      <Box display={'flex'} flexDirection={'column'} gap={'5px'}>
+      <Box display={'flex'} flexDirection={'column'} gap={'0.5rem'} flex={1}>
         <Typography>{name}</Typography>
         <Typography>{location}</Typography>
         <Typography>{type}</Typography>
