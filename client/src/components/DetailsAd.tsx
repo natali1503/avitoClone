@@ -1,7 +1,7 @@
+import { useNavigate, useNavigationType } from 'react-router-dom';
 import { Box, Typography } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 //@ts-expect-error: for test
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 
 import { TypeFormData } from '../general/TypeFormData';
 import { IDataToDisplay } from '../store/adInfoSlice';
@@ -27,8 +27,14 @@ export const DetailsAd: FC<IDetailsAd> = ({ dataToDisplay, id }) => {
     },
     {} as Record<keyof TypeFormData, string | number>,
   ) as TypeFormData;
+  const { initEditMode, finishingEditing } = useDraft();
 
-  const { initEditMode } = useDraft();
+  const navigationType = useNavigationType();
+  useEffect(() => {
+    if (navigationType === 'POP') {
+      finishingEditing();
+    }
+  }, [navigationType, finishingEditing]);
 
   return (
     <Box display={'flex'} flexDirection={'row'} gap={'5rem'} data-testid='detailsAd'>

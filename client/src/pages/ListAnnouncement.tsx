@@ -1,20 +1,21 @@
 import { useDispatch, useSelector } from 'react-redux';
 //@ts-expect-error: for test
 import React, { useEffect, useLayoutEffect, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useNavigationType } from 'react-router-dom';
 import { Box } from '@mui/material';
 
 import { ListAnnouncementSkeleton } from '../components/Skeleton/ListAnnouncementSkeleton';
 import { CustomPagination } from '../components/pagination/CustomPagination';
+import { FiltersPanel } from '../components/FiltersPanel/FiltersPanel';
 import { ListItems } from '../components/ListAnnouncement/ListItems';
 import { CustomButton } from '../components/CustomButton';
-import { FiltersPanel } from '../components/FiltersPanel/FiltersPanel';
 import { usePagination } from '../hooks/usePagination';
+import { getAnnouncements } from '../api/api-actions';
 import { RouterPath } from '../router/routerPath';
 import { AppDispatch, RootState } from '../store';
 import { useFilters } from '../hooks/useFilters';
 import { Title } from '../components/Title';
-import { getAnnouncements } from '../api/api-actions';
+import { useDraft } from '../hooks/useDraft';
 
 export function ListAnnouncement() {
   const { loading } = useSelector((state: RootState) => {
@@ -22,6 +23,7 @@ export function ListAnnouncement() {
   });
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
+  const navigationType = useNavigationType();
   const { filteredData, notFoundData } = useFilters();
   const { currentPage, totalPages, indexOfLastItem, indexOfFirstItem, setCurrentPage } = usePagination({
     quantityAd: filteredData.length || 0,
@@ -35,26 +37,27 @@ export function ListAnnouncement() {
     return () => controller.abort();
   }, [dispatch]);
 
+  const { clearDraft } = useDraft();
   const dataToDisplay = useMemo(() => {
     return filteredData?.slice(indexOfFirstItem, indexOfLastItem);
   }, [filteredData, indexOfLastItem, indexOfFirstItem]);
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [filteredData]);
+  }, [filteredData, setCurrentPage]);
+
+  useEffect(() => {
+    if (navigationType === 'POP') {
+      clearDraft();
+    }
+  }, [navigationType, clearDraft]);
 
   return loading ? (
     <ListAnnouncementSkeleton />
   ) : (
     <Box display={'flex'} flexDirection={'column'} gap={'2rem'}>
       <Title title='Список объявлений' />
-      <Box
-        display={'flex'}
-        flexDirection={'column'}
-        gap={'2rem'}
-        flex={1}
-        //  sx={{ backgroundColor: ' rgb(245, 246, 245)' }}
-      >
+      <Box display={'flex'} flexDirection={'column'} gap={'2rem'} flex={1}>
         <Box display={'flex'} flexDirection={'row'} gap={'1.5rem'} justifyContent={'flex-end'}>
           <CustomButton
             text='Разместить объявление'

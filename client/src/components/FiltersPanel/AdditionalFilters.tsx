@@ -11,8 +11,6 @@ export const AdditionalFilters: FC = () => {
   const { listAdditionalFilters, additionalFiltersState, handleAdditionalFilters } = useFilters();
 
   function handleChange(id: string, value: string) {
-    console.log(id, value);
-
     handleAdditionalFilters({ id, value });
   }
 
