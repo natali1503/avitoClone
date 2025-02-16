@@ -1,8 +1,8 @@
 import { Box, Skeleton } from '@mui/material';
 //@ts-expect-error: for test
-import React from 'react';
+import React, { FC } from 'react';
 
-export function ItemSkeleton() {
+export const ItemSkeleton: FC = () => {
   return (
     <Box
       sx={{
@@ -26,4 +26,4 @@ export function ItemSkeleton() {
       <Skeleton width={'6.5rem'} height={'4.2rem'} variant='rectangular' sx={{ borderRadius: '4px' }} />
     </Box>
   );
-}
+};

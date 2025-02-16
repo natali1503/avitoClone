@@ -1,42 +1,77 @@
 import { SubmitHandler, useForm, useWatch } from 'react-hook-form';
 //@ts-expect-error: for test
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 
-import { IAd, TypeFormData } from '../../general/TypeFormData';
 import { CommonFields, FieldsByType } from '../../general/FormField/formFieldNames';
 import { Categories, CategoriesValues } from '../../general/FormField/Categories';
+import { InitValueForm } from '../../general/FormField/InitValueForm';
+import { IAd, TypeFormData } from '../../general/TypeFormData';
+import { getIdFields } from '../../utils/getIdFields';
 import { getIdByText } from '../../utils/getIdByText';
+import { useDraft } from '../../hooks/useDraft';
 import { CustomButton } from '../CustomButton';
 import { Title } from '../Title';
 
 import { Form } from './Form';
 
 interface IFormCreateAd {
-  onSubmit: SubmitHandler<TypeFormData>;
+  formSubmit: SubmitHandler<TypeFormData>;
 }
 
-export const FormCreateAd: FC<IFormCreateAd> = ({ onSubmit }) => {
+export const FormCreateAd: FC<IFormCreateAd> = ({ formSubmit }) => {
+  const { draft, setDraft, clearDraft } = useDraft();
   const {
     control,
     trigger,
     formState: { errors },
     handleSubmit,
-  } = useForm<TypeFormData>({ mode: 'onTouched' });
+    watch,
+    reset,
+  } = useForm<TypeFormData>({
+    defaultValues: draft || InitValueForm,
+    mode: 'onTouched',
+  });
   const [currentStep, setCurrentStep] = useState(1);
 
   const type = getIdByText(Categories, useWatch({ control, name: 'type' }));
-
   const handleClick = (step: number) => setCurrentStep(step);
   const handleClickNextStep = async () => {
     const isValid = await trigger(CommonFields.map((field) => field.id) as (keyof IAd)[]);
-    if (isValid) handleClick(2);
+    if (isValid) {
+      const allFieldsId = [...getIdFields(type as CategoriesValues), ...getIdFields('commonFields')];
+      const tempDraft = allFieldsId.reduce<Record<keyof TypeFormData, string | number | File[]>>(
+        (acc, id) => {
+          acc[id as keyof TypeFormData] = draft?.[id as keyof TypeFormData] ?? '';
+          return acc;
+        },
+        {} as Record<keyof TypeFormData, string | number | File[]>,
+      );
+
+      reset(tempDraft as TypeFormData);
+      handleClick(2);
+    }
   };
+
+  //Сохранение данных в localStorage при изменении формы
+  useEffect(() => {
+    const subscription = watch((values) => {
+      setDraft(values as TypeFormData);
+    });
+
+    return () => subscription.unsubscribe();
+  }, [watch, setDraft]);
 
   return (
     <Box display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'} gap={'3rem'}>
       <Title title={'Форма размещения'} />
-      <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
+      <form
+        onSubmit={handleSubmit((data) => {
+          clearDraft(); // Очистка черновика после отправки
+          formSubmit(data);
+        })}
+        style={{ width: '100%' }}
+      >
         <Box
           display={'flex'}
           flexDirection={'column'}

@@ -5,21 +5,19 @@ import React, { FC } from 'react';
 
 import { IField } from '../../general/FormField/formFieldNames';
 import { TypeFormData } from '../../general/TypeFormData';
-import { IAdToDisplay } from '../../store/adInfoSlice';
-import { Title } from '../Title';
 import { CustomInput } from '../Input/CustomInput';
 import { CustomSelect } from '../CustomSelect';
+import { Title } from '../Title';
 
 interface IForm {
   formTitle: string;
   fields: IField[];
   control: Control<TypeFormData>;
   errors: FieldErrors<TypeFormData>;
-  dataForEditing?: IAdToDisplay[];
   dataTestId: string;
 }
 
-export const Form: FC<IForm> = ({ formTitle, fields, control, errors, dataForEditing, dataTestId }) => {
+export const Form: FC<IForm> = ({ formTitle, fields, control, errors, dataTestId }) => {
   return (
     <Box display={'flex'} flexDirection={'column'} gap={'3rem'} data-testid={dataTestId}>
       <Title title={formTitle} />
@@ -44,7 +42,6 @@ export const Form: FC<IForm> = ({ formTitle, fields, control, errors, dataForEdi
                 required={element.required}
                 error={!!errors[element.id as keyof TypeFormData]}
                 errorMessage={errors[element.id as keyof TypeFormData]?.message || ''}
-                defaultValue={dataForEditing?.filter((el) => el.id === element.id)[0]?.value}
                 adornment={element.adornment}
                 dataTestId={element.id}
               />
@@ -60,7 +57,6 @@ export const Form: FC<IForm> = ({ formTitle, fields, control, errors, dataForEdi
                 required={element.required}
                 error={!!errors[element.id as keyof TypeFormData]}
                 errorMessage={errors[element.id as keyof TypeFormData]?.message || ''}
-                defaultValue={dataForEditing?.filter((el) => el.id === element.id)[0].value}
                 dataTestId={element.id}
               />
             );

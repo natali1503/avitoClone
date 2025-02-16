@@ -1,14 +1,16 @@
+import { useNavigate, useNavigationType } from 'react-router-dom';
 import { Box, Typography } from '@mui/material';
 //@ts-expect-error: for test
-import React, { FC } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { FC, useEffect } from 'react';
 
-import { RouterPath } from '../router/routerPath';
+import { TypeFormData } from '../general/TypeFormData';
 import { IDataToDisplay } from '../store/adInfoSlice';
+import { RouterPath } from '../router/routerPath';
 import { deleteAdById } from '../api/api-actions';
+import { useDraft } from '../hooks/useDraft';
 
-import { CustomButton } from './CustomButton';
 import { ImageWithPlaceholder } from './Image';
+import { CustomButton } from './CustomButton';
 
 interface IDetailsAd {
   dataToDisplay: IDataToDisplay;
@@ -17,6 +19,22 @@ interface IDetailsAd {
 
 export const DetailsAd: FC<IDetailsAd> = ({ dataToDisplay, id }) => {
   const navigate = useNavigate();
+  const initValue = dataToDisplay.data.reduce(
+    (acc, el) => {
+      const typedKey = el.id as keyof TypeFormData;
+      acc[typedKey] = el.value;
+      return acc;
+    },
+    {} as Record<keyof TypeFormData, string | number>,
+  ) as TypeFormData;
+  const { initEditMode, finishingEditing } = useDraft();
+
+  const navigationType = useNavigationType();
+  useEffect(() => {
+    if (navigationType === 'POP') {
+      finishingEditing();
+    }
+  }, [navigationType, finishingEditing]);
 
   return (
     <Box display={'flex'} flexDirection={'row'} gap={'5rem'} data-testid='detailsAd'>
@@ -41,7 +59,8 @@ export const DetailsAd: FC<IDetailsAd> = ({ dataToDisplay, id }) => {
         <CustomButton
           text='Редактировать'
           onClick={() => {
-            navigate(RouterPath.Form, { state: { id, dataToDisplay } });
+            navigate(RouterPath.Form, { state: { id } });
+            initEditMode(initValue);
           }}
         />
         <CustomButton

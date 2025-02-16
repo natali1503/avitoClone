@@ -1,84 +1,89 @@
 import { SubmitHandler, useForm, useWatch } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
 import { FC, useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 
-import { updatedDataToDisplay, IAdToDisplay, IDataToDisplay, reset } from '../../store/adInfoSlice';
 import { CommonFields, FieldsByType } from '../../general/FormField/formFieldNames';
 import { Categories, CategoriesValues } from '../../general/FormField/Categories';
 import { IAd, TypeFormData } from '../../general/TypeFormData';
 import { getIdByText } from '../../utils/getIdByText';
 import { getIdFields } from '../../utils/getIdFields';
-import { AppDispatch } from '../../store';
 import { CustomButton } from '../CustomButton';
 import { Title } from '../Title';
+import { useDraft } from '../../hooks/useDraft';
+import { InitValueForm } from '../../general/FormField/InitValueForm';
 
 import { Form } from './Form';
 
 interface IFormEditAd {
-  onSubmit: SubmitHandler<TypeFormData>;
-  dataForEditing: IDataToDisplay;
+  formSubmit: SubmitHandler<TypeFormData>;
 }
 
-export const FormEditAd: FC<IFormEditAd> = ({ onSubmit, dataForEditing }) => {
+export const FormEditAd: FC<IFormEditAd> = ({ formSubmit }) => {
+  const { draft, setDraft, finishingEditing, initTypeAd } = useDraft();
   const {
     control,
+    watch,
     trigger,
     formState: { errors },
     handleSubmit,
-  } = useForm<TypeFormData>({ mode: 'onTouched' });
-
+    reset,
+  } = useForm<TypeFormData>({
+    defaultValues: draft || InitValueForm,
+    mode: 'onTouched',
+  });
   const [currentStep, setCurrentStep] = useState(1);
-  const dispatch = useDispatch<AppDispatch>();
   const type =
     getIdByText(Categories, useWatch({ control, name: 'type' })) ||
-    Categories.filter((el) => el.text === dataForEditing?.data?.filter((el) => el?.id === 'type')[0]?.value)[0]?.id;
+    Categories.filter((el) => el.text === initTypeAd)[0]?.id;
 
   const handleClick = (step: number) => setCurrentStep(step);
+
+  //Сохранение данных в localStorage при изменении формы
+  useEffect(() => {
+    const subscription = watch((values) => {
+      setDraft(values as TypeFormData);
+    });
+
+    return () => subscription.unsubscribe();
+  }, [watch, setDraft]);
 
   const handleClickNextStep = async () => {
     const isValid = await trigger(CommonFields.map((field) => field.id) as (keyof IAd)[]);
     if (isValid) {
-      const currentTypeValue = dataForEditing.data.filter((el) => el.id === 'type')[0].value as string;
-      const currentTypeId = getIdByText(Categories, currentTypeValue) as CategoriesValues;
+      const currentTypeId = getIdByText(Categories, initTypeAd) as CategoriesValues;
       //тип объявления не меняется
       if (currentTypeId === type) {
         handleClick(2);
       }
       //тип объявления меняется
       else {
-        const idForRemove = getIdFields(currentTypeId);
-        const idForAdd = getIdFields(type as CategoriesValues);
-        let updatedDataForEditing: IAdToDisplay[] = [];
-        updatedDataForEditing = dataForEditing.data.filter((el) => !idForRemove.includes(el.id));
-        //удаление дополнительных полей по старому типу
-        idForAdd.forEach((id) => {
-          const additionalFieldsByType = FieldsByType[type as CategoriesValues];
-          const field = additionalFieldsByType.filter((el) => el.id === id)[0];
-          //добавление дополнительных полей по новому типу
-          updatedDataForEditing.push({
-            id,
-            fieldName: field.fieldName,
-            value: '',
-          });
-        });
-
-        dispatch(updatedDataToDisplay(updatedDataForEditing));
-        handleClick(2);
+        if (draft) {
+          const allFieldsId = [...getIdFields(type as CategoriesValues), ...getIdFields('commonFields')];
+          const tempDraft = allFieldsId.reduce<Record<keyof TypeFormData, string | number | File[]>>(
+            (acc, id) => {
+              acc[id as keyof TypeFormData] = draft?.[id as keyof TypeFormData] ?? '';
+              return acc;
+            },
+            {} as Record<keyof TypeFormData, string | number | File[]>,
+          );
+          setDraft(tempDraft as TypeFormData);
+          reset(tempDraft as TypeFormData);
+          handleClick(2);
+        }
       }
     }
   };
 
-  useEffect(() => {
-    return () => {
-      dispatch(reset());
-    };
-  }, [dispatch]);
-
   return (
     <Box display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'} gap={'3rem'}>
       <Title title={'Форма редактирования'} />
-      <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
+      <form
+        onSubmit={handleSubmit((data) => {
+          finishingEditing(); // Очистка черновика после отправки
+          formSubmit(data);
+        })}
+        style={{ width: '100%' }}
+      >
         <Box
           display={'flex'}
           flexDirection={'column'}
@@ -93,7 +98,6 @@ export const FormEditAd: FC<IFormEditAd> = ({ onSubmit, dataForEditing }) => {
               formTitle={'Шаг 1'}
               control={control}
               errors={errors}
-              dataForEditing={dataForEditing?.data}
               dataTestId={'editAdStep1'}
             />
           )}
@@ -104,7 +108,6 @@ export const FormEditAd: FC<IFormEditAd> = ({ onSubmit, dataForEditing }) => {
               formTitle={'Шаг 2'}
               control={control}
               errors={errors}
-              dataForEditing={dataForEditing?.data}
               dataTestId={'editAdStep2'}
             />
           )}

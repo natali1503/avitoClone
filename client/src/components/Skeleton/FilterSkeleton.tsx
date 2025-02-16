@@ -1,8 +1,8 @@
 import { Box, Skeleton } from '@mui/material';
 //@ts-expect-error: for test
-import React from 'react';
+import React, { FC } from 'react';
 
-export function FilterSkeleton() {
+export const FilterSkeleton: FC = () => {
   return (
     <Box
       sx={{
@@ -23,4 +23,4 @@ export function FilterSkeleton() {
       </Box>
     </Box>
   );
-}
+};

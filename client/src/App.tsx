@@ -6,7 +6,7 @@ import React from 'react';
 import { ListAnnouncement } from './pages/ListAnnouncement';
 import { PageAnnouncement } from './pages/PageAnnouncement';
 import { RouterPath } from './router/routerPath';
-import { PostingAds } from './pages/ControlAds';
+import { ControlAds } from './pages/ControlAds';
 import { useMode } from './theme';
 import { NotFoundPage } from './pages/NotFoundPage';
 
@@ -19,7 +19,7 @@ function App() {
           <Routes>
             <Route path='/' element={<ListAnnouncement />} />
             <Route path={RouterPath.List} element={<ListAnnouncement />} />
-            <Route path={RouterPath.Form} element={<PostingAds />} />
+            <Route path={RouterPath.Form} element={<ControlAds />} />
             <Route path={RouterPath.Item} element={<PageAnnouncement />} />
             <Route path='*' element={<NotFoundPage />} />
           </Routes>

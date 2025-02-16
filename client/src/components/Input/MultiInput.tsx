@@ -1,5 +1,5 @@
-import { Control, Controller } from 'react-hook-form';
 import { Box, FormControl, FormHelperText, FormLabel, InputAdornment, OutlinedInput } from '@mui/material';
+import { Control, Controller } from 'react-hook-form';
 //@ts-expect-error: for test
 import React, { FC } from 'react';
 
@@ -12,7 +12,6 @@ interface IMultiInput {
   fieldName: string;
   required?: boolean;
   error: boolean;
-  defaultValue?: string | number;
   adornment?: string;
   dataTestId: string;
   errorMessage?: string;
@@ -25,7 +24,6 @@ export const MultiInput: FC<IMultiInput> = ({
   fieldName,
   required,
   error,
-  defaultValue = '',
   adornment = '',
   errorMessage,
   dataTestId,
@@ -34,7 +32,6 @@ export const MultiInput: FC<IMultiInput> = ({
     <Controller
       name={id}
       control={control}
-      defaultValue={defaultValue}
       rules={required ? { required: 'Заполните обязательное поле' } : undefined}
       render={({ field }) => (
         <FormControl
