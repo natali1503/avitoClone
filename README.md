@@ -79,6 +79,7 @@
 
    ```sh
    cd avitoClone/client
+   npm i
    npm run dev
    ```
 
@@ -86,7 +87,8 @@
 
    ```sh
    cd avitoClone/server
-   npm run start
+   npm i
+   npm start
    ```
 
 4. Откройте в браузере:
