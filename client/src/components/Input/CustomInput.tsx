@@ -12,7 +12,7 @@ interface ICustomInput {
   id: keyof TypeFormData;
   control: Control<TypeFormData>;
   fieldName: string;
-  required?: boolean;
+  required: boolean;
   adornment?: string;
   error: boolean;
   errorMessage?: string;
@@ -30,29 +30,27 @@ export const CustomInput: FC<ICustomInput> = ({
   dataTestId,
   errorMessage,
 }) => {
-  {
-    return type !== 'file' ? (
-      <MultiInput
-        type={type}
-        id={id}
-        control={control}
-        fieldName={fieldName}
-        required={required}
-        error={error}
-        errorMessage={errorMessage}
-        adornment={adornment}
-        dataTestId={dataTestId}
-      />
-    ) : (
-      <FileInput
-        id={id}
-        control={control}
-        fieldName={fieldName}
-        required={required}
-        error={error}
-        errorMessage={errorMessage}
-        dataTestId={dataTestId}
-      />
-    );
-  }
+  return type !== 'file' ? (
+    <MultiInput
+      type={type}
+      id={id}
+      control={control}
+      fieldName={fieldName}
+      required={required}
+      error={error}
+      errorMessage={errorMessage}
+      adornment={adornment}
+      dataTestId={dataTestId}
+    />
+  ) : (
+    <FileInput
+      id={id}
+      control={control}
+      fieldName={fieldName}
+      required={required}
+      error={error}
+      errorMessage={errorMessage}
+      dataTestId={dataTestId}
+    />
+  );
 };

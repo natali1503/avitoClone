@@ -3,9 +3,11 @@ import { SubmitHandler, useForm, useWatch } from 'react-hook-form';
 import React, { FC, useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 
-import { IAd, TypeFormData } from '../../general/TypeFormData';
 import { CommonFields, FieldsByType } from '../../general/FormField/formFieldNames';
 import { Categories, CategoriesValues } from '../../general/FormField/Categories';
+import { InitValueForm } from '../../general/FormField/InitValueForm';
+import { IAd, TypeFormData } from '../../general/TypeFormData';
+import { getIdFields } from '../../utils/getIdFields';
 import { getIdByText } from '../../utils/getIdByText';
 import { useDraft } from '../../hooks/useDraft';
 import { CustomButton } from '../CustomButton';
@@ -25,14 +27,30 @@ export const FormCreateAd: FC<IFormCreateAd> = ({ formSubmit }) => {
     formState: { errors },
     handleSubmit,
     watch,
-  } = useForm<TypeFormData>({ defaultValues: draft || {}, mode: 'onTouched' });
+    reset,
+  } = useForm<TypeFormData>({
+    defaultValues: draft || InitValueForm,
+    mode: 'onTouched',
+  });
   const [currentStep, setCurrentStep] = useState(1);
 
   const type = getIdByText(Categories, useWatch({ control, name: 'type' }));
   const handleClick = (step: number) => setCurrentStep(step);
   const handleClickNextStep = async () => {
     const isValid = await trigger(CommonFields.map((field) => field.id) as (keyof IAd)[]);
-    if (isValid) handleClick(2);
+    if (isValid) {
+      const allFieldsId = [...getIdFields(type as CategoriesValues), ...getIdFields('commonFields')];
+      const tempDraft = allFieldsId.reduce<Record<keyof TypeFormData, string | number | File[]>>(
+        (acc, id) => {
+          acc[id as keyof TypeFormData] = draft?.[id as keyof TypeFormData] ?? '';
+          return acc;
+        },
+        {} as Record<keyof TypeFormData, string | number | File[]>,
+      );
+
+      reset(tempDraft as TypeFormData);
+      handleClick(2);
+    }
   };
 
   //Сохранение данных в localStorage при изменении формы

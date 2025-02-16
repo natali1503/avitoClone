@@ -28,7 +28,7 @@ export const DetailsAd: FC<IDetailsAd> = ({ dataToDisplay, id }) => {
     {} as Record<keyof TypeFormData, string | number>,
   ) as TypeFormData;
 
-  const { editMode, initEditMode } = useDraft();
+  const { initEditMode } = useDraft();
 
   return (
     <Box display={'flex'} flexDirection={'row'} gap={'5rem'} data-testid='detailsAd'>
@@ -55,7 +55,6 @@ export const DetailsAd: FC<IDetailsAd> = ({ dataToDisplay, id }) => {
           onClick={() => {
             navigate(RouterPath.Form, { state: { id } });
             initEditMode(initValue);
-            console.log(editMode);
           }}
         />
         <CustomButton

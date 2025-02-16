@@ -10,6 +10,7 @@ import { getIdFields } from '../../utils/getIdFields';
 import { CustomButton } from '../CustomButton';
 import { Title } from '../Title';
 import { useDraft } from '../../hooks/useDraft';
+import { InitValueForm } from '../../general/FormField/InitValueForm';
 
 import { Form } from './Form';
 
@@ -26,7 +27,10 @@ export const FormEditAd: FC<IFormEditAd> = ({ formSubmit }) => {
     formState: { errors },
     handleSubmit,
     reset,
-  } = useForm<TypeFormData>({ defaultValues: draft || {}, mode: 'onTouched' });
+  } = useForm<TypeFormData>({
+    defaultValues: draft || InitValueForm,
+    mode: 'onTouched',
+  });
   const [currentStep, setCurrentStep] = useState(1);
   const type =
     getIdByText(Categories, useWatch({ control, name: 'type' })) ||
@@ -54,14 +58,16 @@ export const FormEditAd: FC<IFormEditAd> = ({ formSubmit }) => {
       //тип объявления меняется
       else {
         if (draft) {
-          const commonFields = getIdFields('commonFields');
-          const tempDraft: TypeFormData = Object.fromEntries(
-            Object.entries(draft).filter(([key]) => commonFields.includes(key as keyof TypeFormData)),
-          ) as TypeFormData;
-          console.log(tempDraft);
-
-          setDraft(tempDraft);
-          reset(tempDraft);
+          const allFieldsId = [...getIdFields(type as CategoriesValues), ...getIdFields('commonFields')];
+          const tempDraft = allFieldsId.reduce<Record<keyof TypeFormData, string | number | File[]>>(
+            (acc, id) => {
+              acc[id as keyof TypeFormData] = draft?.[id as keyof TypeFormData] ?? '';
+              return acc;
+            },
+            {} as Record<keyof TypeFormData, string | number | File[]>,
+          );
+          setDraft(tempDraft as TypeFormData);
+          reset(tempDraft as TypeFormData);
           handleClick(2);
         }
       }
