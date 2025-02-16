@@ -1,50 +1,107 @@
-# React + TypeScript + Vite
+## Оглавление
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- [Описание проекта](#описание-проекта)
+- [Технологии](#технологии)
+- [Тесты](#тесты)
+- [Установка и запуск](#установка-и-запуск)
+- [Функциональность](#функциональность)
+- [Дополнения в бэкенде](#дополнения-в-бэкенде)
+- [Нереализованные пункты задания](#нереализованные-пункты-задания)
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Описание проекта
 
-## Expanding the ESLint configuration
+**avitoClone** создано в рамках [задания](https://github.com/avito-tech/tech-internship/blob/main/Tech%20Internships/Frontend/Frontend-trainee-assignment-winter-2025/Frontend-trainee-assignment-winter-2025.md).
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Проект представляет собой клон Авито с возможностью размещения, редактирования и просмотра объявлений в трёх категориях:
 
-- Configure the top-level `parserOptions` property like this:
+- Недвижимость
+- Авто
+- Услуги
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+---
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Технологии
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+Проект написан на **TypeScript** с использованием **React** и **Redux Toolkit**.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+| Библиотека           | Описание                                                                                                          |
+| -------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| **MUI**              | UI-библиотека компонентов для стилизации интерфейса.                                                              |
+| **reduxjs/toolkit**  | Управление глобальным состоянием приложения, работа с асинхронными запросами (`createSlice`, `createAsyncThunk`). |
+| **axios**            | Отправка HTTP-запросов, работа с API, обработка ответов и заголовков.                                             |
+| **react-router-dom** | Реализация маршрутизации (переход между страницами).                                                              |
+| **react-hook-form**  | Упрощает работу с формами (создание и редактирование объявлений).                                                 |
+
+---
+
+## Тесты
+
+Тестирование охватывает следующие сценарии:
+
+- Создание объявления.
+- Отображение детального объявления.
+- Отображение всех объявлений.
+- Фильтрация объявлений.
+
+---
+
+## Установка и запуск
+
+1. Клонируйте репозиторий:
+   ```sh
+   git clone https://github.com/natali1503/avitoClone.git
+   ```
+2. Перейдите в каталог проекта:
+   ```sh
+   cd avitoClone
+   ```
+3. Запустите проект с помощью Docker:
+   ```sh
+   docker-compose up --build
+   ```
+
+---
+
+## Функциональность
+
+### **1. Размещение объявлений**
+
+- Форма с несколькими шагами для создания объявления.
+- Поддержка трёх категорий (Недвижимость, Авто, Услуги).
+
+### **2. Список объявлений**
+
+- Отображение всех размещённых объявлений.
+- Пагинация (максимум 5 объявлений на странице).
+- Фильтрация по категории и названию.
+- Фильтрация по обязательным полям внутри категории.
+
+### **3. Просмотр объявлений**
+
+- Детальная карточка объявления с возможностью редактирования и удаления.
+
+### **4. Редактирование объявлений**
+
+- Без смены категории → Обновление данных через PUT-запрос.
+- Со сменой категории → Создаётся новое объявление, а старое удаляется _(так как на бэкенде нельзя менять категорию)_.
+
+---
+
+## Дополнения в бэкенде
+
+- Добавлена поддержка загрузки изображений, так как изначально такой функциональности в API не было.
+
+---
+
+## Нереализованные пункты задания
+
+**Черновик формы при перезагрузке**
+
+- Можно реализовать в будущем через LocalStorage или IndexedDB.
+
+**Авторизация пользователей**
+
+- Не реализовано, так как на бэкенде не предусмотрены эндпоинты для аутентификации.
+- В будущем можно добавить JWT-токены и OAuth для авторизации.
