@@ -16,14 +16,7 @@ export const ListItems: FC<IListItems> = ({ dataToDisplay, notFoundData }) => {
   const isdataToDisplay = dataToDisplay.length > 0;
 
   return (
-    <Box
-      display={'flex'}
-      flexDirection={'column'}
-      justifyContent={'center'}
-      gap={'1.5rem'}
-      data-testid='listItems'
-      margin={'0 auto'}
-    >
+    <Box display={'flex'} flexDirection={'column'} gap={'1.5rem'} data-testid='listItems' margin={'0 auto'}>
       {isdataToDisplay &&
         dataToDisplay.map((item) => (
           <Item

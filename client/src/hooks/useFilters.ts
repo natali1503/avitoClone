@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { Categories, CategoriesValues } from '../general/FormField/Categories';
-import { FieldsByType, IField } from '../general/FormField/formFieldNames';
+import { IField } from '../general/FormField/formFieldNames';
 import { AdResponse } from '../api/AdResponse';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../store';

@@ -41,6 +41,10 @@ export function ListAnnouncement() {
     return filteredData?.slice(indexOfFirstItem, indexOfLastItem);
   }, [filteredData, indexOfLastItem, indexOfFirstItem]);
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filteredData]);
+
   return loading ? (
     <ListAnnouncementSkeleton />
   ) : (
