@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { PageAnnouncementSkeleton } from '../components/Skeleton/PageAnnouncementSkeleton';
@@ -9,7 +9,7 @@ import { Title } from '../components/Title';
 import { AppDispatch } from '../store';
 import { reset } from '../store/adInfoSlice';
 
-export function PageAnnouncement() {
+export const PageAnnouncement: FC = () => {
   const { loading, dataToDisplay, id } = useDetailsAd();
   const dispatch = useDispatch<AppDispatch>();
 
@@ -27,4 +27,4 @@ export function PageAnnouncement() {
       {dataToDisplay && <DetailsAd dataToDisplay={dataToDisplay} id={id || ''} />}
     </Box>
   );
-}
+};

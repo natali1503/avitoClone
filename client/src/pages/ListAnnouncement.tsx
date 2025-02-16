@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 //@ts-expect-error: for test
-import React, { useEffect, useLayoutEffect, useMemo } from 'react';
+import React, { FC, useEffect, useLayoutEffect, useMemo } from 'react';
 import { useNavigate, useNavigationType } from 'react-router-dom';
 import { Box } from '@mui/material';
 
@@ -17,7 +17,7 @@ import { useFilters } from '../hooks/useFilters';
 import { Title } from '../components/Title';
 import { useDraft } from '../hooks/useDraft';
 
-export function ListAnnouncement() {
+export const ListAnnouncement: FC = () => {
   const { loading } = useSelector((state: RootState) => {
     return state.announcements;
   });
@@ -75,4 +75,4 @@ export function ListAnnouncement() {
       <CustomPagination currentPage={currentPage} totalPages={totalPages || 0} setCurrentPage={setCurrentPage} />
     </Box>
   );
-}
+};
