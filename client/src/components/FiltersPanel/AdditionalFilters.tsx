@@ -1,9 +1,11 @@
+//@ts-expect-error: for test
 import React, { FC } from 'react';
 import { Box } from '@mui/material';
 
+import { useFilters } from '../../hooks/useFilters';
+
 import { SelectFieldFilter } from './SelectFieldFilter';
 import { TextFieldFilter } from './TextFieldFilter';
-import { useFilters } from '../../hooks/useFilters';
 
 export const AdditionalFilters: FC = () => {
   const { listAdditionalFilters, additionalFiltersState, handleAdditionalFilters } = useFilters();

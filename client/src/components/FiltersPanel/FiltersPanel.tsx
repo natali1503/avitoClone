@@ -1,10 +1,12 @@
+//@ts-expect-error: for test
 import React, { FC } from 'react';
 import { Box, Paper, Typography } from '@mui/material';
 
-import { AdditionalFilters } from './AdditionalFilters';
 import { useFilters } from '../../hooks/useFilters';
-import { CategoryFilter } from './CategoryFilter';
 import { CustomButton } from '../CustomButton';
+
+import { AdditionalFilters } from './AdditionalFilters';
+import { CategoryFilter } from './CategoryFilter';
 import { SearchBar } from './SearchBar';
 
 export const FiltersPanel: FC = () => {

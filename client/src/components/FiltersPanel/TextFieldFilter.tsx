@@ -1,5 +1,4 @@
-import { Box, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
+import { Box, IconButton, TextField, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import React, { FC } from 'react';
 

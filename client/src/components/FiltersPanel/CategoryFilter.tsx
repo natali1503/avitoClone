@@ -1,8 +1,10 @@
+//@ts-expect-error: for test
 import React, { FC } from 'react';
 
 import { Categories } from '../../general/FormField/Categories';
-import { SelectFieldFilter } from './SelectFieldFilter';
 import { useFilters } from '../../hooks/useFilters';
+
+import { SelectFieldFilter } from './SelectFieldFilter';
 
 export const CategoryFilter: FC = () => {
   const { categories, handleChangeCategories } = useFilters();
