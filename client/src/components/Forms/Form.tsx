@@ -44,7 +44,6 @@ export const Form: FC<IForm> = ({ formTitle, fields, control, errors, dataForEdi
                 required={element.required}
                 error={!!errors[element.id as keyof TypeFormData]}
                 errorMessage={errors[element.id as keyof TypeFormData]?.message || ''}
-                defaultValue={dataForEditing?.filter((el) => el.id === element.id)[0]?.value}
                 adornment={element.adornment}
                 dataTestId={element.id}
               />
@@ -60,7 +59,6 @@ export const Form: FC<IForm> = ({ formTitle, fields, control, errors, dataForEdi
                 required={element.required}
                 error={!!errors[element.id as keyof TypeFormData]}
                 errorMessage={errors[element.id as keyof TypeFormData]?.message || ''}
-                defaultValue={dataForEditing?.filter((el) => el.id === element.id)[0].value}
                 dataTestId={element.id}
               />
             );

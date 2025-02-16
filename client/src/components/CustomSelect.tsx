@@ -12,7 +12,6 @@ interface ICustomSelect {
   fieldName: string;
   items: IItem[];
   required?: boolean;
-  defaultValue?: string | number;
   error: boolean;
   errorMessage?: string;
   dataTestId: string;
@@ -25,7 +24,6 @@ export const CustomSelect: FC<ICustomSelect> = ({
   items,
   required,
   error,
-  defaultValue = '',
   errorMessage,
   dataTestId,
 }) => {
@@ -51,7 +49,6 @@ export const CustomSelect: FC<ICustomSelect> = ({
         <Controller
           name={id}
           control={control}
-          defaultValue={defaultValue}
           rules={required ? { required: 'Заполните обязательное поле' } : undefined}
           render={({ field }) => (
             <Select

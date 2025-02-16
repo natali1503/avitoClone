@@ -13,7 +13,6 @@ interface ICustomInput {
   control: Control<TypeFormData>;
   fieldName: string;
   required?: boolean;
-  defaultValue?: string | number;
   adornment?: string;
   error: boolean;
   errorMessage?: string;
@@ -27,7 +26,6 @@ export const CustomInput: FC<ICustomInput> = ({
   fieldName,
   required,
   error,
-  defaultValue = '',
   adornment = '',
   dataTestId,
   errorMessage,
@@ -41,7 +39,6 @@ export const CustomInput: FC<ICustomInput> = ({
         fieldName={fieldName}
         required={required}
         error={error}
-        defaultValue={defaultValue}
         errorMessage={errorMessage}
         adornment={adornment}
         dataTestId={dataTestId}

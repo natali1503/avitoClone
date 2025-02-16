@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { SubmitHandler } from 'react-hook-form';
 //@ts-expect-error: for test
-import React, { useEffect } from 'react';
+import React, { FC } from 'react';
 
 import { createAd, deleteAdById, updatingAd } from '../api/api-actions';
 import { FormCreateAd } from '../components/Forms/FormCreateAd';
@@ -10,17 +10,15 @@ import { TypeFormData } from '../general/TypeFormData';
 import { RouterPath } from '../router/routerPath';
 import { AdResponse } from '../api/AdResponse';
 import { toBase64 } from '../utils/toBase64';
-import { IDataToDisplay } from '../store/adInfoSlice';
+import { useDraft } from '../hooks/useDraft';
 
-export function PostingAds() {
+export const ControlAds: FC = () => {
   const location = useLocation();
-  const dataForEditing: IDataToDisplay = location.state?.dataToDisplay;
   const id: string = location.state?.id;
   const navigate = useNavigate();
+  const { editMode, initTypeAd } = useDraft();
 
-  const creationMode = !dataForEditing?.data.length;
-
-  const onSubmit: SubmitHandler<TypeFormData> = async (formData: TypeFormData) => {
+  const formSubmit: SubmitHandler<TypeFormData> = async (formData: TypeFormData) => {
     const controller = new AbortController();
     const signal = controller.signal;
 
@@ -28,12 +26,10 @@ export function PostingAds() {
       const file = formData.photo;
       const fileString = file && file[0] ? await toBase64(file[0]) : '';
 
-      if (creationMode) {
+      if (editMode) {
         await createAd({ ...formData, photo: fileString } as AdResponse, signal);
       } else {
-        const type = dataForEditing?.data.filter((el) => el.id === 'type')[0].value;
-
-        if (type !== formData.type && dataForEditing) {
+        if (initTypeAd !== formData.type) {
           // Тип объявления меняется - создаём новое и удаляем старое
           await createAd({ ...formData, photo: fileString } as AdResponse, signal);
           await deleteAdById(String(id), signal);
@@ -45,13 +41,8 @@ export function PostingAds() {
       navigate(RouterPath.List);
     } catch (error) {
       console.error('Ошибка при обработке формы:', error);
-    } finally {
     }
   };
 
-  return creationMode ? (
-    <FormCreateAd onSubmit={onSubmit} />
-  ) : (
-    <FormEditAd onSubmit={onSubmit} dataForEditing={dataForEditing} />
-  );
-}
+  return !editMode ? <FormCreateAd formSubmit={formSubmit} /> : <FormEditAd formSubmit={formSubmit} />;
+};
