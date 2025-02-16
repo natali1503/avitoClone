@@ -5,6 +5,7 @@ import React, { FC } from 'react';
 import { Title } from '../Title';
 
 import { ItemSkeleton } from './ItemSkeleton';
+import { FilterSkeleton } from './FilterSkeleton';
 
 export const ListAnnouncementSkeleton: FC = () => {
   const dataToDisplay = Array(5).fill('');
@@ -12,22 +13,18 @@ export const ListAnnouncementSkeleton: FC = () => {
     <Box display={'flex'} flexDirection={'column'} gap={'2rem'}>
       <Title title='Список объявлений' />
       <Box display={'flex'} flexDirection={'column'} gap={'2rem'}>
-        <Box display={'flex'} flexDirection={'row'} gap={'1.5rem'} justifyContent={'space-between'}>
-          <Skeleton width={'70rem'} height={'3rem'} variant='rectangular' sx={{ borderRadius: '4px' }} />
+        <Box display={'flex'} flexDirection={'row'} gap={'1.5rem'} justifyContent={'flex-end'}>
           <Skeleton width={'10rem'} height={'3rem'} variant='rectangular' sx={{ borderRadius: '4px' }} />
         </Box>
-        <Box
-          display={'flex'}
-          flexDirection={'column'}
-          justifyContent={'center'}
-          gap={'1.5rem'}
-          data-testid='listItems'
-          margin={'0 auto'}
-        >
-          {dataToDisplay && dataToDisplay.map((_, i) => <ItemSkeleton key={+i} />)}
+
+        <Box display={'flex'} flexDirection={'row'} gap={'1.5rem'}>
+          <FilterSkeleton />
+          <Box display={'flex'} flexDirection={'column'} gap={'1.5rem'} margin={'0 auto'}>
+            {dataToDisplay && dataToDisplay.map((_, i) => <ItemSkeleton key={+i} />)}
+          </Box>
         </Box>
       </Box>
-      <Skeleton width={'80rem'} height={'2.5rem'} variant='rectangular' sx={{ borderRadius: '4px' }} />
+      <Skeleton width={'100%'} height={'2.5rem'} variant='rectangular' sx={{ borderRadius: '4px' }} />
     </Box>
   );
 };

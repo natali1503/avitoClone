@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 //@ts-expect-error: for test
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useLayoutEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Box } from '@mui/material';
 
@@ -17,19 +17,17 @@ import { Title } from '../components/Title';
 import { getAnnouncements } from '../api/api-actions';
 
 export function ListAnnouncement() {
-  const { loading, data } = useSelector((state: RootState) => {
+  const { loading } = useSelector((state: RootState) => {
     return state.announcements;
   });
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const { search, categories, filteredData, notFoundData, additionalFilters, handleResetFilters } = useFilters({
-    adList: data,
-  });
+  const { filteredData, notFoundData } = useFilters();
   const { currentPage, totalPages, indexOfLastItem, indexOfFirstItem, setCurrentPage } = usePagination({
     quantityAd: filteredData.length || 0,
   });
   //Получение всех объявлений
-  useEffect(() => {
+  useLayoutEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
 
@@ -54,6 +52,7 @@ export function ListAnnouncement() {
         display={'flex'}
         flexDirection={'column'}
         gap={'2rem'}
+        flex={1}
         //  sx={{ backgroundColor: ' rgb(245, 246, 245)' }}
       >
         <Box display={'flex'} flexDirection={'row'} gap={'1.5rem'} justifyContent={'flex-end'}>
@@ -64,12 +63,7 @@ export function ListAnnouncement() {
           />
         </Box>
         <Box display={'flex'} flexDirection={'row'} gap={'1.5rem'}>
-          <FiltersPanel
-            search={search}
-            categories={categories}
-            additionalFilters={additionalFilters}
-            resetFilters={handleResetFilters}
-          />
+          <FiltersPanel />
 
           <ListItems dataToDisplay={dataToDisplay} notFoundData={notFoundData} />
         </Box>

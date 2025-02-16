@@ -1,21 +1,12 @@
 import React, { FC } from 'react';
 import { Box } from '@mui/material';
 
-import { IField } from '../../general/FormField/formFieldNames';
-
-import { TextFieldFilter } from './TextFieldFilter';
 import { SelectFieldFilter } from './SelectFieldFilter';
+import { TextFieldFilter } from './TextFieldFilter';
+import { useFilters } from '../../hooks/useFilters';
 
-interface IAdditionalFilters {
-  additionalFilters: {
-    listAdditionalFilters: IField[];
-    additionalFiltersState: { [key in string]: string } | null;
-    handleAdditionalFilters: (params: { id: string; value: string }) => void;
-  };
-}
-
-export const AdditionalFilters: FC<IAdditionalFilters> = ({ additionalFilters }) => {
-  const { listAdditionalFilters, additionalFiltersState, handleAdditionalFilters } = additionalFilters;
+export const AdditionalFilters: FC = () => {
+  const { listAdditionalFilters, additionalFiltersState, handleAdditionalFilters } = useFilters();
 
   function handleChange(id: string, value: string) {
     console.log(id, value);

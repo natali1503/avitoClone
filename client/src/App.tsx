@@ -14,7 +14,7 @@ function App() {
   const [theme] = useMode();
   return (
     <ThemeProvider theme={theme}>
-      <Box display='flex' flexDirection={'column'} width={'100%'} minHeight={'100vh'} padding={'4rem 4rem'}>
+      <Box display='flex' flexDirection={'column'} width={'100%'} minHeight={'100vh'} padding={'4rem 2rem'}>
         <Router>
           <Routes>
             <Route path='/' element={<ListAnnouncement />} />

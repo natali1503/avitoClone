@@ -1,10 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 import { FieldsByType, IField } from '../general/FormField/formFieldNames';
 import { CategoriesValues } from '../general/FormField/Categories';
+import { getAnnouncements } from '../api/api-actions';
+import { AdResponse } from '../api/AdResponse';
 
 const filtersSlice = createSlice({
   name: 'filters',
   initialState: {
+    dataToDisplay: <AdResponse[]>[],
     searchName: '',
     categories: <CategoriesValues | ''>'',
     listAdditionalFilters: <IField[]>[],
@@ -43,7 +47,11 @@ const filtersSlice = createSlice({
       state.additionalFiltersState = { ...state.additionalFiltersState, [id]: value };
     },
   },
-  extraReducers: () => {},
+  extraReducers: (builder) => {
+    builder.addCase(getAnnouncements.fulfilled, (state, action) => {
+      state.dataToDisplay = action.payload;
+    });
+  },
 });
 export const { resetFilters, setSearchName, setCategories, setAdditionalFiltersState } = filtersSlice.actions;
 export default filtersSlice.reducer;
