@@ -23,9 +23,8 @@ interface IAdditionalFilters {
 export const AdditionalFilters: FC<IAdditionalFilters> = ({ additionalFilters }) => {
   const { listAdditionalFilters, additionalFiltersState, setAdditionalFiltersState } = additionalFilters;
 
-  function handleChange(id, value) {
+  function handleChange(id: string, value: string) {
     setAdditionalFiltersState((state) => ({ ...state, [id]: value }));
-    console.log(additionalFiltersState);
   }
 
   return (
@@ -36,7 +35,7 @@ export const AdditionalFilters: FC<IAdditionalFilters> = ({ additionalFilters })
             <TextFieldFilter
               fieldName={el.fieldName}
               value={additionalFiltersState[el.id] || ''}
-              setValue={(newValue) => handleChange(el.id, newValue)}
+              setValue={(newValue: string) => handleChange(el.id, newValue)}
               key={+i}
             />
           );
@@ -46,7 +45,7 @@ export const AdditionalFilters: FC<IAdditionalFilters> = ({ additionalFilters })
               fieldName={el.fieldName}
               items={el.items}
               value={additionalFiltersState[el.id] || ''}
-              setValue={(newValue) => handleChange(el.id, newValue)}
+              setValue={(newValue: string) => handleChange(el.id, newValue)}
               key={+i}
             />
           );
