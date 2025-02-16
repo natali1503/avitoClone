@@ -46,7 +46,7 @@
 - [Отображение всех объявлений](https://github.com/natali1503/avitoClone/blob/main/client/__test__/displayListItems.test.js).
 - [Фильтрация объявлений](https://github.com/natali1503/avitoClone/blob/main/client/__test__/filtration.test.js).
 
----
+Реализован [прогон тестов](https://github.com/natali1503/avitoClone/blob/main/.github/workflows/test.yml) на ветке main в GitHub Actions
 
 ## Установка и запуск
 
