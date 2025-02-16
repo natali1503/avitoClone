@@ -22,13 +22,13 @@ export function ListAnnouncement() {
   });
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const { search, categories, filteredData, notFoundData, additionalFilters, resetFilters } = useFilters({
+  const { search, categories, filteredData, notFoundData, additionalFilters, handleResetFilters } = useFilters({
     adList: data,
   });
   const { currentPage, totalPages, indexOfLastItem, indexOfFirstItem, setCurrentPage } = usePagination({
     quantityAd: filteredData.length || 0,
   });
-
+  //Получение всех объявлений
   useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
@@ -64,7 +64,7 @@ export function ListAnnouncement() {
             search={search}
             categories={categories}
             additionalFilters={additionalFilters}
-            resetFilters={resetFilters}
+            resetFilters={handleResetFilters}
           />
 
           <ListItems dataToDisplay={dataToDisplay} notFoundData={notFoundData} />

@@ -8,7 +8,7 @@ interface ISelectFieldFilter<T> {
   value: string;
   fieldName: string;
   items: IItem[];
-  setValue: React.Dispatch<React.SetStateAction<'' | T>>;
+  setValue: (newValue: T | '') => void;
 }
 
 export const SelectFieldFilter = <T,>({ value, fieldName, items, setValue }: ISelectFieldFilter<T>) => {

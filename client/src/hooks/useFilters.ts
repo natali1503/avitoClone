@@ -3,25 +3,22 @@ import { useEffect, useState } from 'react';
 import { Categories, CategoriesValues } from '../general/FormField/Categories';
 import { FieldsByType, IField } from '../general/FormField/formFieldNames';
 import { AdResponse } from '../api/AdResponse';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../store';
+import { resetFilters, setAdditionalFiltersState, setCategories, setSearchName } from '../store/filtersSlice';
 
 type useFilterProps = {
   adList: AdResponse[];
 };
 
 export function useFilters({ adList }: useFilterProps) {
-  const [searchName, setSearchName] = useState('');
-  const [categories, setCategories] = useState<CategoriesValues | ''>('');
-  const [filteredData, setFilteredData] = useState<AdResponse[]>([]);
-  const [additionalFiltersState, setAdditionalFiltersState] = useState<{ [key in string]: string }>({});
-  const notFoundData = (adList || []).length > 0 && filteredData.length === 0;
-  const [listAdditionalFilters, setListAdditionalFilters] = useState<IField[]>([]);
+  const { searchName, categories, listAdditionalFilters, additionalFiltersState } = useSelector((state: RootState) => {
+    return state.filters;
+  });
 
-  function resetFilters() {
-    setSearchName('');
-    setCategories('');
-    setAdditionalFiltersState({});
-    setListAdditionalFilters([]);
-  }
+  const dispatch = useDispatch<AppDispatch>();
+  const [filteredData, setFilteredData] = useState<AdResponse[]>([]);
+  const notFoundData = (adList || []).length > 0 && filteredData.length === 0;
 
   useEffect(() => {
     if (adList) {
@@ -30,38 +27,29 @@ export function useFilters({ adList }: useFilterProps) {
     }
   }, [adList, searchName, categories, additionalFiltersState, listAdditionalFilters]);
 
-  //Заполнение дополнительных фильтров при изменении категории
-  useEffect(() => {
-    if (categories) {
-      setListAdditionalFilters(FieldsByType[categories]);
-      {
-        id: value: '';
-      }
-      const tempAdditionalFiltersState = FieldsByType[categories].reduce(
-        (acc, el) => {
-          acc[el.id] = '';
-          return acc;
-        },
-        {} as { [key in string]: string },
-      );
-      setAdditionalFiltersState(tempAdditionalFiltersState);
-    } else {
-      setListAdditionalFilters([]);
-      setAdditionalFiltersState({});
-    }
-  }, [categories]);
+  function handleResetFilters() {
+    dispatch(resetFilters());
+  }
+  function handleChangeSearchName(value: string) {
+    dispatch(setSearchName(value));
+  }
+  function handleChangeCategories(value: CategoriesValues | '') {
+    dispatch(setCategories(value));
+  }
+  function handleAdditionalFilters(params: { id: string; value: string }) {
+    dispatch(setAdditionalFiltersState(params));
+  }
 
   return {
     search: {
       searchName,
-      setSearchName,
+      handleChangeSearchName,
     },
-    categories: { categories, setCategories },
-    resetFilters,
+    categories: { categories, handleChangeCategories },
+    handleResetFilters,
     notFoundData,
-
     filteredData,
-    additionalFilters: { listAdditionalFilters, additionalFiltersState, setAdditionalFiltersState },
+    additionalFilters: { listAdditionalFilters, additionalFiltersState, handleAdditionalFilters },
   };
 }
 

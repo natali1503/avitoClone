@@ -6,7 +6,7 @@ import React, { FC } from 'react';
 interface ITextFieldFilter {
   value: string;
   fieldName: string;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
+  setValue: (newValue: string) => void;
 }
 
 export const TextFieldFilter: FC<ITextFieldFilter> = ({ value, fieldName, setValue }) => {

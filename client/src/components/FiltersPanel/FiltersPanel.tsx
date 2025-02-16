@@ -11,17 +11,16 @@ import { CustomButton } from '../CustomButton';
 interface IFilters {
   search: {
     searchName: string;
-    setSearchName: React.Dispatch<React.SetStateAction<string>>;
+    handleChangeSearchName: (value: string) => void;
   };
-  categories: { categories: string; setCategories: React.Dispatch<React.SetStateAction<'' | CategoriesValues>> };
+  categories: {
+    categories: CategoriesValues | '';
+    handleChangeCategories: (value: CategoriesValues | '') => void;
+  };
   additionalFilters: {
     listAdditionalFilters: IField[];
-    additionalFiltersState: { [key in string]: string };
-    setAdditionalFiltersState: React.Dispatch<
-      React.SetStateAction<{
-        [x: string]: string;
-      }>
-    >;
+    additionalFiltersState: { [key in string]: string } | null;
+    handleAdditionalFilters: (params: { id: string; value: string }) => void;
   };
 
   resetFilters: () => void;
@@ -40,9 +39,9 @@ export const FiltersPanel: FC<IFilters> = ({ search, categories, additionalFilte
     >
       <Box display={'flex'} flexDirection={'column'} gap={'2.5rem'}>
         <Typography variant='h6'>Фильтрация</Typography>
-        <SearchBar searchName={search.searchName} setSearchName={search.setSearchName} />
+        <SearchBar searchName={search.searchName} setSearchName={search.handleChangeSearchName} />
 
-        <CategoryFilter categories={categories.categories} setCategories={categories.setCategories} />
+        <CategoryFilter categories={categories.categories} setCategories={categories.handleChangeCategories} />
         <AdditionalFilters additionalFilters={additionalFilters} />
         <CustomButton text='Сбросить' onClick={resetFilters} sx={{ width: '100%' }} />
       </Box>

@@ -5,7 +5,7 @@ import React, { FC } from 'react';
 
 interface ISearchBar {
   searchName: string;
-  setSearchName: React.Dispatch<React.SetStateAction<string>>;
+  setSearchName: any;
 }
 
 export const SearchBar: FC<ISearchBar> = ({ searchName, setSearchName }) => {
