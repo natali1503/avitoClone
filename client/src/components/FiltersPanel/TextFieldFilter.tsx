@@ -1,12 +1,11 @@
-import { Box, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
+import { Box, IconButton, TextField, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import React, { FC } from 'react';
 
 interface ITextFieldFilter {
   value: string;
   fieldName: string;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
+  setValue: (newValue: string) => void;
 }
 
 export const TextFieldFilter: FC<ITextFieldFilter> = ({ value, fieldName, setValue }) => {

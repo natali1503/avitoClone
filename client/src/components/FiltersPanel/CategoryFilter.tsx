@@ -1,19 +1,19 @@
+//@ts-expect-error: for test
 import React, { FC } from 'react';
 
-import { Categories, CategoriesValues } from '../../general/FormField/Categories';
+import { Categories } from '../../general/FormField/Categories';
+import { useFilters } from '../../hooks/useFilters';
+
 import { SelectFieldFilter } from './SelectFieldFilter';
 
-interface ICategoryFilter {
-  categories: string;
-  setCategories: React.Dispatch<React.SetStateAction<'' | CategoriesValues>>;
-}
+export const CategoryFilter: FC = () => {
+  const { categories, handleChangeCategories } = useFilters();
 
-export const CategoryFilter: FC<ICategoryFilter> = ({ categories, setCategories }) => {
   return (
     <SelectFieldFilter
       fieldName='Категории объявления'
       items={Categories}
-      setValue={setCategories}
+      setValue={handleChangeCategories}
       value={categories}
     />
   );

@@ -3,15 +3,14 @@ import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 import React, { FC } from 'react';
 
-interface ISearchBar {
-  searchName: string;
-  setSearchName: React.Dispatch<React.SetStateAction<string>>;
-}
+import { useFilters } from '../../hooks/useFilters';
 
-export const SearchBar: FC<ISearchBar> = ({ searchName, setSearchName }) => {
+export const SearchBar: FC = () => {
+  const { searchName, handleChangeSearchName } = useFilters();
+
   function handleChange(e: React.ChangeEvent<{ value: unknown }>) {
     const value = e.target.value as string;
-    setSearchName(value.toLocaleLowerCase());
+    handleChangeSearchName(value.toLocaleLowerCase());
   }
 
   return (
@@ -31,7 +30,7 @@ export const SearchBar: FC<ISearchBar> = ({ searchName, setSearchName }) => {
               <IconButton
                 size='small'
                 onClick={() => {
-                  setSearchName('');
+                  handleChangeSearchName('');
                 }}
               >
                 <CloseIcon />

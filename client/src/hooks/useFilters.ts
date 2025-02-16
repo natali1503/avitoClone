@@ -1,77 +1,52 @@
-import { useEffect, useState } from 'react';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { useMemo } from 'react';
 
-import { Categories, CategoriesValues } from '../general/FormField/Categories';
-import { FieldsByType, IField } from '../general/FormField/formFieldNames';
+import { resetFilters, setAdditionalFiltersState, setCategories, setSearchName } from '../store/filtersSlice';
+import { CategoriesValues } from '../general/FormField/Categories';
+import { filterAdList } from '../utils/filterAdList';
+import { AppDispatch, RootState } from '../store';
 import { AdResponse } from '../api/AdResponse';
 
-type useFilterProps = {
-  adList: AdResponse[];
-};
+export function useFilters() {
+  const dispatch = useDispatch<AppDispatch>();
+  const { dataToDisplay, searchName, categories, listAdditionalFilters, additionalFiltersState } = useSelector(
+    (state: RootState) => state.filters,
+    shallowEqual,
+  );
 
-export function useFilters({ adList }: useFilterProps) {
-  const [searchName, setSearchName] = useState('');
-  const [categories, setCategories] = useState<CategoriesValues | ''>('');
-  const [filteredData, setFilteredData] = useState<AdResponse[]>([]);
-  const [additionalFiltersState, setAdditionalFiltersState] = useState<{ [key in string]: string }>({});
-  const notFoundData = (adList || []).length > 0 && filteredData.length === 0;
-  const [listAdditionalFilters, setListAdditionalFilters] = useState<IField[]>([]);
+  const filteredData: AdResponse[] | [] = useMemo(() => {
+    if (!dataToDisplay || dataToDisplay.length === 0) return [];
+    return filterAdList(dataToDisplay, searchName, categories, additionalFiltersState, listAdditionalFilters);
+  }, [dataToDisplay, searchName, categories, additionalFiltersState, listAdditionalFilters]);
 
-  function resetFilters() {
-    setSearchName('');
-    setCategories('');
-    setAdditionalFiltersState({});
+  const notFoundData = !!dataToDisplay?.length && !filteredData.length;
+
+  function handleResetFilters() {
+    dispatch(resetFilters());
   }
-
-  useEffect(() => {
-    if (adList) {
-      const data = filterAdList(adList, searchName, categories);
-      setFilteredData(data);
-    }
-  }, [adList, searchName, categories]);
-
-  useEffect(() => {
-    if (categories) {
-      setListAdditionalFilters(FieldsByType[categories]);
-      {
-        id: value: '';
-      }
-      const tempAdditionalFiltersState = FieldsByType[categories].reduce(
-        (acc, el) => {
-          acc[el.id] = '';
-          return acc;
-        },
-        {} as { [key in string]: string },
-      );
-      setAdditionalFiltersState(tempAdditionalFiltersState);
-    } else {
-      setListAdditionalFilters([]);
-      setAdditionalFiltersState({});
-    }
-  }, [categories]);
+  function handleChangeSearchName(value: string) {
+    dispatch(setSearchName(value));
+  }
+  function handleChangeCategories(value: CategoriesValues | '') {
+    dispatch(setCategories(value));
+  }
+  function handleAdditionalFilters(params: { id: string; value: string }) {
+    dispatch(setAdditionalFiltersState(params));
+  }
 
   return {
-    search: {
-      searchName,
-      setSearchName,
-    },
-    categories: { categories, setCategories },
-    resetFilters,
+    searchName,
+    handleChangeSearchName,
+
+    categories,
+    handleChangeCategories,
+
+    handleResetFilters,
     notFoundData,
-
     filteredData,
-    additionalFilters: { listAdditionalFilters, additionalFiltersState, setAdditionalFiltersState },
-  };
-}
 
-function filterAdList(adList: AdResponse[], searchName: string = '', categories: string = '') {
-  if (!categories && !searchName) return adList;
-  let result = [...adList];
-  if (categories) {
-    const categorieText = Categories.filter((el) => el.id === categories)[0].text;
-    result = result.filter((ad) => ad.type === categorieText);
-  }
-  if (searchName) {
-    result = result.filter((ad) => ad.name.toLocaleLowerCase().includes(searchName.toLocaleLowerCase()));
-  }
-  return result;
+    listAdditionalFilters,
+    additionalFiltersState,
+    handleAdditionalFilters,
+  };
 }

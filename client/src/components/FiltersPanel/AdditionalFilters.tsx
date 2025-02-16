@@ -1,31 +1,19 @@
+//@ts-expect-error: for test
 import React, { FC } from 'react';
 import { Box } from '@mui/material';
 
-import { SearchBar } from './SearchBar';
-import { CategoryFilter } from './CategoryFilter';
-import { IField } from '../../general/FormField/formFieldNames';
-import { CategoriesValues } from '../../general/FormField/Categories';
-import { TextFieldFilter } from './TextFieldFilter';
+import { useFilters } from '../../hooks/useFilters';
+
 import { SelectFieldFilter } from './SelectFieldFilter';
+import { TextFieldFilter } from './TextFieldFilter';
 
-interface IAdditionalFilters {
-  additionalFilters: {
-    listAdditionalFilters: IField[];
-    additionalFiltersState: { [key in string]: string };
-    setAdditionalFiltersState: React.Dispatch<
-      React.SetStateAction<{
-        [x: string]: string;
-      }>
-    >;
-  };
-}
+export const AdditionalFilters: FC = () => {
+  const { listAdditionalFilters, additionalFiltersState, handleAdditionalFilters } = useFilters();
 
-export const AdditionalFilters: FC<IAdditionalFilters> = ({ additionalFilters }) => {
-  const { listAdditionalFilters, additionalFiltersState, setAdditionalFiltersState } = additionalFilters;
+  function handleChange(id: string, value: string) {
+    console.log(id, value);
 
-  function handleChange(id, value) {
-    setAdditionalFiltersState((state) => ({ ...state, [id]: value }));
-    console.log(additionalFiltersState);
+    handleAdditionalFilters({ id, value });
   }
 
   return (
@@ -35,8 +23,8 @@ export const AdditionalFilters: FC<IAdditionalFilters> = ({ additionalFilters })
           return (
             <TextFieldFilter
               fieldName={el.fieldName}
-              value={additionalFiltersState[el.id] || ''}
-              setValue={(newValue) => handleChange(el.id, newValue)}
+              value={(additionalFiltersState && additionalFiltersState[el.id]) || ''}
+              setValue={(newValue: string) => handleChange(el.id, newValue)}
               key={+i}
             />
           );
@@ -45,12 +33,13 @@ export const AdditionalFilters: FC<IAdditionalFilters> = ({ additionalFilters })
             <SelectFieldFilter
               fieldName={el.fieldName}
               items={el.items}
-              value={additionalFiltersState[el.id] || ''}
-              setValue={(newValue) => handleChange(el.id, newValue)}
+              value={(additionalFiltersState && additionalFiltersState[el.id]) || ''}
+              setValue={(newValue: string) => handleChange(el.id, newValue)}
               key={+i}
             />
           );
         }
+        return null;
       })}
     </Box>
   );

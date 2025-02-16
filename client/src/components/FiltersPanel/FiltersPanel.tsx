@@ -1,33 +1,17 @@
+//@ts-expect-error: for test
 import React, { FC } from 'react';
 import { Box, Paper, Typography } from '@mui/material';
 
-import { SearchBar } from './SearchBar';
-import { CategoryFilter } from './CategoryFilter';
-import { IField } from '../../general/FormField/formFieldNames';
-import { CategoriesValues } from '../../general/FormField/Categories';
-import { AdditionalFilters } from './AdditionalFilters';
+import { useFilters } from '../../hooks/useFilters';
 import { CustomButton } from '../CustomButton';
 
-interface IFilters {
-  search: {
-    searchName: string;
-    setSearchName: React.Dispatch<React.SetStateAction<string>>;
-  };
-  categories: { categories: string; setCategories: React.Dispatch<React.SetStateAction<'' | CategoriesValues>> };
-  additionalFilters: {
-    listAdditionalFilters: IField[];
-    additionalFiltersState: { [key in string]: string };
-    setAdditionalFiltersState: React.Dispatch<
-      React.SetStateAction<{
-        [x: string]: string;
-      }>
-    >;
-  };
+import { AdditionalFilters } from './AdditionalFilters';
+import { CategoryFilter } from './CategoryFilter';
+import { SearchBar } from './SearchBar';
 
-  resetFilters: () => void;
-}
+export const FiltersPanel: FC = () => {
+  const { handleResetFilters } = useFilters();
 
-export const FiltersPanel: FC<IFilters> = ({ search, categories, additionalFilters, resetFilters }) => {
   return (
     <Paper
       sx={{
@@ -40,11 +24,11 @@ export const FiltersPanel: FC<IFilters> = ({ search, categories, additionalFilte
     >
       <Box display={'flex'} flexDirection={'column'} gap={'2.5rem'}>
         <Typography variant='h6'>Фильтрация</Typography>
-        <SearchBar searchName={search.searchName} setSearchName={search.setSearchName} />
+        <SearchBar />
 
-        <CategoryFilter categories={categories.categories} setCategories={categories.setCategories} />
-        <AdditionalFilters additionalFilters={additionalFilters} />
-        <CustomButton text='Сбросить' onClick={resetFilters} sx={{ width: '100%' }} />
+        <CategoryFilter />
+        <AdditionalFilters />
+        <CustomButton text='Сбросить' onClick={handleResetFilters} sx={{ width: '100%' }} />
       </Box>
     </Paper>
   );
