@@ -14,7 +14,7 @@ export const CustomPagination: FC<ICustomPagination> = ({ currentPage, setCurren
   }
   if (!totalPages) return null;
   return (
-    <Stack spacing={2} sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
+    <Stack spacing={2} sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }} padding={'2rem'}>
       <Pagination count={totalPages} variant='outlined' shape='rounded' onChange={handleChange} page={currentPage} />
     </Stack>
   );

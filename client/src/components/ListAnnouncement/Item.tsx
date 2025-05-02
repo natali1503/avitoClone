@@ -24,6 +24,7 @@ export const Item: FC<IItem> = ({ id, name, location, type, photo, dataTestId })
   return (
     <Box
       data-testid={dataTestId}
+      bgcolor={'#fff'}
       sx={{
         display: 'flex',
         flexDirection: 'row',

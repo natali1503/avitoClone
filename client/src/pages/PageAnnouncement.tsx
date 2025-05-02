@@ -3,11 +3,12 @@ import { FC, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { PageAnnouncementSkeleton } from '../components/Skeleton/PageAnnouncementSkeleton';
-import { DetailsAd } from '../components/DetailsAd';
 import { useDetailsAd } from '../hooks/useDetailsAd';
-import { Title } from '../components/Title';
-import { AppDispatch } from '../store';
+import { DetailsAd } from '../components/DetailsAd';
+import { Wrapper } from '../components/Wrapper';
+import { Header } from '../components/Header';
 import { reset } from '../store/adInfoSlice';
+import { AppDispatch } from '../store';
 
 export const PageAnnouncement: FC = () => {
   const { loading, dataToDisplay, id } = useDetailsAd();
@@ -22,9 +23,11 @@ export const PageAnnouncement: FC = () => {
   return loading ? (
     <PageAnnouncementSkeleton />
   ) : (
-    <Box display={'flex'} flexDirection={'column'} gap={'5rem'}>
-      <Title title={'Страница объявления'} />
-      {dataToDisplay && <DetailsAd dataToDisplay={dataToDisplay} id={id || ''} />}
-    </Box>
+    <Wrapper>
+      <Box display={'flex'} flexDirection={'column'} gap={'5rem'}>
+        <Header header='Страница объявления' />
+        {dataToDisplay && <DetailsAd dataToDisplay={dataToDisplay} id={id || ''} />}
+      </Box>
+    </Wrapper>
   );
 };
