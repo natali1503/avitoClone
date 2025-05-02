@@ -19,7 +19,7 @@ interface IForm {
 
 export const Form: FC<IForm> = ({ formTitle, fields, control, errors, dataTestId }) => {
   return (
-    <Box display={'flex'} flexDirection={'column'} gap={'3rem'} data-testid={dataTestId}>
+    <Box display={'flex'} flexDirection={'column'} gap={'2rem'} data-testid={dataTestId} padding={'2rem 0'}>
       <Title title={formTitle} />
 
       <Box

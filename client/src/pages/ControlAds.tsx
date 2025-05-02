@@ -1,3 +1,5 @@
+import { log } from 'console';
+
 import { useLocation, useNavigate } from 'react-router-dom';
 import { SubmitHandler } from 'react-hook-form';
 //@ts-expect-error: for test
@@ -26,7 +28,7 @@ export const ControlAds: FC = () => {
       const file = formData.photo;
       const fileString = file && file[0] ? await toBase64(file[0]) : '';
 
-      if (editMode) {
+      if (!editMode) {
         await createAd({ ...formData, photo: fileString } as AdResponse, signal);
       } else {
         if (initTypeAd !== formData.type) {

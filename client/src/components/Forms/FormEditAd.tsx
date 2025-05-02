@@ -4,13 +4,14 @@ import { Box } from '@mui/material';
 
 import { CommonFields, FieldsByType } from '../../general/FormField/formFieldNames';
 import { Categories, CategoriesValues } from '../../general/FormField/Categories';
+import { InitValueForm } from '../../general/FormField/InitValueForm';
 import { IAd, TypeFormData } from '../../general/TypeFormData';
 import { getIdByText } from '../../utils/getIdByText';
 import { getIdFields } from '../../utils/getIdFields';
 import { CustomButton } from '../CustomButton';
-import { Title } from '../Title';
 import { useDraft } from '../../hooks/useDraft';
-import { InitValueForm } from '../../general/FormField/InitValueForm';
+import { Wrapper } from '../Wrapper';
+import { Header } from '../Header';
 
 import { Form } from './Form';
 
@@ -75,8 +76,9 @@ export const FormEditAd: FC<IFormEditAd> = ({ formSubmit }) => {
   };
 
   return (
-    <Box display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'} gap={'3rem'}>
-      <Title title={'Форма редактирования'} />
+    <Wrapper>
+      <Header header='Форма размещения' />
+
       <form
         onSubmit={handleSubmit((data) => {
           finishingEditing(); // Очистка черновика после отправки
@@ -122,6 +124,6 @@ export const FormEditAd: FC<IFormEditAd> = ({ formSubmit }) => {
           )}
         </Box>
       </form>
-    </Box>
+    </Wrapper>
   );
 };

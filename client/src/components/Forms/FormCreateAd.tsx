@@ -11,7 +11,8 @@ import { getIdFields } from '../../utils/getIdFields';
 import { getIdByText } from '../../utils/getIdByText';
 import { useDraft } from '../../hooks/useDraft';
 import { CustomButton } from '../CustomButton';
-import { Title } from '../Title';
+import { Wrapper } from '../Wrapper';
+import { Header } from '../Header';
 
 import { Form } from './Form';
 
@@ -63,8 +64,8 @@ export const FormCreateAd: FC<IFormCreateAd> = ({ formSubmit }) => {
   }, [watch, setDraft]);
 
   return (
-    <Box display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'} gap={'3rem'}>
-      <Title title={'Форма размещения'} />
+    <Wrapper>
+      <Header header='Форма размещения' />
       <form
         onSubmit={handleSubmit((data) => {
           clearDraft(); // Очистка черновика после отправки
@@ -77,7 +78,7 @@ export const FormCreateAd: FC<IFormCreateAd> = ({ formSubmit }) => {
           flexDirection={'column'}
           alignItems={'center'}
           justifyContent={'center'}
-          gap={'1rem'}
+          gap={'1.5rem'}
           width={'100%'}
         >
           {currentStep === 1 && (
@@ -112,6 +113,6 @@ export const FormCreateAd: FC<IFormCreateAd> = ({ formSubmit }) => {
           )}
         </Box>
       </form>
-    </Box>
+    </Wrapper>
   );
 };

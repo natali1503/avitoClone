@@ -11,6 +11,7 @@ import { useDraft } from '../hooks/useDraft';
 
 import { ImageWithPlaceholder } from './Image';
 import { CustomButton } from './CustomButton';
+import { DialogDelete } from './DialogDelete';
 
 interface IDetailsAd {
   dataToDisplay: IDataToDisplay;
@@ -36,8 +37,15 @@ export const DetailsAd: FC<IDetailsAd> = ({ dataToDisplay, id }) => {
     }
   }, [navigationType, finishingEditing]);
 
+  async function handleClickDelete() {
+    const controller = new AbortController();
+    const signal = controller.signal;
+    await deleteAdById(id, signal);
+    navigate(RouterPath.List);
+  }
+
   return (
-    <Box display={'flex'} flexDirection={'row'} gap={'5rem'} data-testid='detailsAd'>
+    <Box display={'flex'} flexDirection={'row'} gap={'4rem'} data-testid='detailsAd' padding={'0 4rem'}>
       <Box width={'30rem'} height={'30rem'}>
         <ImageWithPlaceholder
           src={(dataToDisplay && dataToDisplay.photo) || ''}
@@ -63,16 +71,10 @@ export const DetailsAd: FC<IDetailsAd> = ({ dataToDisplay, id }) => {
             initEditMode(initValue);
           }}
         />
-        <CustomButton
-          text='Удалить'
-          onClick={async () => {
-            const controller = new AbortController();
-            const signal = controller.signal;
-            await deleteAdById(id, signal);
-            navigate(RouterPath.List);
-          }}
-          color='warning'
-          sx={{ minWidth: '100%' }}
+        <DialogDelete
+          textButton='Удалить'
+          dialogTitle='Подтвердите удаление объявления'
+          handleClickDelete={handleClickDelete}
         />
       </Box>
     </Box>

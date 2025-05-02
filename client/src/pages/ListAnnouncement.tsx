@@ -14,8 +14,9 @@ import { getAnnouncements } from '../api/api-actions';
 import { RouterPath } from '../router/routerPath';
 import { AppDispatch, RootState } from '../store';
 import { useFilters } from '../hooks/useFilters';
-import { Title } from '../components/Title';
 import { useDraft } from '../hooks/useDraft';
+import { Wrapper } from '../components/Wrapper';
+import { Header } from '../components/Header';
 
 export const ListAnnouncement: FC = () => {
   const { loading } = useSelector((state: RootState) => {
@@ -55,9 +56,16 @@ export const ListAnnouncement: FC = () => {
   return loading ? (
     <ListAnnouncementSkeleton />
   ) : (
-    <Box display={'flex'} flexDirection={'column'} gap={'2rem'}>
-      <Title title='Список объявлений' />
-      <Box display={'flex'} flexDirection={'column'} gap={'2rem'} flex={1}>
+    <Wrapper>
+      <Header header='Список объявлений' />
+      <Box
+        display={'flex'}
+        flexDirection={'column'}
+        gap={'2rem'}
+        flex={1}
+        padding={' 2rem'}
+        bgcolor={'rgba(245, 246, 245,0.4)'}
+      >
         <Box display={'flex'} flexDirection={'row'} gap={'1.5rem'} justifyContent={'flex-end'}>
           <CustomButton
             text='Разместить объявление'
@@ -67,12 +75,10 @@ export const ListAnnouncement: FC = () => {
         </Box>
         <Box display={'flex'} flexDirection={'row'} gap={'1.5rem'}>
           <FiltersPanel />
-
           <ListItems dataToDisplay={dataToDisplay} notFoundData={notFoundData} />
         </Box>
       </Box>
-
       <CustomPagination currentPage={currentPage} totalPages={totalPages || 0} setCurrentPage={setCurrentPage} />
-    </Box>
+    </Wrapper>
   );
 };
