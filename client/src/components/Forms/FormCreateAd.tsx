@@ -10,9 +10,9 @@ import { IAd, TypeFormData } from '../../general/TypeFormData';
 import { getIdFields } from '../../utils/getIdFields';
 import { getIdByText } from '../../utils/getIdByText';
 import { useDraft } from '../../hooks/useDraft';
-import { CustomButton } from '../CustomButton';
-import { Wrapper } from '../Wrapper';
-import { Header } from '../Header';
+import { CustomButton } from '../UI/CustomButton';
+import { Wrapper } from '../UI/Wrapper';
+import { Header } from '../UI/Header';
 
 import { Form } from './Form';
 
@@ -66,53 +66,56 @@ export const FormCreateAd: FC<IFormCreateAd> = ({ formSubmit }) => {
   return (
     <Wrapper>
       <Header header='Форма размещения' />
-      <form
-        onSubmit={handleSubmit((data) => {
-          clearDraft(); // Очистка черновика после отправки
-          formSubmit(data);
-        })}
-        style={{ width: '100%' }}
-      >
-        <Box
-          display={'flex'}
-          flexDirection={'column'}
-          alignItems={'center'}
-          justifyContent={'center'}
-          gap={'1.5rem'}
-          width={'100%'}
+      <Box display='flex' flexDirection='column' flexGrow={1} bgcolor={'rgba(245, 246, 245,0.4)'}>
+        {' '}
+        <form
+          onSubmit={handleSubmit((data) => {
+            clearDraft(); // Очистка черновика после отправки
+            formSubmit(data);
+          })}
+          style={{ width: '100%' }}
         >
-          {currentStep === 1 && (
-            <Form
-              fields={CommonFields}
-              formTitle={'Шаг 1'}
-              control={control}
-              errors={errors}
-              dataTestId={'createAdStep1'}
-            />
-          )}
+          <Box
+            display={'flex'}
+            flexDirection={'column'}
+            alignItems={'center'}
+            justifyContent={'center'}
+            gap={'1.5rem'}
+            width={'100%'}
+          >
+            {currentStep === 1 && (
+              <Form
+                fields={CommonFields}
+                formTitle={'Шаг 1'}
+                control={control}
+                errors={errors}
+                dataTestId={'createAdStep1'}
+              />
+            )}
 
-          {currentStep === 2 && (
-            <Form
-              fields={FieldsByType[type as CategoriesValues]}
-              formTitle={'Шаг 2'}
-              control={control}
-              errors={errors}
-              dataTestId={'createAdStep2'}
-            />
-          )}
+            {currentStep === 2 && (
+              <Form
+                fields={FieldsByType[type as CategoriesValues]}
+                formTitle={'Шаг 2'}
+                control={control}
+                errors={errors}
+                dataTestId={'createAdStep2'}
+              />
+            )}
 
-          {currentStep === 1 && (
-            <CustomButton text='Далее' type='button' onClick={handleClickNextStep} dataTestId='nextStep' />
-          )}
+            {currentStep === 1 && (
+              <CustomButton text='Далее' type='button' onClick={handleClickNextStep} dataTestId='nextStep' />
+            )}
 
-          {!!type && currentStep === 2 && (
-            <Box display={'flex'} flexDirection={'row'} gap={'1rem'}>
-              <CustomButton text='Назад' type='button' onClick={() => handleClick(1)} disabled={currentStep === 2} />
-              <CustomButton text='Отправить' type='submit' disabled={!!true} dataTestId='createAd' />
-            </Box>
-          )}
-        </Box>
-      </form>
+            {!!type && currentStep === 2 && (
+              <Box display={'flex'} flexDirection={'row'} gap={'1rem'}>
+                <CustomButton text='Назад' type='button' onClick={() => handleClick(1)} disabled={currentStep === 2} />
+                <CustomButton text='Отправить' type='submit' disabled={!!true} dataTestId='createAd' />
+              </Box>
+            )}
+          </Box>
+        </form>
+      </Box>
     </Wrapper>
   );
 };

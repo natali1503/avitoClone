@@ -3,8 +3,8 @@ import { Control, Controller } from 'react-hook-form';
 import React, { FC } from 'react';
 import { Box, FormControl, FormHelperText, FormLabel, MenuItem, Select } from '@mui/material';
 
-import { IItem } from '../general/FormField/formFieldNames';
-import { TypeFormData } from '../general/TypeFormData';
+import { IItem } from '../../general/FormField/formFieldNames';
+import { TypeFormData } from '../../general/TypeFormData';
 
 interface ICustomSelect {
   id: keyof TypeFormData;
@@ -37,7 +37,7 @@ export const CustomSelect: FC<ICustomSelect> = ({
         gap: 2,
       }}
     >
-      <FormLabel sx={{ width: '12rem' }}>{fieldName}</FormLabel>
+      <FormLabel sx={{ width: '22rem', fontSize: '1.8rem' }}>{fieldName}</FormLabel>
       <Box
         sx={{
           display: 'flex',
@@ -61,7 +61,7 @@ export const CustomSelect: FC<ICustomSelect> = ({
               value={items.find((item) => item.text === field.value)?.id || ''}
               error={error}
               fullWidth
-              sx={{ fontSize: '1.4rem', width: '25rem' }}
+              sx={{ fontSize: '1.6rem', width: '27rem', backgroundColor: 'white' }}
             >
               {items.map((item, i) => (
                 <MenuItem key={+i} value={item.id} data-testid={`${dataTestId}-${item.id}`}>

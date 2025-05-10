@@ -3,7 +3,7 @@ import { Control, Controller } from 'react-hook-form';
 //@ts-expect-error: for test
 import React, { FC } from 'react';
 
-import { TypeFormData } from '../../general/TypeFormData';
+import { TypeFormData } from '../../../general/TypeFormData';
 
 interface IMultiInput {
   type: string;
@@ -44,7 +44,7 @@ export const MultiInput: FC<IMultiInput> = ({
             height: '8rem',
           }}
         >
-          <FormLabel sx={{ width: '12rem' }}>{fieldName}</FormLabel>
+          <FormLabel sx={{ width: '22rem', fontSize: '1.8rem' }}>{fieldName}</FormLabel>
           <Box
             sx={{
               display: 'flex',
@@ -58,7 +58,7 @@ export const MultiInput: FC<IMultiInput> = ({
               type={type}
               fullWidth
               {...field}
-              sx={{ fontSize: '1.4rem', width: '25rem' }}
+              sx={{ fontSize: '1.6rem', width: '27rem', bgcolor: 'white' }}
               error={error}
               endAdornment={<InputAdornment position='end'>{adornment}</InputAdornment>}
             />

@@ -2,7 +2,7 @@ import { Control } from 'react-hook-form';
 //@ts-expect-error: for test
 import React, { FC } from 'react';
 
-import { TypeFormData } from '../../general/TypeFormData';
+import { TypeFormData } from '../../../general/TypeFormData';
 
 import { FileInput } from './FileInput';
 import { MultiInput } from './MultiInput';

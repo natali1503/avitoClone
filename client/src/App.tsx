@@ -15,7 +15,7 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box display='flex' flexDirection={'column'} width={'100%'} minHeight={'100vh'} padding={'4rem 2rem'}>
+      <Box display='flex' flexDirection={'column'} width={'100%'} minHeight={'100vh'}>
         <Router>
           <Routes>
             <Route path='/' element={<ListAnnouncement />} />

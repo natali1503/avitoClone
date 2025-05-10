@@ -2,19 +2,28 @@ import { Box, Skeleton } from '@mui/material';
 //@ts-expect-error: for test
 import React, { FC } from 'react';
 
-import { Title } from '../Title';
+import { Title } from '../UI/Title';
+import { Wrapper } from '../UI/Wrapper';
+import { Header } from '../UI/Header';
 
 import { ItemSkeleton } from './ItemSkeleton';
 import { FilterSkeleton } from './FilterSkeleton';
 
 export const ListAnnouncementSkeleton: FC = () => {
-  const dataToDisplay = Array(5).fill('');
+  const dataToDisplay = Array(3).fill('');
   return (
-    <Box display={'flex'} flexDirection={'column'} gap={'2rem'}>
-      <Title title='Список объявлений' />
-      <Box display={'flex'} flexDirection={'column'} gap={'2rem'}>
+    <Wrapper>
+      <Header header='Список объявлений' />
+      <Box
+        display={'flex'}
+        flexDirection={'column'}
+        gap={'2rem'}
+        flex={1}
+        padding={' 2rem'}
+        bgcolor={'rgba(245, 246, 245,0.4)'}
+      >
         <Box display={'flex'} flexDirection={'row'} gap={'1.5rem'} justifyContent={'flex-end'}>
-          <Skeleton width={'10rem'} height={'3rem'} variant='rectangular' sx={{ borderRadius: '4px' }} />
+          <Skeleton width={'22rem'} height={'4.2rem'} variant='rectangular' sx={{ borderRadius: '4px' }} />
         </Box>
 
         <Box display={'flex'} flexDirection={'row'} gap={'1.5rem'}>
@@ -24,7 +33,19 @@ export const ListAnnouncementSkeleton: FC = () => {
           </Box>
         </Box>
       </Box>
-      <Skeleton width={'100%'} height={'2.5rem'} variant='rectangular' sx={{ borderRadius: '4px' }} />
-    </Box>
+      <Box
+        width={'100%'}
+        height={'7.1rem'}
+        display={'flex'}
+        alignItems={'center'}
+        justifyContent={'center'}
+        flexDirection={'row'}
+        gap={'1px'}
+      >
+        <Skeleton width={'3.1rem'} height={'3.1rem'} variant='rectangular' sx={{ borderRadius: '4px' }} />
+        <Skeleton width={'3.1rem'} height={'3.1rem'} variant='rectangular' sx={{ borderRadius: '4px' }} />
+        <Skeleton width={'3.1rem'} height={'3.1rem'} variant='rectangular' sx={{ borderRadius: '4px' }} />
+      </Box>
+    </Wrapper>
   );
 };

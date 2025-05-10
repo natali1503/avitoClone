@@ -5,9 +5,10 @@ import React, { FC } from 'react';
 
 import { IField } from '../../general/FormField/formFieldNames';
 import { TypeFormData } from '../../general/TypeFormData';
-import { CustomInput } from '../Input/CustomInput';
-import { CustomSelect } from '../CustomSelect';
-import { Title } from '../Title';
+import { CustomSelect } from '../UI/CustomSelect';
+import { Title } from '../UI/Title';
+import { CustomInput } from '../UI/Input/CustomInput';
+import { Textarea } from '../UI/Input/Textarea';
 
 interface IForm {
   formTitle: string;
@@ -22,14 +23,7 @@ export const Form: FC<IForm> = ({ formTitle, fields, control, errors, dataTestId
     <Box display={'flex'} flexDirection={'column'} gap={'2rem'} data-testid={dataTestId} padding={'2rem 0'}>
       <Title title={formTitle} />
 
-      <Box
-        display={'flex'}
-        flexDirection={'column'}
-        alignItems={'center'}
-        justifyContent={'center'}
-        gap={'1rem'}
-        maxWidth={'38rem'}
-      >
+      <Box display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'} gap={'1rem'}>
         {fields.map((element, i) => {
           if (element.typeField === 'input') {
             return (
@@ -54,6 +48,19 @@ export const Form: FC<IForm> = ({ formTitle, fields, control, errors, dataTestId
                 control={control}
                 fieldName={element.fieldName}
                 items={element.items}
+                required={element.required}
+                error={!!errors[element.id as keyof TypeFormData]}
+                errorMessage={errors[element.id as keyof TypeFormData]?.message || ''}
+                dataTestId={element.id}
+              />
+            );
+          } else if (element.typeField === 'textarea') {
+            return (
+              <Textarea
+                key={+i}
+                id={element.id as keyof TypeFormData}
+                control={control}
+                fieldName={element.fieldName}
                 required={element.required}
                 error={!!errors[element.id as keyof TypeFormData]}
                 errorMessage={errors[element.id as keyof TypeFormData]?.message || ''}

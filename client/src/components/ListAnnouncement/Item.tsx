@@ -4,7 +4,7 @@ import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { ImageWithPlaceholder } from '../Image';
-import { CustomButton } from '../CustomButton';
+import { CustomButton } from '../UI/CustomButton';
 
 interface IItem {
   id: number;
@@ -35,13 +35,15 @@ export const Item: FC<IItem> = ({ id, name, location, type, photo, dataTestId })
         alignItems: 'center',
       }}
     >
-      <Box width={'8rem'} height={'8rem'}>
-        <ImageWithPlaceholder src={photo} alt={`Изображение по объявлению ${name}`} />
+      <Box width={'15rem'} height={'15rem'}>
+        <ImageWithPlaceholder src={photo} alt={`Изображение по объявлению ${name}`} type={type} />
       </Box>
       <Box display={'flex'} flexDirection={'column'} gap={'0.5rem'} flex={1}>
-        <Typography>{name}</Typography>
-        <Typography>{location}</Typography>
-        <Typography>{type}</Typography>
+        <Typography variant='h3' style={{ paddingBottom: '1.6rem' }}>
+          {name}
+        </Typography>
+        <Typography variant='subtitle1'>{location}</Typography>
+        <Typography variant='subtitle1'>{type}</Typography>
       </Box>
 
       <CustomButton text='Открыть' onClick={handleClick} />

@@ -1,7 +1,7 @@
 import { useNavigate, useNavigationType } from 'react-router-dom';
 import { Box, Typography } from '@mui/material';
 //@ts-expect-error: for test
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 
 import { TypeFormData } from '../general/TypeFormData';
 import { IDataToDisplay } from '../store/adInfoSlice';
@@ -10,8 +10,8 @@ import { deleteAdById } from '../api/api-actions';
 import { useDraft } from '../hooks/useDraft';
 
 import { ImageWithPlaceholder } from './Image';
-import { CustomButton } from './CustomButton';
-import { DialogDelete } from './DialogDelete';
+import { CustomButton } from './UI/CustomButton';
+import { DialogDelete } from './UI/DialogDelete';
 
 interface IDetailsAd {
   dataToDisplay: IDataToDisplay;
@@ -31,11 +31,13 @@ export const DetailsAd: FC<IDetailsAd> = ({ dataToDisplay, id }) => {
   const { initEditMode, finishingEditing } = useDraft();
 
   const navigationType = useNavigationType();
-  useEffect(() => {
-    if (navigationType === 'POP') {
-      finishingEditing();
-    }
-  }, [navigationType, finishingEditing]);
+  // useEffect(() => {
+  //   if (navigationType === 'POP') {
+  //     console.log('POP');
+
+  //     finishingEditing();
+  //   }
+  // }, [navigationType, finishingEditing]);
 
   async function handleClickDelete() {
     const controller = new AbortController();
@@ -43,11 +45,22 @@ export const DetailsAd: FC<IDetailsAd> = ({ dataToDisplay, id }) => {
     await deleteAdById(id, signal);
     navigate(RouterPath.List);
   }
+  console.log(dataToDisplay);
 
   return (
-    <Box display={'flex'} flexDirection={'row'} gap={'4rem'} data-testid='detailsAd' padding={'0 4rem'}>
+    <Box
+      display={'flex'}
+      flexDirection={'row'}
+      gap={'5rem'}
+      data-testid='detailsAd'
+      padding={'0 4rem '}
+      paddingTop={'5rem'}
+      bgcolor={'rgba(245, 246, 245,0.4)'}
+      flexGrow={1}
+    >
       <Box width={'30rem'} height={'30rem'}>
         <ImageWithPlaceholder
+          type={String(dataToDisplay.data.filter((item) => item.id === 'type')[0].value)}
           src={(dataToDisplay && dataToDisplay.photo) || ''}
           alt={`Изображение по объявлению ${dataToDisplay?.data[0].value}`}
         />
@@ -55,11 +68,11 @@ export const DetailsAd: FC<IDetailsAd> = ({ dataToDisplay, id }) => {
       <Box display={'flex'} flexDirection={'column'} gap={'2rem'} minWidth={'25rem'} flex={1}>
         {dataToDisplay &&
           dataToDisplay.data.map((el, i) => (
-            <Box key={+i} display={'flex'} flexDirection={'column'} gap={'0.5rem'}>
+            <Box key={+i} display={'flex'} flexDirection={'column'} gap={'1rem'}>
               <Typography variant='h5' sx={{ fontWeight: 500 }}>
                 {el?.fieldName}
               </Typography>
-              <Typography>{el?.value}</Typography>
+              <Typography style={{ fontSize: '1.8rem' }}>{el?.value}</Typography>
             </Box>
           ))}
       </Box>
@@ -70,6 +83,7 @@ export const DetailsAd: FC<IDetailsAd> = ({ dataToDisplay, id }) => {
             navigate(RouterPath.Form, { state: { id } });
             initEditMode(initValue);
           }}
+          color={'primary'}
         />
         <DialogDelete
           textButton='Удалить'

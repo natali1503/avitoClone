@@ -8,15 +8,16 @@ import { ListAnnouncementSkeleton } from '../components/Skeleton/ListAnnouncemen
 import { CustomPagination } from '../components/pagination/CustomPagination';
 import { FiltersPanel } from '../components/FiltersPanel/FiltersPanel';
 import { ListItems } from '../components/ListAnnouncement/ListItems';
-import { CustomButton } from '../components/CustomButton';
 import { usePagination } from '../hooks/usePagination';
 import { getAnnouncements } from '../api/api-actions';
 import { RouterPath } from '../router/routerPath';
 import { AppDispatch, RootState } from '../store';
 import { useFilters } from '../hooks/useFilters';
 import { useDraft } from '../hooks/useDraft';
-import { Wrapper } from '../components/Wrapper';
-import { Header } from '../components/Header';
+import { Wrapper } from '../components/UI/Wrapper';
+import { Header } from '../components/UI/Header';
+import { initState } from '../general/initState';
+import { CustomButton } from '../components/UI/CustomButton';
 
 export const ListAnnouncement: FC = () => {
   const { loading } = useSelector((state: RootState) => {
@@ -39,6 +40,7 @@ export const ListAnnouncement: FC = () => {
   }, [dispatch]);
 
   const { clearDraft } = useDraft();
+
   const dataToDisplay = useMemo(() => {
     return filteredData?.slice(indexOfFirstItem, indexOfLastItem);
   }, [filteredData, indexOfLastItem, indexOfFirstItem]);

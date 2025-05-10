@@ -8,7 +8,18 @@ interface Props {
 
 export const Wrapper: FC<Props> = ({ children }) => {
   return (
-    <Box display={'flex'} flexDirection={'column'} flex={1}>
+    <Box
+      display='flex'
+      flexDirection='column'
+      flex={1}
+      sx={{
+        opacity: 0,
+        animation: 'fadeIn 0.3s ease-in forwards',
+        '@keyframes fadeIn': {
+          to: { opacity: 1 },
+        },
+      }}
+    >
       {children}
     </Box>
   );

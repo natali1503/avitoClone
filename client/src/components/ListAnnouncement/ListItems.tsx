@@ -13,11 +13,11 @@ interface IListItems {
 
 export const ListItems: FC<IListItems> = ({ dataToDisplay, notFoundData }) => {
   const isData = dataToDisplay?.length === 0 && !notFoundData;
-  const isdataToDisplay = dataToDisplay.length > 0;
+  const isDataToDisplay = dataToDisplay.length > 0;
 
   return (
     <Box display={'flex'} flexDirection={'column'} gap={'1.5rem'} data-testid='listItems' margin={'0 auto'}>
-      {isdataToDisplay &&
+      {isDataToDisplay &&
         dataToDisplay.map((item) => (
           <Item
             key={item.id}

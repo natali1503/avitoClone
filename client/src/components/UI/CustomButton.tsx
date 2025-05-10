@@ -13,7 +13,16 @@ interface ICustomButton extends ButtonProps {
 export const CustomButton: FC<ICustomButton> = ({ text, onClick, type, disabled = true, dataTestId, ...props }) => {
   return (
     <Box display={'flex'}>
-      <Button variant='outlined' onClick={onClick} type={type} disabled={!disabled} data-testid={dataTestId} {...props}>
+      <Button
+        size='large'
+        color={props.color}
+        variant='outlined'
+        onClick={onClick}
+        type={type}
+        disabled={!disabled}
+        data-testid={dataTestId}
+        {...props}
+      >
         {text}
       </Button>
     </Box>

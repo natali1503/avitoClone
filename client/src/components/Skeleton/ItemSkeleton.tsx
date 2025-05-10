@@ -15,15 +15,15 @@ export const ItemSkeleton: FC = () => {
         alignItems: 'center',
       }}
     >
-      <Skeleton width={'8rem'} height={'8rem'} variant='rectangular' sx={{ borderRadius: '10px' }} />
+      <Skeleton width={'15rem'} height={'15rem'} variant='rectangular' sx={{ borderRadius: '10px' }} />
 
       <Box display={'flex'} flexDirection={'column'} gap={'0.5rem'} flex={1}>
-        <Skeleton width={'17rem'} height={'2rem'} />
-        <Skeleton width={'15rem'} height={'2rem'} />
+        <Skeleton width={'33.2rem'} height={'7rem'} />
+        <Skeleton width={'20rem'} height={'2rem'} />
         <Skeleton width={'12rem'} height={'2rem'} />
       </Box>
 
-      <Skeleton width={'6.5rem'} height={'4.2rem'} variant='rectangular' sx={{ borderRadius: '4px' }} />
+      <Skeleton width={'10.7rem'} height={'4.2rem'} variant='rectangular' sx={{ borderRadius: '4px' }} />
     </Box>
   );
 };

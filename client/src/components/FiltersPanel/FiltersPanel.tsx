@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import { Box, Paper, Typography } from '@mui/material';
 
 import { useFilters } from '../../hooks/useFilters';
-import { CustomButton } from '../CustomButton';
+import { CustomButton } from '../UI/CustomButton';
 
 import { AdditionalFilters } from './AdditionalFilters';
 import { CategoryFilter } from './CategoryFilter';

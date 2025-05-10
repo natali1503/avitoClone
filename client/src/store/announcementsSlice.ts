@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { getAnnouncements } from '../api/api-actions';
 import { AdResponse } from '../api/AdResponse';
+import { initState } from '../general/initState';
 
 const announcementsSlice = createSlice({
   name: 'announcements',

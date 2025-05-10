@@ -7,11 +7,11 @@ import { Categories, CategoriesValues } from '../../general/FormField/Categories
 import { InitValueForm } from '../../general/FormField/InitValueForm';
 import { IAd, TypeFormData } from '../../general/TypeFormData';
 import { getIdByText } from '../../utils/getIdByText';
-import { getIdFields } from '../../utils/getIdFields';
-import { CustomButton } from '../CustomButton';
+import { CustomButton } from '../UI/CustomButton';
 import { useDraft } from '../../hooks/useDraft';
-import { Wrapper } from '../Wrapper';
-import { Header } from '../Header';
+import { Wrapper } from '../UI/Wrapper';
+import { Header } from '../UI/Header';
+import { adaptAdDataToType } from '../../utils/adaptAdDataToType';
 
 import { Form } from './Form';
 
@@ -59,71 +59,68 @@ export const FormEditAd: FC<IFormEditAd> = ({ formSubmit }) => {
       //тип объявления меняется
       else {
         if (draft) {
-          const allFieldsId = [...getIdFields(type as CategoriesValues), ...getIdFields('commonFields')];
-          const tempDraft = allFieldsId.reduce<Record<keyof TypeFormData, string | number | File[]>>(
-            (acc, id) => {
-              acc[id as keyof TypeFormData] = draft?.[id as keyof TypeFormData] ?? '';
-              return acc;
-            },
-            {} as Record<keyof TypeFormData, string | number | File[]>,
-          );
-          setDraft(tempDraft as TypeFormData);
-          reset(tempDraft as TypeFormData);
+          const tempDraft = adaptAdDataToType(draft, type);
+          setDraft(tempDraft);
+          reset(tempDraft);
           handleClick(2);
         }
       }
     }
   };
 
+  console.log(draft);
+
   return (
     <Wrapper>
-      <Header header='Форма размещения' />
-
-      <form
-        onSubmit={handleSubmit((data) => {
-          finishingEditing(); // Очистка черновика после отправки
-          formSubmit(data);
-        })}
-        style={{ width: '100%' }}
-      >
-        <Box
-          display={'flex'}
-          flexDirection={'column'}
-          alignItems={'center'}
-          justifyContent={'center'}
-          gap={'1rem'}
-          width={'100%'}
+      <Header header='Форма редактирования' />
+      <Box display='flex' flexDirection='column' flexGrow={1} bgcolor={'rgba(245, 246, 245,0.4)'}>
+        <form
+          onSubmit={handleSubmit((data) => {
+            finishingEditing(); // Очистка черновика после отправки
+            formSubmit(data);
+          })}
+          // style={{ width: '100%', height: '100%' }}
         >
-          {currentStep === 1 && (
-            <Form
-              fields={CommonFields}
-              formTitle={'Шаг 1'}
-              control={control}
-              errors={errors}
-              dataTestId={'editAdStep1'}
-            />
-          )}
+          <Box
+            display={'flex'}
+            flexDirection={'column'}
+            alignItems={'center'}
+            justifyContent={'center'}
+            gap={'1rem'}
+            width={'100%'}
+            flex={1}
+          >
+            {currentStep === 1 && (
+              <Form
+                fields={CommonFields}
+                formTitle={'Шаг 1'}
+                control={control}
+                errors={errors}
+                dataTestId={'editAdStep1'}
+              />
+            )}
 
-          {currentStep === 2 && (
-            <Form
-              fields={FieldsByType[type as CategoriesValues]}
-              formTitle={'Шаг 2'}
-              control={control}
-              errors={errors}
-              dataTestId={'editAdStep2'}
-            />
-          )}
+            {currentStep === 2 && (
+              <Form
+                fields={FieldsByType[type as CategoriesValues]}
+                formTitle={'Шаг 2'}
+                control={control}
+                errors={errors}
+                dataTestId={'editAdStep2'}
+              />
+            )}
 
-          {currentStep === 1 && <CustomButton text='Далее' type='button' onClick={handleClickNextStep} />}
+            {currentStep === 1 && <CustomButton text='Далее' type='button' onClick={handleClickNextStep} />}
 
-          {!!type && currentStep === 2 && (
-            <Box display={'flex'} flexDirection={'row'} gap={'1rem'}>
-              <CustomButton text='Назад' type='button' onClick={() => handleClick(1)} disabled={currentStep === 2} />
-              <CustomButton text='Отправить' type='submit' disabled={!!true} />
-            </Box>
-          )}
-        </Box>
-      </form>
+            {!!type && currentStep === 2 && (
+              <Box display={'flex'} flexDirection={'row'} gap={'1rem'}>
+                <CustomButton text='Назад' type='button' onClick={() => handleClick(1)} disabled={currentStep === 2} />
+                <CustomButton text='Отправить' type='submit' disabled={!!true} />
+              </Box>
+            )}
+          </Box>
+        </form>
+      </Box>
     </Wrapper>
   );
 };
