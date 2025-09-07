@@ -2,12 +2,11 @@
 import React, { FC } from 'react';
 import { Box, Paper, Typography } from '@mui/material';
 
+import { AdditionalFilters } from './ui/AdditionalFilters';
+import { CategoryFilter } from './ui/CategoryFilter';
+import { SearchBar } from './ui/SearchBar';
 import { useFilters } from '../../hooks/useFilters';
-import { CustomButton } from '../UI/CustomButton';
-
-import { AdditionalFilters } from './AdditionalFilters';
-import { CategoryFilter } from './CategoryFilter';
-import { SearchBar } from './SearchBar';
+import { CustomButton } from '../../../../components/ui/CustomButton';
 
 export const FiltersPanel: FC = () => {
   const { handleResetFilters } = useFilters();
@@ -25,7 +24,6 @@ export const FiltersPanel: FC = () => {
       <Box display={'flex'} flexDirection={'column'} gap={'2.5rem'}>
         <Typography variant='h6'>Фильтрация</Typography>
         <SearchBar />
-
         <CategoryFilter />
         <AdditionalFilters />
         <CustomButton text='Сбросить' onClick={handleResetFilters} sx={{ width: '100%' }} />

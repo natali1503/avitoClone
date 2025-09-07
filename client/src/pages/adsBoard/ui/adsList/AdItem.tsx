@@ -2,11 +2,10 @@ import { Box, Typography } from '@mui/material';
 //@ts-expect-error: for test
 import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ImageWithPlaceholder } from '../../../../components/Image';
+import { CustomButton } from '../../../../components/ui/CustomButton';
 
-import { ImageWithPlaceholder } from '../Image';
-import { CustomButton } from '../UI/CustomButton';
-
-interface IItem {
+interface IAdItem {
   id: number;
   name: string;
   location: string;
@@ -15,7 +14,7 @@ interface IItem {
   dataTestId: string;
 }
 
-export const Item: FC<IItem> = ({ id, name, location, type, photo, dataTestId }) => {
+export const AdItem: FC<IAdItem> = ({ id, name, location, type, photo, dataTestId }) => {
   const navigate = useNavigate();
 
   function handleClick() {

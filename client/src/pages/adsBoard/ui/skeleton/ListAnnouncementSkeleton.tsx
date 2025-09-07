@@ -2,12 +2,10 @@ import { Box, Skeleton } from '@mui/material';
 //@ts-expect-error: for test
 import React, { FC } from 'react';
 
-import { Title } from '../UI/Title';
-import { Wrapper } from '../UI/Wrapper';
-import { Header } from '../UI/Header';
-
-import { ItemSkeleton } from './ItemSkeleton';
 import { FilterSkeleton } from './FilterSkeleton';
+import { Wrapper } from '../../../../components/ui/Wrapper';
+import { Header } from '../../../../components/ui/Header';
+import { AdItemSkeleton } from '../adsList/AdItemSkeleton';
 
 export const ListAnnouncementSkeleton: FC = () => {
   const dataToDisplay = Array(3).fill('');
@@ -29,7 +27,7 @@ export const ListAnnouncementSkeleton: FC = () => {
         <Box display={'flex'} flexDirection={'row'} gap={'1.5rem'}>
           <FilterSkeleton />
           <Box display={'flex'} flexDirection={'column'} gap={'1.5rem'} margin={'0 auto'}>
-            {dataToDisplay && dataToDisplay.map((_, i) => <ItemSkeleton key={+i} />)}
+            {dataToDisplay && dataToDisplay.map((_, i) => <AdItemSkeleton key={+i} />)}
           </Box>
         </Box>
       </Box>

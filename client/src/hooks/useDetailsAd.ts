@@ -7,25 +7,26 @@ import { getAdById } from '../api/api-actions';
 import { formattingDataForOutput } from '../store/adInfoSlice';
 
 export function useDetailsAd() {
-  const idUrl = useParams();
+  const params = useParams();
   const { loading, dataToDisplay, data } = useSelector((state: RootState) => state.adInfo);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     const controller = new AbortController();
-    if (idUrl.id) {
+    if (params.id) {
       const signal = controller.signal;
-      dispatch(getAdById({ id: idUrl.id, signal }));
+      dispatch(getAdById({ id: params.id, signal }));
     }
     return () => controller.abort();
-  }, [dispatch, idUrl.id]);
+  }, [dispatch, params.id]);
 
   useEffect(() => {
     if (data) dispatch(formattingDataForOutput());
   }, [dispatch, data]);
+
   return {
     loading,
     dataToDisplay,
-    id: idUrl.id,
+    id: params.id,
   };
 }

@@ -1,11 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { AdResponse } from './AdResponse';
+import { TAdResponse } from '../entities/ad/types';
+
 import { APIRoute } from './APIRoute';
 
 import { api } from '.';
 
-export const getAnnouncements = createAsyncThunk<AdResponse[], AbortSignal>('getAnnouncements', async (signal) => {
+export const getAnnouncements = createAsyncThunk<TAdResponse[], AbortSignal>('getAnnouncements', async (signal) => {
   try {
     const response = await api.get(APIRoute.getAds.path, { signal });
     if (response.status === 200) return response.data;
@@ -14,7 +15,7 @@ export const getAnnouncements = createAsyncThunk<AdResponse[], AbortSignal>('get
   }
 });
 
-export const getAdById = createAsyncThunk<AdResponse, { id: string; signal: AbortSignal }>(
+export const getAdById = createAsyncThunk<TAdResponse, { id: string; signal: AbortSignal }>(
   'getAdById',
   async ({ id, signal }) => {
     try {
@@ -28,11 +29,11 @@ export const getAdById = createAsyncThunk<AdResponse, { id: string; signal: Abor
   },
 );
 
-export const createAd = async (params: AdResponse, signal: AbortSignal) => {
+export const createAd = async (params: TAdResponse, signal: AbortSignal) => {
   const response = await api.post(APIRoute.createAd.path, params, { signal });
   if (response.status === 200) return response.data;
 };
-export const updatingAd = async (params: AdResponse, id: string, signal: AbortSignal) => {
+export const updatingAd = async (params: TAdResponse, id: string, signal: AbortSignal) => {
   const response = await api.put(`${APIRoute.updateAdById.path}/${id}`, params, { signal });
   if (response.status === 200) return response.data;
 };

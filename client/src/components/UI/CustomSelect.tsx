@@ -61,6 +61,7 @@ export const CustomSelect: FC<ICustomSelect> = ({
               value={items.find((item) => item.text === field.value)?.id || ''}
               error={error}
               fullWidth
+              aria-label={fieldName}
               sx={{ fontSize: '1.6rem', width: '27rem', backgroundColor: 'white' }}
             >
               {items.map((item, i) => (

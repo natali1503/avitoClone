@@ -2,8 +2,7 @@ import { Box, IconButton, InputAdornment, TextField } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 import React, { FC } from 'react';
-
-import { useFilters } from '../../pages/adsBoard/hooks/useFilters';
+import { useFilters } from '../../../hooks/useFilters';
 
 export const SearchBar: FC = () => {
   const { searchName, handleChangeSearchName } = useFilters();

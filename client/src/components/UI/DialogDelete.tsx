@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 
-import { CustomButton } from './UI/CustomButton';
+import { CustomButton } from './CustomButton';
 
 interface IDialogDelete {
   textButton: string;

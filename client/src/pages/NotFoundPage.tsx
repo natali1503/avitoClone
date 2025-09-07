@@ -2,7 +2,7 @@ import { Box, Typography } from '@mui/material';
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { CustomButton } from '../components/UI/CustomButton';
+import { CustomButton } from '../components/ui/CustomButton';
 import { RouterPath } from '../router/routerPath';
 
 export const NotFoundPage: FC = () => {

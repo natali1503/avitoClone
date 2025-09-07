@@ -2,7 +2,7 @@ import { Box, Skeleton } from '@mui/material';
 //@ts-expect-error: for test
 import React, { FC } from 'react';
 
-export const ItemSkeleton: FC = () => {
+export const AdItemSkeleton: FC = () => {
   return (
     <Box
       sx={{

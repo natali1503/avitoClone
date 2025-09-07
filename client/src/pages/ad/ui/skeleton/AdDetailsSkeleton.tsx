@@ -1,10 +1,9 @@
 import { Box, Skeleton } from '@mui/material';
 import { FC } from 'react';
+import { Wrapper } from '../../../../components/ui/Wrapper';
+import { Header } from '../../../../components/ui/Header';
 
-import { Header } from '../UI/Header';
-import { Wrapper } from '../UI/Wrapper';
-
-export const PageAnnouncementSkeleton: FC = () => {
+export const AdDetailsSkeleton: FC = () => {
   const fields = Array(8).fill('');
 
   return (

@@ -1,4 +1,4 @@
-import { AdResponse } from '../api/AdResponse';
+import { TAdResponse } from '../entities/ad/types';
 
 const exampleRealEstateAd = {
   name: 'Продаётся квартира в центре',
@@ -11,7 +11,7 @@ const exampleRealEstateAd = {
   rooms: '2',
   price: '8500000',
   id: 1,
-} as AdResponse;
+} as TAdResponse;
 
 const exampleAutoAd = {
   name: 'Продаю Toyota Camry',
@@ -24,7 +24,7 @@ const exampleAutoAd = {
   year: '2018',
   mileage: '65000',
   id: 2,
-} as AdResponse;
+} as TAdResponse;
 
 const exampleServiceAd = {
   name: 'Услуги электрика',
@@ -37,6 +37,6 @@ const exampleServiceAd = {
   cost: '1500',
   workSchedule: 'Пн–Сб с 9:00 до 18:00',
   id: 3,
-} as AdResponse;
+} as TAdResponse;
 
 export const initState = [exampleRealEstateAd, exampleAutoAd, exampleServiceAd];

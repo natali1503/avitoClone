@@ -15,5 +15,5 @@ export const ServiceTypes: IItem[] = [
   { id: ServiceTypeId.DELIVERY, text: 'Доставка' },
   { id: ServiceTypeId.INSTALLATION, text: 'Установка' },
   { id: ServiceTypeId.CONSULTING, text: 'Консультация' },
-  { id: ServiceTypeId.CONSULTING, text: 'Электрик' },
+  { id: ServiceTypeId.ELECTRICIAN, text: 'Электрик' },
 ];

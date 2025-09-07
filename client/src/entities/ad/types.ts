@@ -24,4 +24,4 @@ interface IAdServices extends IAd {
   cost: string;
   workSchedule: string;
 }
-export type AdResponse = IAdRealEstat | IAdAuto | IAdServices;
+export type TAdResponse = IAdRealEstat | IAdAuto | IAdServices;

@@ -2,16 +2,15 @@ import { Box, Typography } from '@mui/material';
 //@ts-expect-error: for test
 import React, { FC } from 'react';
 
-import { AdResponse } from '../../api/AdResponse';
+import { AdItem } from './AdItem';
+import { TAdResponse } from '../../../../entities/ad/types';
 
-import { Item } from './Item';
-
-interface IListItems {
-  dataToDisplay: AdResponse[];
+interface IAdsList {
+  dataToDisplay: TAdResponse[];
   notFoundData: boolean;
 }
 
-export const ListItems: FC<IListItems> = ({ dataToDisplay, notFoundData }) => {
+export const AdsList: FC<IAdsList> = ({ dataToDisplay, notFoundData }) => {
   const isData = dataToDisplay?.length === 0 && !notFoundData;
   const isDataToDisplay = dataToDisplay.length > 0;
 
@@ -19,7 +18,7 @@ export const ListItems: FC<IListItems> = ({ dataToDisplay, notFoundData }) => {
     <Box display={'flex'} flexDirection={'column'} gap={'1.5rem'} data-testid='listItems' margin={'0 auto'}>
       {isDataToDisplay &&
         dataToDisplay.map((item) => (
-          <Item
+          <AdItem
             key={item.id}
             id={item.id}
             name={item.name}

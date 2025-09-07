@@ -62,6 +62,7 @@ export const Textarea: FC<ITextarea> = ({ id, control, fieldName, required, erro
             >
               <TextareaAutosize
                 {...field}
+                aria-label={fieldName}
                 value={String(field?.value)}
                 minRows={4}
                 maxRows={12}

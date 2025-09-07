@@ -61,6 +61,7 @@ export const MultiInput: FC<IMultiInput> = ({
               sx={{ fontSize: '1.6rem', width: '27rem', bgcolor: 'white' }}
               error={error}
               endAdornment={<InputAdornment position='end'>{adornment}</InputAdornment>}
+              aria-label={fieldName}
             />
 
             {error && <FormHelperText>{errorMessage}</FormHelperText>}

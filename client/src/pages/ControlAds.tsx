@@ -4,13 +4,15 @@ import { SubmitHandler } from 'react-hook-form';
 import React, { FC } from 'react';
 
 import { createAd, deleteAdById, updatingAd } from '../api/api-actions';
-import { FormCreateAd } from '../components/Forms/FormCreateAd';
-import { FormEditAd } from '../components/Forms/FormEditAd';
+
 import { TypeFormData } from '../general/TypeFormData';
 import { RouterPath } from '../router/routerPath';
-import { AdResponse } from '../api/AdResponse';
+
 import { toBase64 } from '../utils/toBase64';
 import { useDraft } from '../hooks/useDraft';
+import { TAdResponse } from '../entities/ad/types';
+import { FormCreateAdPage } from './createAd/FormCreateAdPage';
+import { FormEditAdPage } from './editAd/FormEditAdPage';
 
 export const ControlAds: FC = () => {
   const location = useLocation();
@@ -27,15 +29,15 @@ export const ControlAds: FC = () => {
       const fileString = file && file[0] ? await toBase64(file[0]) : '';
 
       if (!editMode) {
-        await createAd({ ...formData, photo: fileString } as AdResponse, signal);
+        await createAd({ ...formData, photo: fileString } as TAdResponse, signal);
       } else {
         if (initTypeAd !== formData.type) {
           // Тип объявления меняется - создаём новое и удаляем старое
-          await createAd({ ...formData, photo: fileString } as AdResponse, signal);
+          await createAd({ ...formData, photo: fileString } as TAdResponse, signal);
           await deleteAdById(String(id), signal);
         } else {
           // Тип объявления не меняется
-          await updatingAd({ ...formData, photo: fileString } as AdResponse, String(id), signal);
+          await updatingAd({ ...formData, photo: fileString } as TAdResponse, String(id), signal);
         }
       }
       navigate(RouterPath.List);
@@ -44,5 +46,5 @@ export const ControlAds: FC = () => {
     }
   };
 
-  return !editMode ? <FormCreateAd formSubmit={formSubmit} /> : <FormEditAd formSubmit={formSubmit} />;
+  return !editMode ? <FormCreateAdPage formSubmit={formSubmit} /> : <FormEditAdPage formSubmit={formSubmit} />;
 };
