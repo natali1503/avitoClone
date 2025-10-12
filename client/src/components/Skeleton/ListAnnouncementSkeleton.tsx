@@ -11,7 +11,7 @@ export const ListAnnouncementSkeleton: FC = () => {
   const dataToDisplay = Array(5).fill('');
   return (
     <Box display={'flex'} flexDirection={'column'} gap={'2rem'}>
-      <Title title='Список объявлений' />
+      <Title title='Список объявлений.' />
       <Box display={'flex'} flexDirection={'column'} gap={'2rem'}>
         <Box display={'flex'} flexDirection={'row'} gap={'1.5rem'} justifyContent={'flex-end'}>
           <Skeleton width={'10rem'} height={'3rem'} variant='rectangular' sx={{ borderRadius: '4px' }} />
