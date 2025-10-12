@@ -79,12 +79,38 @@ jobs:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_SSH_KEY }}
+          fingerprint: ${{ secrets.FINGERPRINT }}
+          script_stop: true
           script: |
-            cd /srv/adboard
-            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-            docker-compose -f docker-compose.prod.yml pull
-            docker-compose -f docker-compose.prod.yml up -d --force-recreate
-            docker image prune -f
+            set -euo pipefail
+      
+            # === переменные ===
+            STACK_DIR=/srv/adboard
+            COMPOSE_FILE=docker-compose.prod.yml
+      
+            cd "$STACK_DIR"
+      
+            # === обеспечить наличие docker compose ===
+            if ! sudo docker compose version >/dev/null 2>&1; then
+              if command -v sudo >/dev/null 2>&1; then
+                sudo apt-get update -y
+                sudo apt-get install -y docker-compose-plugin
+              else
+                apt-get update -y
+                apt-get install -y docker-compose-plugin
+              fi
+            fi
+      
+            # === логин в GHCR (приватные образы) ===
+            echo "${{ secrets.GHCR_PAT || secrets.GITHUB_TOKEN }}" | sudo docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      
+            # === деплой ===
+            sudo docker compose -f "$COMPOSE_FILE" pull
+            sudo docker compose -f "$COMPOSE_FILE" up -d --remove-orphans
+      
+            # === уборка и выход из реестра ===
+            sudo docker image prune -f
+            sudo docker logout ghcr.io
 
       - name: Deploy to test server
         if: github.ref == 'refs/heads/nstnkv'
@@ -93,9 +119,35 @@ jobs:
           host: ${{ secrets.DEPLOY_HOST }}
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_SSH_KEY }}
+          fingerprint: ${{ secrets.FINGERPRINT }}
+          script_stop: true
           script: |
-            cd /srv/adboard
-            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-            docker-compose -f docker-compose.prod.yml pull
-            docker-compose -f docker-compose.prod.yml up -d --force-recreate
-            docker image prune -f
+            set -euo pipefail
+      
+            # === переменные ===
+            STACK_DIR=/srv/adboard
+            COMPOSE_FILE=docker-compose.prod.yml
+      
+            cd "$STACK_DIR"
+      
+            # === обеспечить наличие docker compose ===
+            if ! sudo docker compose version >/dev/null 2>&1; then
+              if command -v sudo >/dev/null 2>&1; then
+                sudo apt-get update -y
+                sudo apt-get install -y docker-compose-plugin
+              else
+                apt-get update -y
+                apt-get install -y docker-compose-plugin
+              fi
+            fi
+      
+            # === логин в GHCR (приватные образы) ===
+            echo "${{ secrets.GHCR_PAT || secrets.GITHUB_TOKEN }}" | sudo docker login ghcr.io -u ${{ github.actor }} --password-stdin
+      
+            # === деплой ===
+            sudo docker compose -f "$COMPOSE_FILE" pull
+            sudo docker compose -f "$COMPOSE_FILE" up -d --remove-orphans
+      
+            # === уборка и выход из реестра ===
+            sudo docker image prune -f
+            sudo docker logout ghcr.io
