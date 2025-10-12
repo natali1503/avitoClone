@@ -10,9 +10,21 @@ dist/
 logs/
 output.log
 .env
+.env.*
 
 .DS_Store
 Thumbs.db
 
 .git
 .gitignore
+.github/
+*.log
+coverage/
+test/
+tests/
+*.test.js
+*.spec.js
+README.md
+docker-compose*.yml
+Dockerfile
+.dockerignore

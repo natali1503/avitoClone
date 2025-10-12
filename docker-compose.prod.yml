@@ -1,0 +1,16 @@
+services:
+  caddy:
+    image: ghcr.io/natali1503/avitoclone-client:nstnkv
+    ports:
+      - "80:80"
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  backend:
+    image: ghcr.io/natali1503/avitoclone-backend:nstnkv
+    ports:
+      - "3001:3000"
+    restart: unless-stopped
