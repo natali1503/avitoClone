@@ -3,8 +3,7 @@ import React, { FC } from 'react';
 
 import { Categories } from '../../general/FormField/Categories';
 import { useFilters } from '../../pages/adsBoard/hooks/useFilters';
-
-import { SelectFieldFilter } from './SelectFieldFilter';
+import { SelectFieldFilter } from '../../pages/adsBoard/ui/filtersPanel/ui/SelectFieldFilter';
 
 export const CategoryFilter: FC = () => {
   const { categories, handleChangeCategories } = useFilters();

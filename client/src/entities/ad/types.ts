@@ -6,7 +6,7 @@ interface IAd {
   photo: string;
   type: string;
 }
-interface IAdRealEstat extends IAd {
+interface IAdRealEstate extends IAd {
   propertyType: string;
   area: string;
   rooms: string;
@@ -24,4 +24,4 @@ interface IAdServices extends IAd {
   cost: string;
   workSchedule: string;
 }
-export type TAdResponse = IAdRealEstat | IAdAuto | IAdServices;
+export type TAdResponse = IAdRealEstate | IAdAuto | IAdServices;

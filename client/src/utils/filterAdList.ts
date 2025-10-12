@@ -1,9 +1,9 @@
-import { TTAdResponse } from '../entities/ad/types';
+import { TAdResponse } from '../entities/ad/types';
 import { Categories } from '../general/FormField/Categories';
 import { IField } from '../general/FormField/formFieldNames';
 
 export function filterAdList(
-  adList: TTAdResponse[],
+  adList: TAdResponse[],
   searchName: string = '',
   categories: string = '',
   additionalFiltersState: { [key in string]: string } | null = null,

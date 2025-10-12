@@ -1,6 +1,6 @@
 import { Box, FormControl, FormHelperText, FormLabel, TextareaAutosize } from '@mui/material';
 import { Control, Controller } from 'react-hook-form';
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 
 import { TypeFormData } from '../../../general/TypeFormData';
 
@@ -14,7 +14,7 @@ interface ITextarea {
   dataTestId: string;
 }
 
-export const Textarea: FC<ITextarea> = ({ id, control, fieldName, required, error, dataTestId, errorMessage }) => {
+export const Textarea: FC<ITextarea> = ({ id, control, fieldName, required, error, errorMessage }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 

@@ -1,5 +1,6 @@
 import { Box, Skeleton } from '@mui/material';
 import { FC } from 'react';
+
 import { Wrapper } from '../../../../components/ui/Wrapper';
 import { Header } from '../../../../components/ui/Header';
 

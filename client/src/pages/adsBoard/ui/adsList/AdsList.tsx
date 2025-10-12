@@ -2,8 +2,9 @@ import { Box, Typography } from '@mui/material';
 //@ts-expect-error: for test
 import React, { FC } from 'react';
 
-import { AdItem } from './AdItem';
 import { TAdResponse } from '../../../../entities/ad/types';
+
+import { AdItem } from './AdItem';
 
 interface IAdsList {
   dataToDisplay: TAdResponse[];

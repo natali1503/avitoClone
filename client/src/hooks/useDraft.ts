@@ -1,42 +1,34 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 import { TypeFormData } from '../general/TypeFormData';
 
-export function useDraft() {
-  const key = 'draftAd';
+export type TDraft = TypeFormData | null;
 
-  const [editMode] = useState(() => {
-    const editMode = localStorage.getItem('editMode');
-    return editMode ? Boolean(JSON.parse(editMode)) : false;
-  });
-  const [initTypeAd] = useState(() => {
-    const initTypeAd = localStorage.getItem('initTypeAd');
-    return initTypeAd ? JSON.parse(initTypeAd) : '';
-  });
-  const [draft, setDraft] = useState<TypeFormData | null>(() => {
-    const savedDraft = localStorage.getItem(key);
-    return savedDraft ? JSON.parse(savedDraft) : null;
+export type TUseDraftReturn = {
+  draft: TDraft;
+  setDraft: React.Dispatch<React.SetStateAction<TDraft>>;
+  clearDraft: () => void;
+};
+
+export const useDraft = (originValueAd?: TypeFormData): TUseDraftReturn => {
+  const DRAFT_AD = 'draftAd';
+
+  const [draft, setDraft] = useState<TDraft>(() => {
+    const savedDraft = localStorage.getItem(DRAFT_AD);
+    if (savedDraft) return JSON.parse(savedDraft);
+    else return originValueAd || null;
   });
 
   useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(draft));
+    if (draft) {
+      localStorage.setItem(DRAFT_AD, JSON.stringify(draft));
+    }
   }, [draft]);
 
-  function clearDraft() {
+  const clearDraft = useCallback(() => {
+    localStorage.removeItem(DRAFT_AD);
     setDraft(null);
-    localStorage.removeItem(key);
-  }
-  function initEditMode(initValue: TypeFormData) {
-    if (initValue) {
-      localStorage.setItem('editMode', JSON.stringify(true));
-      localStorage.setItem('initTypeAd', JSON.stringify(initValue.type));
-      setDraft(initValue);
-    }
-  }
-  function finishingEditing() {
-    localStorage.removeItem('editMode');
-    localStorage.removeItem('initTypeAd');
-    clearDraft();
-  }
-  return { draft, setDraft, clearDraft, editMode, initEditMode, finishingEditing, initTypeAd };
-}
+  }, []);
+
+  return { draft, setDraft, clearDraft };
+};

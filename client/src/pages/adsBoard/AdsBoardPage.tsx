@@ -1,11 +1,12 @@
 //@ts-expect-error: for test
-import React, { FC, useEffect, useLayoutEffect, useMemo } from 'react';
+import React, { FC } from 'react';
 import { Box } from '@mui/material';
 
 import { CustomPagination } from '../../components/pagination/CustomPagination';
 import { Wrapper } from '../../components/ui/Wrapper';
 import { Header } from '../../components/ui/Header';
 import { CustomButton } from '../../components/ui/CustomButton';
+
 import { FiltersPanel } from './ui/filtersPanel/FiltersPanel';
 import { AdsList } from './ui/adsList/AdsList';
 import { ListAnnouncementSkeleton } from './ui/skeleton/ListAnnouncementSkeleton';

@@ -14,7 +14,7 @@ import { filterAdList } from '../../../utils/filterAdList';
 import { AppDispatch, RootState } from '../../../store';
 import { TAdResponse } from '../../../entities/ad/types';
 
-export function useFilters(adData: TAdResponse[]) {
+export function useFilters(adData?: TAdResponse[]) {
   const dispatch = useDispatch<AppDispatch>();
   const {
     searchName,

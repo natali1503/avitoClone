@@ -1,10 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useNavigationType } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useEffect, useLayoutEffect, useMemo } from 'react';
 
 import { AppDispatch, RootState } from '../../../store';
 import { getAnnouncements } from '../../../api/api-actions';
-import { useDraft } from '../../../hooks/useDraft';
 import { usePagination } from '../../../hooks/usePagination';
 import { RouterPath } from '../../../router/routerPath';
 
@@ -16,7 +15,6 @@ export const useAdsBoard = () => {
   });
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const navigationType = useNavigationType();
 
   const { filteredData, notFoundData } = useFilters(data);
   const { currentPage, totalPages, indexOfLastItem, indexOfFirstItem, setCurrentPage } = usePagination({
@@ -32,8 +30,6 @@ export const useAdsBoard = () => {
     return () => controller.abort();
   }, [dispatch]);
 
-  const { clearDraft } = useDraft();
-
   const dataToDisplay = useMemo(() => {
     return filteredData?.slice(indexOfFirstItem, indexOfLastItem);
   }, [filteredData, indexOfLastItem, indexOfFirstItem]);
@@ -42,14 +38,8 @@ export const useAdsBoard = () => {
     setCurrentPage(1);
   }, [filteredData, setCurrentPage]);
 
-  useEffect(() => {
-    if (navigationType === 'POP') {
-      clearDraft();
-    }
-  }, [navigationType, clearDraft]);
-
   const handleCreateAd = () => {
-    navigate(RouterPath.Form);
+    navigate(RouterPath.CreateAd);
   };
 
   return {

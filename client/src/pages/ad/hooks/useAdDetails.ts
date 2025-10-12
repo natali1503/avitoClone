@@ -1,8 +1,7 @@
-import { useNavigate, useNavigationType } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import { TypeFormData } from '../../../general/TypeFormData';
 import { IDataToDisplay } from '../../../store/adInfoSlice';
-import { useDraft } from '../../../hooks/useDraft';
 import { deleteAdById } from '../../../api/api-actions';
 import { RouterPath } from '../../../router/routerPath';
 
@@ -16,16 +15,6 @@ export const useAdDetails = (dataToDisplay: IDataToDisplay, id: string) => {
     },
     {} as Record<keyof TypeFormData, string | number>,
   ) as TypeFormData;
-  const { initEditMode, finishingEditing } = useDraft();
-
-  const navigationType = useNavigationType();
-  // useEffect(() => {
-  //   if (navigationType === 'POP') {
-  //     console.log('POP');
-
-  //     finishingEditing();
-  //   }
-  // }, [navigationType, finishingEditing]);
 
   const handleDeleteAd = async () => {
     const controller = new AbortController();
@@ -35,8 +24,7 @@ export const useAdDetails = (dataToDisplay: IDataToDisplay, id: string) => {
   };
 
   const handleEditAd = () => {
-    navigate(RouterPath.Form, { state: { id } });
-    initEditMode(initValue);
+    navigate(`/editAd/${id}`, { state: initValue });
   };
   return { handleDeleteAd, handleEditAd };
 };

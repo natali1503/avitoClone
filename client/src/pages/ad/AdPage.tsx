@@ -2,17 +2,18 @@ import { Box } from '@mui/material';
 import { FC, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { useDetailsAd } from '../../hooks/useDetailsAd';
-import { AdDetails } from './ui/AdDetails';
 import { Wrapper } from '../../components/ui/Wrapper';
 import { Header } from '../../components/ui/Header';
 import { resetDetailsAd } from '../../store/adInfoSlice';
 import { AppDispatch } from '../../store';
+
+import { AdDetails } from './ui/AdDetails';
+import { useAdPage } from './hooks/useAdPage';
 import { AdDetailsSkeleton } from './ui/skeleton/AdDetailsSkeleton';
 import { AdNotFound } from './ui/AdNotFound';
 
 export const AdPage: FC = () => {
-  const { loading, dataToDisplay, id } = useDetailsAd();
+  const { loading, dataToDisplay, id } = useAdPage();
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {

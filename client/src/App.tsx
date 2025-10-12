@@ -6,9 +6,11 @@ import React from 'react';
 import { AdsBoardPage } from './pages/adsBoard/AdsBoardPage';
 import { AdPage } from './pages/ad/AdPage';
 import { RouterPath } from './router/routerPath';
-import { ControlAds } from './pages/ControlAds';
 import { useMode } from './theme';
 import { NotFoundPage } from './pages/NotFoundPage';
+import { CreateAdPage } from './pages/formAd/CreateAdPage';
+import { EditAdPage } from './pages/formAd/EditAdPage';
+import { ToasterCustom } from './components/toasterCustom/ToasterCustom';
 
 function App() {
   const [theme] = useMode();
@@ -20,12 +22,14 @@ function App() {
           <Routes>
             <Route path='/' element={<AdsBoardPage />} />
             <Route path={RouterPath.List} element={<AdsBoardPage />} />
-            <Route path={RouterPath.Form} element={<ControlAds />} />
             <Route path={RouterPath.Item} element={<AdPage />} />
+            <Route path={RouterPath.CreateAd} element={<CreateAdPage />} />
+            <Route path={RouterPath.EditAd} element={<EditAdPage />} />
             <Route path='*' element={<NotFoundPage />} />
           </Routes>
         </Router>
       </Box>
+      <ToasterCustom theme={theme} />
     </ThemeProvider>
   );
 }

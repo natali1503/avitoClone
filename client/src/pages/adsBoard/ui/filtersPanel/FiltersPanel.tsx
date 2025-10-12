@@ -2,11 +2,12 @@
 import React, { FC } from 'react';
 import { Box, Paper, Typography } from '@mui/material';
 
+import { useFilters } from '../../hooks/useFilters';
+import { CustomButton } from '../../../../components/ui/CustomButton';
+
 import { AdditionalFilters } from './ui/AdditionalFilters';
 import { CategoryFilter } from './ui/CategoryFilter';
 import { SearchBar } from './ui/SearchBar';
-import { useFilters } from '../../hooks/useFilters';
-import { CustomButton } from '../../../../components/ui/CustomButton';
 
 export const FiltersPanel: FC = () => {
   const { handleResetFilters } = useFilters();

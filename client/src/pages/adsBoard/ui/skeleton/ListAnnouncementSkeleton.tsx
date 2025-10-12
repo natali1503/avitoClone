@@ -2,10 +2,11 @@ import { Box, Skeleton } from '@mui/material';
 //@ts-expect-error: for test
 import React, { FC } from 'react';
 
-import { FilterSkeleton } from './FilterSkeleton';
 import { Wrapper } from '../../../../components/ui/Wrapper';
 import { Header } from '../../../../components/ui/Header';
 import { AdItemSkeleton } from '../adsList/AdItemSkeleton';
+
+import { FilterSkeleton } from './FilterSkeleton';
 
 export const ListAnnouncementSkeleton: FC = () => {
   const dataToDisplay = Array(3).fill('');
