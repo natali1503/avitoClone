@@ -2,8 +2,12 @@ name: Build and Deploy
 
 on:
   push:
-    branches: [ main, nstnkv ]
+    branches: [ main ]
   workflow_dispatch:
+
+concurrency:
+  group: prod-deploy
+  cancel-in-progress: true
 
 env:
   REGISTRY: ghcr.io
@@ -11,36 +15,12 @@ env:
   IMAGE_BACKEND: ghcr.io/natali1503/avitoclone-backend
 
 jobs:
-  detect_changes:
-    name: Detect changes
-    runs-on: ubuntu-latest
-    outputs:
-      client_changed: ${{ steps.filter.outputs.client }}
-      backend_changed: ${{ steps.filter.outputs.backend }}
-    steps:
-      - uses: actions/checkout@v4
-      - id: filter
-        uses: dorny/paths-filter@v3
-        with:
-          filters: |
-            client:
-              - 'client/**'
-              - 'client/Dockerfile'
-            backend:
-              - 'server/**'
-              - 'server/Dockerfile'
-
   build:
     name: Build and Push Images
-    needs: detect_changes
     runs-on: ubuntu-latest
-    environment: DEPLOY
     permissions:
       contents: read
       packages: write
-    outputs:
-      built_client: ${{ steps.flag-client.outputs.built || 'false' }}
-      built_backend: ${{ steps.flag-backend.outputs.built || 'false' }}
 
     steps:
       - name: Checkout code
@@ -56,20 +36,17 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # ---------- CLIENT ----------
       - name: Extract metadata for client
-        if: needs.detect_changes.outputs.client_changed == 'true'
         id: meta-client
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.IMAGE_CLIENT }}
           tags: |
-            type=ref,event=branch
-            type=sha,prefix={{branch}}-
-            type=raw,value=latest,enable={{is_default_branch}}
+            type=raw,value=main
+            type=raw,value=latest
+            type=sha,prefix=main-
 
       - name: Build and push client image
-        if: needs.detect_changes.outputs.client_changed == 'true'
         uses: docker/build-push-action@v5
         with:
           context: ./client
@@ -79,25 +56,17 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: flag client built
-        if: needs.detect_changes.outputs.client_changed == 'true'
-        id: flag-client
-        run: echo "built=true" >> "$GITHUB_OUTPUT"
-
-      # ---------- BACKEND ----------
       - name: Extract metadata for backend
-        if: needs.detect_changes.outputs.backend_changed == 'true'
         id: meta-backend
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.IMAGE_BACKEND }}
           tags: |
-            type=ref,event=branch
-            type=sha,prefix={{branch}}-
-            type=raw,value=latest,enable={{is_default_branch}}
+            type=raw,value=main
+            type=raw,value=latest
+            type=sha,prefix=main-
 
       - name: Build and push backend image
-        if: needs.detect_changes.outputs.backend_changed == 'true'
         uses: docker/build-push-action@v5
         with:
           context: ./server
@@ -107,22 +76,14 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: flag backend built
-        if: needs.detect_changes.outputs.backend_changed == 'true'
-        id: flag-backend
-        run: echo "built=true" >> "$GITHUB_OUTPUT"
-
   deploy:
-    name: Deploy to Server
-    needs: [build]
+    name: Deploy to Production Server
+    needs: build
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
     environment: DEPLOY
-    # деплой только если что-то реально собрали/опубликовали
-    if: needs.build.outputs.built_client == 'true' || needs.build.outputs.built_backend == 'true'
-
     steps:
-      - name: Deploy to production server
-        if: github.ref == 'refs/heads/main'
+      - name: Deploy to production via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.DEPLOY_HOST }}
@@ -136,43 +97,8 @@ jobs:
             COMPOSE_FILE=docker-compose.prod.yml
             cd "$STACK_DIR"
 
-            if ! sudo docker compose version >/dev/null 2>&1; then
-              sudo apt-get update -y
-              sudo apt-get install -y docker-compose-plugin
-            fi
-
             echo "${{ secrets.GHCR_PAT || secrets.GITHUB_TOKEN }}" | sudo docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-            sudo docker compose -f "$COMPOSE_FILE" pull
-            sudo docker compose -f "$COMPOSE_FILE" up -d --remove-orphans
-
-            sudo docker image prune -f
-            sudo docker logout ghcr.io
-
-      - name: Deploy to test server
-        if: github.ref == 'refs/heads/nstnkv'
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.DEPLOY_HOST }}
-          username: ${{ secrets.DEPLOY_USER }}
-          key: ${{ secrets.DEPLOY_SSH_KEY }}
-          fingerprint: ${{ secrets.FINGERPRINT }}
-          script_stop: true
-          script: |
-            set -euo pipefail
-            STACK_DIR=/srv/adboard
-            COMPOSE_FILE=docker-compose.prod.yml
-            cd "$STACK_DIR"
-
-            if ! sudo docker compose version >/dev/null 2>&1; then
-              sudo apt-get update -y
-              sudo apt-get install -y docker-compose-plugin
-            fi
-
-            echo "${{ secrets.GHCR_PAT || secrets.GITHUB_TOKEN }}" | sudo docker login ghcr.io -u ${{ github.actor }} --password-stdin
-
-            sudo docker compose -f "$COMPOSE_FILE" pull
-            sudo docker compose -f "$COMPOSE_FILE" up -d --remove-orphans
-
+            sudo docker compose -f "$COMPOSE_FILE" up -d --pull always --remove-orphans
             sudo docker image prune -f
             sudo docker logout ghcr.io
