@@ -15,7 +15,7 @@ export const SearchBar: FC<ISearchBar> = ({ searchName, handleChangeSearchName }
   }
 
   return (
-    <Box>
+    <Box sx={{ minWidth: 0 }}>
       <TextField
         placeholder='Название объявления'
         value={searchName}
@@ -40,7 +40,15 @@ export const SearchBar: FC<ISearchBar> = ({ searchName, handleChangeSearchName }
           },
         }}
         variant='standard'
-        sx={{ fontSize: '1.4rem', minWidth: '15rem', width: '30rem' }}
+        fullWidth
+        sx={{
+          '& .MuiInputBase-input': {
+            fontSize: { xs: '1.4rem', md: '1.6rem' },
+            '::placeholder': {
+              fontSize: { xs: '1.4rem', md: '1.6rem' },
+            },
+          },
+        }}
       />
     </Box>
   );

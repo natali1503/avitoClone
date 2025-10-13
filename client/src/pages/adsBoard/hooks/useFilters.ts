@@ -17,17 +17,13 @@ import { IField } from '../../../general/FormField/formFieldNames';
 
 export const useFilters = (adData?: TAdResponse[]): TUseFiltersReturn => {
   const dispatch = useDispatch<AppDispatch>();
-  const {
-    searchName,
-    categories,
-    listAdditionalFilters,
-    additionalFiltersState,
-    filteredData: savedFilteredData,
-  } = useSelector((state: RootState) => state.filters, shallowEqual);
+  const { searchName, categories, listAdditionalFilters, additionalFiltersState } = useSelector(
+    (state: RootState) => state.filters,
+    shallowEqual,
+  );
 
   const filteredData: TAdResponse[] | [] = useMemo(() => {
     if (!adData || adData.length === 0) return [];
-    if (savedFilteredData?.length) return savedFilteredData;
     return filterAdList(adData, searchName, categories, additionalFiltersState, listAdditionalFilters);
   }, [adData, searchName, categories, additionalFiltersState, listAdditionalFilters]);
 

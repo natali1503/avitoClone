@@ -7,6 +7,7 @@ import { RouterPath } from '../../../router/routerPath';
 
 export const useAdDetails = (dataToDisplay: IDataToDisplay, id: string) => {
   const navigate = useNavigate();
+
   const initValue = dataToDisplay.data.reduce(
     (acc, el) => {
       const typedKey = el.id as keyof TypeFormData;
