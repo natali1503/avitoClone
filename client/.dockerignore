@@ -1,4 +1,3 @@
-
 node_modules
 npm-debug.log
 yarn-error.log
@@ -19,3 +18,14 @@ Thumbs.db
 
 .git
 .gitignore
+.github/
+.env
+.env.*
+*.log
+coverage/
+.eslintrc*
+.prettierrc*
+README.md
+docker-compose*.yml
+Dockerfile
+.dockerignore
