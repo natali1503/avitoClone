@@ -3,11 +3,12 @@ import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 import React, { FC } from 'react';
 
-import { useFilters } from '../../../hooks/useFilters';
+interface ISearchBar {
+  searchName: string;
+  handleChangeSearchName: (value: string) => void;
+}
 
-export const SearchBar: FC = () => {
-  const { searchName, handleChangeSearchName } = useFilters();
-
+export const SearchBar: FC<ISearchBar> = ({ searchName, handleChangeSearchName }) => {
   function handleChange(e: React.ChangeEvent<{ value: unknown }>) {
     const value = e.target.value as string;
     handleChangeSearchName(value.toLocaleLowerCase());

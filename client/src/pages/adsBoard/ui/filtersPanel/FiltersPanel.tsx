@@ -2,16 +2,25 @@
 import React, { FC } from 'react';
 import { Box, Paper, Typography } from '@mui/material';
 
-import { useFilters } from '../../hooks/useFilters';
-import { CustomButton } from '../../../../components/ui/CustomButton';
-
 import { AdditionalFilters } from './ui/AdditionalFilters';
 import { CategoryFilter } from './ui/CategoryFilter';
 import { SearchBar } from './ui/SearchBar';
+import { CustomButton } from '../../../../components/ui/CustomButton';
+import { TUseFiltersReturn } from '../../hooks/useFilters';
 
-export const FiltersPanel: FC = () => {
-  const { handleResetFilters } = useFilters();
+interface IFiltersPanel {
+  search: TUseFiltersReturn['search'];
+  categoriesFilters: TUseFiltersReturn['categoriesFilters'];
+  additionalFilters: TUseFiltersReturn['additionalFilters'];
+  handleResetFilters: TUseFiltersReturn['handleResetFilters'];
+}
 
+export const FiltersPanel: FC<IFiltersPanel> = ({
+  search,
+  categoriesFilters,
+  additionalFilters,
+  handleResetFilters,
+}) => {
   return (
     <Paper
       sx={{
@@ -24,9 +33,16 @@ export const FiltersPanel: FC = () => {
     >
       <Box display={'flex'} flexDirection={'column'} gap={'2.5rem'}>
         <Typography variant='h6'>Фильтрация</Typography>
-        <SearchBar />
-        <CategoryFilter />
-        <AdditionalFilters />
+        <SearchBar searchName={search.searchName} handleChangeSearchName={search.handleChangeSearchName} />
+        <CategoryFilter
+          categories={categoriesFilters.categories}
+          handleChangeCategories={categoriesFilters.handleChangeCategories}
+        />
+        <AdditionalFilters
+          listAdditionalFilters={additionalFilters.listAdditionalFilters}
+          additionalFiltersState={additionalFilters.additionalFiltersState}
+          handleAdditionalFilters={additionalFilters.handleAdditionalFilters}
+        />
         <CustomButton text='Сбросить' onClick={handleResetFilters} sx={{ width: '100%' }} />
       </Box>
     </Paper>

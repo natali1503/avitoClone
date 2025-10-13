@@ -16,7 +16,7 @@ export const useAdsBoard = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
-  const { filteredData, notFoundData } = useFilters(data);
+  const { filteredData, notFoundData, ...rest } = useFilters(data);
   const { currentPage, totalPages, indexOfLastItem, indexOfFirstItem, setCurrentPage } = usePagination({
     quantityAd: filteredData.length || 0,
   });
@@ -50,5 +50,6 @@ export const useAdsBoard = () => {
     },
     pagination: { currentPage, totalPages, setCurrentPage },
     handleCreateAd,
+    ...rest,
   };
 };

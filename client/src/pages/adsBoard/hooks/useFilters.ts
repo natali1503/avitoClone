@@ -13,8 +13,9 @@ import { CategoriesValues } from '../../../general/FormField/Categories';
 import { filterAdList } from '../../../utils/filterAdList';
 import { AppDispatch, RootState } from '../../../store';
 import { TAdResponse } from '../../../entities/ad/types';
+import { IField } from '../../../general/FormField/formFieldNames';
 
-export function useFilters(adData?: TAdResponse[]) {
+export const useFilters = (adData?: TAdResponse[]): TUseFiltersReturn => {
   const dispatch = useDispatch<AppDispatch>();
   const {
     searchName,
@@ -36,35 +37,52 @@ export function useFilters(adData?: TAdResponse[]) {
     dispatch(setFilteredData(filteredData));
   }, [filteredData, dispatch]);
 
-  function handleResetFilters() {
+  const handleResetFilters = () => {
     dispatch(resetFilters());
-  }
-  function handleChangeSearchName(value: string) {
+  };
+  const handleChangeSearchName = (value: string) => {
     dispatch(setSearchName(value));
     dispatch(resetFilteredData());
-  }
-  function handleChangeCategories(value: CategoriesValues | '') {
+  };
+  const handleChangeCategories = (value: CategoriesValues | '') => {
     dispatch(setCategories(value));
     dispatch(resetFilteredData());
-  }
-  function handleAdditionalFilters(params: { id: string; value: string }) {
+  };
+  const handleAdditionalFilters = (params: { id: string; value: string }) => {
     dispatch(setAdditionalFiltersState(params));
     dispatch(resetFilteredData());
-  }
+  };
 
   return {
-    searchName,
-    handleChangeSearchName,
+    search: { searchName, handleChangeSearchName },
 
-    categories,
-    handleChangeCategories,
+    categoriesFilters: { categories, handleChangeCategories },
+
+    additionalFilters: { listAdditionalFilters, additionalFiltersState, handleAdditionalFilters },
 
     handleResetFilters,
     notFoundData,
     filteredData,
-
-    listAdditionalFilters,
-    additionalFiltersState,
-    handleAdditionalFilters,
   };
-}
+};
+
+export type TUseFiltersReturn = {
+  search: { searchName: string; handleChangeSearchName: (value: string) => void };
+
+  categoriesFilters: {
+    categories: '' | CategoriesValues;
+    handleChangeCategories: (value: CategoriesValues | '') => void;
+  };
+
+  additionalFilters: {
+    listAdditionalFilters: IField[];
+    additionalFiltersState: {
+      [x: string]: string;
+    } | null;
+    handleAdditionalFilters: (params: { id: string; value: string }) => void;
+  };
+
+  handleResetFilters: () => void;
+  notFoundData: boolean;
+  filteredData: TAdResponse[];
+};

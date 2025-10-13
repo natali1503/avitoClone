@@ -1,14 +1,16 @@
 //@ts-expect-error: for test
 import React, { FC } from 'react';
 
-import { useFilters } from '../../../hooks/useFilters';
-import { Categories } from '../../../../../general/FormField/Categories';
+import { Categories, CategoriesValues } from '../../../../../general/FormField/Categories';
 
 import { SelectFieldFilter } from './SelectFieldFilter';
 
-export const CategoryFilter: FC = () => {
-  const { categories, handleChangeCategories } = useFilters();
+interface ICategoryFilter {
+  categories: '' | CategoriesValues;
+  handleChangeCategories: (value: CategoriesValues | '') => void;
+}
 
+export const CategoryFilter: FC<ICategoryFilter> = ({ categories, handleChangeCategories }) => {
   return (
     <SelectFieldFilter
       fieldName='Категории объявления'

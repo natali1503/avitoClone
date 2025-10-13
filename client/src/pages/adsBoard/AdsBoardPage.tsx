@@ -3,17 +3,18 @@ import React, { FC } from 'react';
 import { Box } from '@mui/material';
 
 import { CustomPagination } from '../../components/pagination/CustomPagination';
-import { Wrapper } from '../../components/ui/Wrapper';
-import { Header } from '../../components/ui/Header';
-import { CustomButton } from '../../components/ui/CustomButton';
 
 import { FiltersPanel } from './ui/filtersPanel/FiltersPanel';
 import { AdsList } from './ui/adsList/AdsList';
 import { ListAnnouncementSkeleton } from './ui/skeleton/ListAnnouncementSkeleton';
 import { useAdsBoard } from './hooks/useAdsBoard';
+import { Wrapper } from '../../components/ui/Wrapper';
+import { Header } from '../../components/ui/Header';
+import { CustomButton } from '../../components/ui/CustomButton';
 
 export const AdsBoardPage: FC = () => {
-  const { adData, pagination, handleCreateAd } = useAdsBoard();
+  const { adData, pagination, handleCreateAd, handleResetFilters, search, categoriesFilters, additionalFilters } =
+    useAdsBoard();
 
   return adData.loading ? (
     <ListAnnouncementSkeleton />
@@ -32,7 +33,12 @@ export const AdsBoardPage: FC = () => {
           <CustomButton text='Разместить объявление' dataTestId='creatingAd' onClick={handleCreateAd} />
         </Box>
         <Box display={'flex'} flexDirection={'row'} gap={'1.5rem'}>
-          <FiltersPanel />
+          <FiltersPanel
+            search={search}
+            categoriesFilters={categoriesFilters}
+            additionalFilters={additionalFilters}
+            handleResetFilters={handleResetFilters}
+          />
           <AdsList dataToDisplay={adData.dataToDisplay} notFoundData={adData.notFoundData} />
         </Box>
       </Box>
