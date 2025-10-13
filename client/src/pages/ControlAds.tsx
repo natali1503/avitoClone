@@ -1,5 +1,3 @@
-import { log } from 'console';
-
 import { useLocation, useNavigate } from 'react-router-dom';
 import { SubmitHandler } from 'react-hook-form';
 //@ts-expect-error: for test

@@ -4,10 +4,7 @@ import { TypeFormData } from '../general/TypeFormData';
 
 export function useDraft() {
   const key = 'draftAd';
-  const MODE = {
-    CREATE: 'create',
-    EDIT: 'edit',
-  } as const;
+
   const [editMode] = useState(() => {
     const editMode = localStorage.getItem('editMode');
     return editMode ? Boolean(JSON.parse(editMode)) : false;
