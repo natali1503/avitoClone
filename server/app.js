@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const { INITIAL_MOCK_DATA } = require("./mockData");
 
 const ItemTypes = {
   REAL_ESTATE: "Недвижимость",
@@ -11,14 +12,18 @@ const app = express();
 app.use(bodyParser.json({ limit: "50mb" }));
 
 // In-memory хранилище для объявлений
-let items = [];
+// Инициализируем с моковыми данными для демонстрации
+let items = [...INITIAL_MOCK_DATA];
 
-const makeCounter = () => {
-  let count = 0;
+// Счетчик ID для новых объявлений
+// Находим максимальный ID в существующих данных и начинаем с следующего
+const makeCounter = (startFrom = 0) => {
+  let count = startFrom;
   return () => count++;
 };
 
-const itemsIdCounter = makeCounter();
+const maxExistingId = items.length > 0 ? Math.max(...items.map((item) => item.id)) : 0;
+const itemsIdCounter = makeCounter(maxExistingId + 1);
 
 // Создание нового объявления
 app.post("/items", (req, res) => {
