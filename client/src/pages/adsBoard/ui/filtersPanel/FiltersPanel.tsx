@@ -5,7 +5,7 @@ import { Box, Paper, Typography } from '@mui/material';
 import { AdditionalFilters } from './ui/AdditionalFilters';
 import { CategoryFilter } from './ui/CategoryFilter';
 import { SearchBar } from './ui/SearchBar';
-import { CustomButton } from '../../../../components/tempName/CustomButton';
+import { CustomButton } from '../../../../components/ui/CustomButton';
 import { TUseFiltersReturn } from '../../hooks/useFilters';
 
 interface IFiltersPanel {

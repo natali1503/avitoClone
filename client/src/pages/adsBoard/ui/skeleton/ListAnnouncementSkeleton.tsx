@@ -2,8 +2,8 @@ import { Box, Skeleton } from '@mui/material';
 //@ts-expect-error: for test
 import React, { FC } from 'react';
 
-import { Wrapper } from '../../../../components/tempName/Wrapper';
-import { Header } from '../../../../components/tempName/Header';
+import { Wrapper } from '../../../../components/ui/Wrapper';
+import { Header } from '../../../../components/ui/Header';
 import { AdItemSkeleton } from '../adsList/AdItemSkeleton';
 
 import { FilterSkeleton } from './FilterSkeleton';

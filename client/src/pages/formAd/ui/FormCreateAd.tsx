@@ -6,9 +6,9 @@ import { Box } from '@mui/material';
 import { TypeFormData } from '../../../general/TypeFormData';
 import { CategoriesValues } from '../../../general/FormField/Categories';
 import { CommonFields, FieldsByType } from '../../../general/FormField/formFieldNames';
-import { Wrapper } from '../../../components/tempName/Wrapper';
-import { Header } from '../../../components/tempName/Header';
-import { CustomButton } from '../../../components/tempName/CustomButton';
+import { Wrapper } from '../../../components/ui/Wrapper';
+import { Header } from '../../../components/ui/Header';
+import { CustomButton } from '../../../components/ui/CustomButton';
 import { TUseCreateAdReturn } from '../hooks/useCreateAd';
 
 import { Form } from './Form';

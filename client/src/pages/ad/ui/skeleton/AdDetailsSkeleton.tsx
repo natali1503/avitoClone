@@ -1,8 +1,8 @@
 import { Box, Skeleton } from '@mui/material';
 import { FC } from 'react';
 
-import { Wrapper } from '../../../../components/tempName/Wrapper';
-import { Header } from '../../../../components/tempName/Header';
+import { Wrapper } from '../../../../components/ui/Wrapper';
+import { Header } from '../../../../components/ui/Header';
 
 export const AdDetailsSkeleton: FC = () => {
   const fields = Array(8).fill('');

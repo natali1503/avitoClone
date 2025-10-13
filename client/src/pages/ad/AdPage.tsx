@@ -2,8 +2,8 @@ import { Box } from '@mui/material';
 import { FC, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { Wrapper } from '../../components/tempName/Wrapper';
-import { Header } from '../../components/tempName/Header';
+import { Wrapper } from '../../components/ui/Wrapper';
+import { Header } from '../../components/ui/Header';
 import { resetDetailsAd } from '../../store/adInfoSlice';
 import { AppDispatch } from '../../store';
 
