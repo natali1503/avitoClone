@@ -5,10 +5,10 @@ import React, { FC } from 'react';
 
 import { IField } from '../../../general/FormField/formFieldNames';
 import { TypeFormData } from '../../../general/TypeFormData';
-import { CustomSelect } from '../../../components/ui/CustomSelect';
-import { Title } from '../../../components/ui/Title';
-import { CustomInput } from '../../../components/ui/Input/CustomInput';
-import { Textarea } from '../../../components/ui/Input/Textarea';
+import { CustomSelect } from '../../../components/tempName/CustomSelect';
+import { Title } from '../../../components/tempName/Title';
+import { CustomInput } from '../../../components/tempName/Input/CustomInput';
+import { Textarea } from '../../../components/tempName/Input/Textarea';
 
 interface IForm {
   formTitle: string;

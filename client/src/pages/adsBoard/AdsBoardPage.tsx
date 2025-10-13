@@ -8,9 +8,9 @@ import { FiltersPanel } from './ui/filtersPanel/FiltersPanel';
 import { AdsList } from './ui/adsList/AdsList';
 import { ListAnnouncementSkeleton } from './ui/skeleton/ListAnnouncementSkeleton';
 import { useAdsBoard } from './hooks/useAdsBoard';
-import { Wrapper } from '../../components/ui/Wrapper';
-import { Header } from '../../components/ui/Header';
-import { CustomButton } from '../../components/ui/CustomButton';
+import { Wrapper } from '../../components/tempName/Wrapper';
+import { Header } from '../../components/tempName/Header';
+import { CustomButton } from '../../components/tempName/CustomButton';
 
 export const AdsBoardPage: FC = () => {
   const { adData, pagination, handleCreateAd, handleResetFilters, search, categoriesFilters, additionalFilters } =

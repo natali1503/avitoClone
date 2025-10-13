@@ -4,8 +4,8 @@ import React, { FC } from 'react';
 
 import { IDataToDisplay } from '../../../store/adInfoSlice';
 import { ImageWithPlaceholder } from '../../../components/Image';
-import { CustomButton } from '../../../components/ui/CustomButton';
-import { DialogDelete } from '../../../components/ui/DialogDelete';
+import { CustomButton } from '../../../components/tempName/CustomButton';
+import { DialogDelete } from '../../../components/tempName/DialogDelete';
 import { useAdDetails } from '../hooks/useAdDetails';
 
 interface IDetailsAd {

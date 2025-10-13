@@ -4,7 +4,7 @@ import React, { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { ImageWithPlaceholder } from '../../../../components/Image';
-import { CustomButton } from '../../../../components/ui/CustomButton';
+import { CustomButton } from '../../../../components/tempName/CustomButton';
 
 interface IAdItem {
   id: number;
