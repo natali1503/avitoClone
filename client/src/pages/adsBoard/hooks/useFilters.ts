@@ -26,7 +26,7 @@ export function useFilters(adData?: TAdResponse[]) {
 
   const filteredData: TAdResponse[] | [] = useMemo(() => {
     if (!adData || adData.length === 0) return [];
-    if (savedFilteredData.length) return savedFilteredData;
+    if (savedFilteredData?.length) return savedFilteredData;
     return filterAdList(adData, searchName, categories, additionalFiltersState, listAdditionalFilters);
   }, [adData, searchName, categories, additionalFiltersState, listAdditionalFilters]);
 

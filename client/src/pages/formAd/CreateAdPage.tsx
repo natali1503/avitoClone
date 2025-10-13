@@ -1,4 +1,5 @@
-import { FC, useState, useEffect, useRef } from 'react';
+//@ts-expect-error: for test
+import React, { FC, useState, useEffect, useRef } from 'react';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { SubmitHandler } from 'react-hook-form';

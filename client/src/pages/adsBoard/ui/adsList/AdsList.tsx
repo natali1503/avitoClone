@@ -16,7 +16,7 @@ export const AdsList: FC<IAdsList> = ({ dataToDisplay, notFoundData }) => {
   const isDataToDisplay = dataToDisplay.length > 0;
 
   return (
-    <Box display={'flex'} flexDirection={'column'} gap={'1.5rem'} data-testid='listItems' margin={'0 auto'}>
+    <Box display={'flex'} flexDirection={'column'} gap={'1.5rem'} data-testid='AdsList' margin={'0 auto'}>
       {isDataToDisplay &&
         dataToDisplay.map((item) => (
           <AdItem

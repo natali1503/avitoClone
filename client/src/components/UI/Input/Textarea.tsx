@@ -1,6 +1,7 @@
 import { Box, FormControl, FormHelperText, FormLabel, TextareaAutosize } from '@mui/material';
 import { Control, Controller } from 'react-hook-form';
-import { FC, useState } from 'react';
+//@ts-expect-error: for test
+import React, { FC, useState } from 'react';
 
 import { TypeFormData } from '../../../general/TypeFormData';
 

@@ -1,6 +1,7 @@
 import { within } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
-import React from 'react';
+import React, { useState } from 'react';
+import { useForm, useWatch } from 'react-hook-form';
 
 import { Categories, CategoriesId } from '../src/general/FormField/Categories';
 import App from '../src/App';
@@ -8,15 +9,80 @@ import App from '../src/App';
 import { screen, render } from './test-utils';
 import { ListAnnouncement } from './pageObjects/ListAnnouncement';
 import { FormAnnouncement } from './pageObjects/FormAnnouncement';
-import { FormCreateAd } from '../src/components/Forms/FormCreateAd';
+import { FormCreateAd } from '../src/pages/formAd/ui/FormCreateAd';
 import { RealEstate, RealEstateId } from '../src/general/FormField/RealEstate';
 import { AutoId, CarBrands } from '../src/general/FormField/Auto';
 import { ServiceTypeId, ServiceTypes } from '../src/general/FormField/ServiceTypes';
+import { initValueForm } from '../src/general/FormField/InitValueForm';
+import { getIdByText } from '../src/utils/getIdByText';
 
 jest.mock('../src/api/api-actions', () => ({
   ...jest.requireActual('../src/api/api-actions'),
   createAd: jest.fn(),
 }));
+
+// Wrapper компонент для тестирования FormCreateAd с управлением состоянием
+const TestFormWrapper = ({ formSubmit }) => {
+  const [currentStep, setCurrentStep] = useState(1);
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      id: 0,
+      name: '',
+      description: '',
+      location: '',
+      photo: '',
+      type: '',
+      // RealEstate fields
+      propertyType: '',
+      area: '',
+      rooms: '',
+      price: '',
+      // Auto fields
+      brand: '',
+      model: '',
+      year: '',
+      mileage: '',
+      // Services fields
+      serviceType: '',
+      experience: '',
+      cost: '',
+      workSchedule: '',
+    },
+    mode: 'onTouched',
+  });
+
+  const type = getIdByText(Categories, useWatch({ control, name: 'type' }));
+
+  const handleClickNextStep = async () => {
+    setCurrentStep(2);
+  };
+
+  const handleStepForm = (step) => {
+    setCurrentStep(step);
+  };
+
+  const formManagement = {
+    control,
+    type,
+    errors,
+    handleSubmit,
+  };
+
+  return (
+    <FormCreateAd
+      formSubmit={formSubmit}
+      isLoading={false}
+      currentStep={currentStep}
+      formManagement={formManagement}
+      handleClickNextStep={handleClickNextStep}
+      handleStepForm={handleStepForm}
+    />
+  );
+};
 
 describe('Создание объявления', () => {
   beforeEach(() => {
@@ -44,7 +110,7 @@ describe('Создание объявления', () => {
   });
   it('Создание объявления по недвижимости', async () => {
     const onSubmit = jest.fn();
-    render(<FormCreateAd formSubmit={onSubmit} />);
+    render(<TestFormWrapper formSubmit={onSubmit} />);
 
     //Заполняем первый этап формы
     const nameInput = await FormAnnouncement.getName();
@@ -85,7 +151,7 @@ describe('Создание объявления', () => {
   });
   it('Создание объявления по авто', async () => {
     const onSubmit = jest.fn();
-    render(<FormCreateAd formSubmit={onSubmit} />);
+    render(<TestFormWrapper formSubmit={onSubmit} />);
 
     //Заполняем первый этап формы
     const nameInput = await FormAnnouncement.getName();
@@ -125,7 +191,7 @@ describe('Создание объявления', () => {
   });
   it('Создание объявления по услугам', async () => {
     const onSubmit = jest.fn();
-    render(<FormCreateAd formSubmit={onSubmit} />);
+    render(<TestFormWrapper formSubmit={onSubmit} />);
 
     //Заполняем первый этап формы
     const nameInput = await FormAnnouncement.getName();
@@ -166,7 +232,7 @@ describe('Создание объявления', () => {
   });
   it('Возвращение на 1 шаг формы со 2 шага', async () => {
     const onSubmit = jest.fn();
-    render(<FormCreateAd formSubmit={onSubmit} />);
+    render(<TestFormWrapper formSubmit={onSubmit} />);
 
     //Заполняем первый этап формы
     const nameInput = await FormAnnouncement.getName();

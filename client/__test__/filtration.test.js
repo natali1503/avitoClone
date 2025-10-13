@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import React from 'react';
 
 import { FieldsByType } from '../src/general/FormField/formFieldNames';
-import { useFilters } from '../src/hooks/useFilters';
+import { useFilters } from '../src/pages/adsBoard/hooks/useFilters';
 
 const mockAds = [
   // Недвижимость
@@ -106,7 +106,7 @@ describe('Тестирование фильтрации', () => {
   });
 
   test('Инициализируется с пустыми значениями', () => {
-    const { result } = renderHook(() => useFilters(), {
+    const { result } = renderHook(() => useFilters(mockAds), {
       wrapper: ({ children }) => <Provider store={store}>{children}</Provider>,
     });
 
@@ -116,7 +116,7 @@ describe('Тестирование фильтрации', () => {
     expect(result.current.notFoundData).toBe(false);
   });
   test('Фильтр по названию Ремонт квартир', () => {
-    const { result, rerender } = renderHook(() => useFilters(), {
+    const { result, rerender } = renderHook(() => useFilters(mockAds), {
       wrapper: ({ children }) => <Provider store={store}>{children}</Provider>,
     });
 
@@ -135,7 +135,7 @@ describe('Тестирование фильтрации', () => {
     expect(result.current.filteredData.length).toBe(1);
   });
   test('Фильтр категории объявлений Авто', () => {
-    const { result, rerender } = renderHook(() => useFilters(), {
+    const { result, rerender } = renderHook(() => useFilters(mockAds), {
       wrapper: ({ children }) => <Provider store={store}>{children}</Provider>,
     });
 
@@ -156,7 +156,7 @@ describe('Тестирование фильтрации', () => {
     expect(result.current.filteredData.length).toBe(2);
   });
   it('Фильтр по названию Ремонт квартир и категории Авто', () => {
-    const { result, rerender } = renderHook(() => useFilters(), {
+    const { result, rerender } = renderHook(() => useFilters(mockAds), {
       wrapper: ({ children }) => <Provider store={store}>{children}</Provider>,
     });
 
@@ -179,7 +179,7 @@ describe('Тестирование фильтрации', () => {
     expect(result.current.notFoundData).toBe(true);
   });
   it('Сброс фильтров', () => {
-    const { result, rerender } = renderHook(() => useFilters(), {
+    const { result, rerender } = renderHook(() => useFilters(mockAds), {
       wrapper: ({ children }) => <Provider store={store}>{children}</Provider>,
     });
 
@@ -217,7 +217,7 @@ describe('Тестирование фильтрации', () => {
   });
 
   test('Проверка дополнительных фильтров по категории', () => {
-    const { result, rerender } = renderHook(() => useFilters(), {
+    const { result, rerender } = renderHook(() => useFilters(mockAds), {
       wrapper: ({ children }) => <Provider store={store}>{children}</Provider>,
     });
     const categories = 'auto';
