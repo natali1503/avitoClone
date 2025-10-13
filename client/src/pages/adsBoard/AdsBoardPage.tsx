@@ -32,14 +32,23 @@ export const AdsBoardPage: FC = () => {
         <Box display={'flex'} flexDirection={'row'} gap={'1.5rem'} justifyContent={'flex-end'}>
           <CustomButton text='Разместить объявление' dataTestId='creatingAd' onClick={handleCreateAd} />
         </Box>
-        <Box display={'flex'} flexDirection={'row'} gap={'1.5rem'}>
-          <FiltersPanel
-            search={search}
-            categoriesFilters={categoriesFilters}
-            additionalFilters={additionalFilters}
-            handleResetFilters={handleResetFilters}
-          />
-          <AdsList dataToDisplay={adData.dataToDisplay} notFoundData={adData.notFoundData} />
+        <Box display={'flex'} flexDirection={{ xs: 'column', md: 'row' }} gap={'2rem'}>
+          <Box
+            sx={{
+              flex: { xs: '1 1 100%', md: '0 0 30rem' },
+              flexShrink: 0,
+            }}
+          >
+            <FiltersPanel
+              search={search}
+              categoriesFilters={categoriesFilters}
+              additionalFilters={additionalFilters}
+              handleResetFilters={handleResetFilters}
+            />
+          </Box>
+          <Box sx={{ flex: '1 1 0', minWidth: 0 }}>
+            <AdsList dataToDisplay={adData.dataToDisplay} notFoundData={adData.notFoundData} />
+          </Box>
         </Box>
       </Box>
       <CustomPagination

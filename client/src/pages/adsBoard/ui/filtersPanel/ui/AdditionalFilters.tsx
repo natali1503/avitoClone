@@ -1,6 +1,6 @@
 //@ts-expect-error: for test
 import React, { FC } from 'react';
-import { Box } from '@mui/material';
+import { Grid } from '@mui/material';
 
 import { SelectFieldFilter } from './SelectFieldFilter';
 import { TextFieldFilter } from './TextFieldFilter';
@@ -24,30 +24,32 @@ export const AdditionalFilters: FC<IAdditionalFilters> = ({
   }
 
   return (
-    <Box display={'flex'} flexDirection={'column'} gap={'1.5rem'}>
+    <Grid container spacing={4}>
       {listAdditionalFilters.map((el, i) => {
         if (el.typeField === 'input' && el.required) {
           return (
-            <TextFieldFilter
-              fieldName={el.fieldName}
-              value={(additionalFiltersState && additionalFiltersState[el.id]) || ''}
-              setValue={(newValue: string) => handleChange(el.id, newValue)}
-              key={+i}
-            />
+            <Grid item xs={6} md={12} key={+i}>
+              <TextFieldFilter
+                fieldName={el.fieldName}
+                value={(additionalFiltersState && additionalFiltersState[el.id]) || ''}
+                setValue={(newValue: string) => handleChange(el.id, newValue)}
+              />
+            </Grid>
           );
         } else if (el.typeField === 'select' && el.required && el.items) {
           return (
-            <SelectFieldFilter
-              fieldName={el.fieldName}
-              items={el.items}
-              value={(additionalFiltersState && additionalFiltersState[el.id]) || ''}
-              setValue={(newValue: string) => handleChange(el.id, newValue)}
-              key={+i}
-            />
+            <Grid item xs={6} md={12} key={+i}>
+              <SelectFieldFilter
+                fieldName={el.fieldName}
+                items={el.items}
+                value={(additionalFiltersState && additionalFiltersState[el.id]) || ''}
+                setValue={(newValue: string) => handleChange(el.id, newValue)}
+              />
+            </Grid>
           );
         }
         return null;
       })}
-    </Box>
+    </Grid>
   );
 };

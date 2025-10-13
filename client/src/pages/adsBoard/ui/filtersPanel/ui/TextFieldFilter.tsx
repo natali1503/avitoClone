@@ -16,7 +16,7 @@ export const TextFieldFilter: FC<ITextFieldFilter> = ({ value, fieldName, setVal
 
   return (
     <Box display={'flex'} flexDirection={'column'}>
-      <Typography>{fieldName}</Typography>
+      <Typography sx={{ fontSize: { xs: '1.4rem', md: '1.6rem' }, width: '100%' }}>{fieldName}</Typography>
       <TextField
         value={value}
         onChange={handleChange}
@@ -28,6 +28,7 @@ export const TextFieldFilter: FC<ITextFieldFilter> = ({ value, fieldName, setVal
                 onClick={() => {
                   setValue('');
                 }}
+                sx={{ width: { xs: '1.2rem', md: '1.4rem' }, height: { xs: '1.2rem', md: '1.4rem' } }}
               >
                 <CloseIcon />
               </IconButton>
@@ -35,7 +36,12 @@ export const TextFieldFilter: FC<ITextFieldFilter> = ({ value, fieldName, setVal
           },
         }}
         variant='standard'
-        sx={{ fontSize: '1.4rem', minWidth: '15rem', width: '30rem' }}
+        sx={{
+          width: '100%',
+          '& .MuiInputBase-input': {
+            fontSize: { xs: '1.4rem', md: '1.4rem' },
+          },
+        }}
       />
     </Box>
   );

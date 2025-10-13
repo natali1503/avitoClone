@@ -1,6 +1,6 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 //@ts-expect-error: for test
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { ImageWithPlaceholder } from '../../../../components/Image';
@@ -30,23 +30,41 @@ export const AdItem: FC<IAdItem> = ({ id, name, location, type, photo, dataTestI
         flexDirection: 'row',
         borderRadius: '4px',
         border: '1px solid rgb(224,224,224)',
-        padding: '2rem 4rem',
-        gap: '8rem',
+        padding: { xs: '1.4rem 2rem', sm: '1.5rem 3rem', md: '2rem 4rem' },
+        gap: { xs: '2rem', sm: '2rem', md: '6rem' },
         alignItems: 'center',
+        width: '60rem',
       }}
     >
-      <Box width={'15rem'} height={'15rem'}>
+      <Box
+        sx={{
+          width: { xs: '12rem', sm: '14rem', md: '16rem' },
+          height: { xs: '12rem', sm: '14rem', md: '16rem' },
+        }}
+      >
         <ImageWithPlaceholder src={photo} alt={`Изображение по объявлению ${name}`} type={type} />
       </Box>
-      <Box display={'flex'} flexDirection={'column'} gap={'0.5rem'} flex={1}>
-        <Typography variant='h3' style={{ paddingBottom: '1.6rem' }}>
-          {name}
-        </Typography>
-        <Typography variant='subtitle1'>{location}</Typography>
-        <Typography variant='subtitle1'>{type}</Typography>
-      </Box>
 
-      <CustomButton text='Открыть' onClick={handleClick} />
+      <Grid container spacing={4}>
+        <Grid item xs={12} md={6}>
+          <Box display={'flex'} flexDirection={'column'} gap={'0.5rem'} flex={1}>
+            <Typography
+              style={{ paddingBottom: '1.6rem' }}
+              sx={{
+                typography: { xs: 'h3', sm: 'h3', md: 'h3' },
+                fontSize: { xs: '1.8rem', md: '2.4rem' },
+              }}
+            >
+              {name}
+            </Typography>
+            <Typography variant='subtitle1'>{location}</Typography>
+            <Typography variant='subtitle1'>{type}</Typography>
+          </Box>
+        </Grid>
+        <Grid item xs={12} md={6} sx={{ display: 'flex', alignItems: 'center' }}>
+          <CustomButton text='Открыть' onClick={handleClick} />
+        </Grid>
+      </Grid>
     </Box>
   );
 };

@@ -16,7 +16,15 @@ export const AdsList: FC<IAdsList> = ({ dataToDisplay, notFoundData }) => {
   const isDataToDisplay = dataToDisplay.length > 0;
 
   return (
-    <Box display={'flex'} flexDirection={'column'} gap={'1.5rem'} data-testid='AdsList' margin={'0 auto'}>
+    <Box
+      display={'flex'}
+      flexDirection={'row'}
+      flexWrap={'wrap'}
+      gap={'1.5rem'}
+      data-testid='AdsList'
+      justifyContent={'center'}
+      flexGrow={1}
+    >
       {isDataToDisplay &&
         dataToDisplay.map((item) => (
           <AdItem
@@ -30,7 +38,11 @@ export const AdsList: FC<IAdsList> = ({ dataToDisplay, notFoundData }) => {
           />
         ))}
       {notFoundData && <Typography variant='h5'>Объявлений по выбранным параметрам нет</Typography>}
-      {isData && <Typography variant='h5'>Пока объявлений нет</Typography>}
+      {isData && (
+        <Box sx={{ width: '100%' }} display={'flex'} justifyContent={'center'}>
+          <Typography variant='h5'>Пока объявлений нет</Typography>
+        </Box>
+      )}
     </Box>
   );
 };
