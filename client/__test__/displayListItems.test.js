@@ -2,14 +2,14 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import React from 'react';
 
-import { ListItems } from '../src/components/ListAnnouncement/ListItems';
+import { AdsList } from '../src/pages/adsBoard/ui/adsList/AdsList.tsx';
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
   useNavigate: jest.fn(),
 }));
 
-describe('Компонент ListItems', () => {
+describe('Компонент AdsList', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
@@ -32,13 +32,13 @@ describe('Компонент ListItems', () => {
 
     render(
       <MemoryRouter>
-        <ListItems dataToDisplay={mockItems} notFoundData={false} />
+        <AdsList dataToDisplay={mockItems} notFoundData={false} />
       </MemoryRouter>,
     );
 
     // Проверяем, что список рендерится
-    const listItemsContainer = await screen.findByTestId('listItems');
-    expect(listItemsContainer).toBeInTheDocument();
+    const AdsListContainer = await screen.findByTestId('AdsList');
+    expect(AdsListContainer).toBeInTheDocument();
 
     // Проверяем, что отображаются основные данные объявления
     expect(screen.getByText(mockItems[0].name)).toBeInTheDocument();
@@ -49,7 +49,7 @@ describe('Компонент ListItems', () => {
   it('Должен отображать сообщение "Объявлений по выбранным параметрам нет", если notFoundData=true', () => {
     render(
       <MemoryRouter>
-        <ListItems dataToDisplay={[]} notFoundData={true} />
+        <AdsList dataToDisplay={[]} notFoundData={true} />
       </MemoryRouter>,
     );
 
@@ -59,7 +59,7 @@ describe('Компонент ListItems', () => {
   it('Должен отображать сообщение "Пока объявлений нет", если dataToDisplay=[]', () => {
     render(
       <MemoryRouter>
-        <ListItems dataToDisplay={[]} notFoundData={false} />
+        <AdsList dataToDisplay={[]} notFoundData={false} />
       </MemoryRouter>,
     );
     expect(screen.getByText(/Пока объявлений нет/i)).toBeInTheDocument();

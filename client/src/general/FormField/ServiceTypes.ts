@@ -6,6 +6,7 @@ export const ServiceTypeId = {
   DELIVERY: 'delivery',
   INSTALLATION: 'installation',
   CONSULTING: 'consulting',
+  ELECTRICIAN: 'electrician',
 };
 
 export const ServiceTypes: IItem[] = [
@@ -14,4 +15,5 @@ export const ServiceTypes: IItem[] = [
   { id: ServiceTypeId.DELIVERY, text: 'Доставка' },
   { id: ServiceTypeId.INSTALLATION, text: 'Установка' },
   { id: ServiceTypeId.CONSULTING, text: 'Консультация' },
+  { id: ServiceTypeId.ELECTRICIAN, text: 'Электрик' },
 ];

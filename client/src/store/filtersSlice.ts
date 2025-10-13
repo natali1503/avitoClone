@@ -2,20 +2,26 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { FieldsByType, IField } from '../general/FormField/formFieldNames';
 import { CategoriesValues } from '../general/FormField/Categories';
-import { getAnnouncements } from '../api/api-actions';
-import { AdResponse } from '../api/AdResponse';
+import { TAdResponse } from '../entities/ad/types';
 
 const filtersSlice = createSlice({
   name: 'filters',
   initialState: {
-    dataToDisplay: <AdResponse[]>[],
+    filteredData: <TAdResponse[]>[],
     searchName: '',
     categories: <CategoriesValues | ''>'',
     listAdditionalFilters: <IField[]>[],
     additionalFiltersState: <{ [key in string]: string } | null>null,
   },
   reducers: {
+    setFilteredData: (state, action: PayloadAction<TAdResponse[]>) => {
+      state.filteredData = action.payload;
+    },
+    resetFilteredData: (state) => {
+      state.filteredData = [];
+    },
     resetFilters: (state) => {
+      state.filteredData = [];
       state.searchName = '';
       state.categories = '';
       state.additionalFiltersState = null;
@@ -47,11 +53,13 @@ const filtersSlice = createSlice({
       state.additionalFiltersState = { ...state.additionalFiltersState, [id]: value };
     },
   },
-  extraReducers: (builder) => {
-    builder.addCase(getAnnouncements.fulfilled, (state, action) => {
-      state.dataToDisplay = action.payload;
-    });
-  },
 });
-export const { resetFilters, setSearchName, setCategories, setAdditionalFiltersState } = filtersSlice.actions;
+export const {
+  resetFilters,
+  setSearchName,
+  setCategories,
+  setAdditionalFiltersState,
+  setFilteredData,
+  resetFilteredData,
+} = filtersSlice.actions;
 export default filtersSlice.reducer;

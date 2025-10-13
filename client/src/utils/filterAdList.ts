@@ -1,14 +1,14 @@
-import { AdResponse } from '../api/AdResponse';
+import { TAdResponse } from '../entities/ad/types';
 import { Categories } from '../general/FormField/Categories';
 import { IField } from '../general/FormField/formFieldNames';
 
 export function filterAdList(
-  adList: AdResponse[],
+  adList: TAdResponse[],
   searchName: string = '',
   categories: string = '',
   additionalFiltersState: { [key in string]: string } | null = null,
   listAdditionalFilters: IField[],
-): AdResponse[] {
+): TAdResponse[] {
   if (!categories && !searchName) return adList;
   let result = [...adList];
   if (categories) {
@@ -23,7 +23,7 @@ export function filterAdList(
       return Object.entries(additionalFiltersState).every(([idFilter, valueFilter]) => {
         const typeField = listAdditionalFilters.filter((el) => el.id === idFilter)[0].typeField;
         const type = listAdditionalFilters.filter((el) => el.id === idFilter)[0].type;
-        const valueAd = ad[idFilter as keyof AdResponse];
+        const valueAd = ad[idFilter as keyof TAdResponse];
         if (typeField === 'input' && valueFilter) {
           if (type === 'string') {
             return String(valueAd).toLocaleLowerCase().includes(valueFilter.toLocaleLowerCase());

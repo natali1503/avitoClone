@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import React from 'react';
 
-import { DetailsAd } from '../src/components/DetailsAd';
+import { AdDetails } from '../src/pages/ad/ui/AdDetails';
 
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
@@ -64,7 +64,7 @@ describe('Компонент DetailsAd', () => {
 
     render(
       <MemoryRouter>
-        <DetailsAd dataToDisplay={mockItems} id={0} />
+        <AdDetails dataToDisplay={mockItems} id={0} />
       </MemoryRouter>,
     );
     // Проверяем, что информация рендерится

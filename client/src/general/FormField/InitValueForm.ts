@@ -1,6 +1,6 @@
 import { IAd } from '../TypeFormData';
 
-export const InitValueForm: IAd = {
+export const initValueForm: IAd = {
   id: 0,
   name: '',
   description: '',

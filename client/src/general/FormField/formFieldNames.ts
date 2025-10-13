@@ -28,7 +28,7 @@ export const CommonFields: IField[] = [
   {
     id: 'description',
     fieldName: 'Описание объявления',
-    typeField: 'input',
+    typeField: 'textarea',
     type: 'string',
     required: true,
   },

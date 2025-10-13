@@ -1,13 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { getAnnouncements } from '../api/api-actions';
-import { AdResponse } from '../api/AdResponse';
+import { TAdResponse } from '../entities/ad/types';
 
 const announcementsSlice = createSlice({
   name: 'announcements',
   initialState: {
     loading: false,
-    data: <AdResponse[] | []>[],
+    data: <TAdResponse[] | []>[],
     error: null,
   },
   reducers: {},
@@ -16,7 +16,7 @@ const announcementsSlice = createSlice({
       .addCase(getAnnouncements.pending, (state) => {
         state.loading = true;
       })
-      .addCase(getAnnouncements.fulfilled, (state, action: PayloadAction<AdResponse[]>) => {
+      .addCase(getAnnouncements.fulfilled, (state, action: PayloadAction<TAdResponse[]>) => {
         state.loading = false;
         state.error = null;
         state.data = action.payload;

@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import React from 'react';
 
 import { FieldsByType } from '../src/general/FormField/formFieldNames';
-import { useFilters } from '../src/hooks/useFilters';
+import { useFilters } from '../src/pages/adsBoard/hooks/useFilters';
 
 const mockAds = [
   // Недвижимость
@@ -106,22 +106,22 @@ describe('Тестирование фильтрации', () => {
   });
 
   test('Инициализируется с пустыми значениями', () => {
-    const { result } = renderHook(() => useFilters(), {
+    const { result } = renderHook(() => useFilters(mockAds), {
       wrapper: ({ children }) => <Provider store={store}>{children}</Provider>,
     });
 
-    expect(result.current.searchName).toBe('');
-    expect(result.current.categories).toBe('');
+    expect(result.current.search.searchName).toBe('');
+    expect(result.current.categoriesFilters.categories).toBe('');
     expect(result.current.filteredData).toEqual(mockAds);
     expect(result.current.notFoundData).toBe(false);
   });
   test('Фильтр по названию Ремонт квартир', () => {
-    const { result, rerender } = renderHook(() => useFilters(), {
+    const { result, rerender } = renderHook(() => useFilters(mockAds), {
       wrapper: ({ children }) => <Provider store={store}>{children}</Provider>,
     });
 
     act(() => {
-      result.current.handleChangeSearchName('Ремонт квартир');
+      result.current.search.handleChangeSearchName('Ремонт квартир');
     });
 
     store.getState = () => ({
@@ -131,16 +131,16 @@ describe('Тестирование фильтрации', () => {
       },
     });
     rerender();
-    expect(result.current.searchName).toBe('Ремонт квартир');
+    expect(result.current.search.searchName).toBe('Ремонт квартир');
     expect(result.current.filteredData.length).toBe(1);
   });
   test('Фильтр категории объявлений Авто', () => {
-    const { result, rerender } = renderHook(() => useFilters(), {
+    const { result, rerender } = renderHook(() => useFilters(mockAds), {
       wrapper: ({ children }) => <Provider store={store}>{children}</Provider>,
     });
 
     act(() => {
-      result.current.handleChangeCategories('auto');
+      result.current.categoriesFilters.handleChangeCategories('auto');
     });
 
     store.getState = () => ({
@@ -152,17 +152,17 @@ describe('Тестирование фильтрации', () => {
 
     rerender();
 
-    expect(result.current.categories).toBe('auto');
+    expect(result.current.categoriesFilters.categories).toBe('auto');
     expect(result.current.filteredData.length).toBe(2);
   });
   it('Фильтр по названию Ремонт квартир и категории Авто', () => {
-    const { result, rerender } = renderHook(() => useFilters(), {
+    const { result, rerender } = renderHook(() => useFilters(mockAds), {
       wrapper: ({ children }) => <Provider store={store}>{children}</Provider>,
     });
 
     act(() => {
-      result.current.handleChangeCategories('auto');
-      result.current.handleChangeSearchName('Ремонт квартир');
+      result.current.categoriesFilters.handleChangeCategories('auto');
+      result.current.search.handleChangeSearchName('Ремонт квартир');
     });
 
     store.getState = () => ({
@@ -179,13 +179,13 @@ describe('Тестирование фильтрации', () => {
     expect(result.current.notFoundData).toBe(true);
   });
   it('Сброс фильтров', () => {
-    const { result, rerender } = renderHook(() => useFilters(), {
+    const { result, rerender } = renderHook(() => useFilters(mockAds), {
       wrapper: ({ children }) => <Provider store={store}>{children}</Provider>,
     });
 
     act(() => {
-      result.current.handleChangeCategories('auto');
-      result.current.handleChangeSearchName('Ремонт квартир');
+      result.current.categoriesFilters.handleChangeCategories('auto');
+      result.current.search.handleChangeSearchName('Ремонт квартир');
     });
     store.getState = () => ({
       filters: {
@@ -211,18 +211,18 @@ describe('Тестирование фильтрации', () => {
     rerender();
 
     expect(result.current.notFoundData).toBe(false);
-    expect(result.current.searchName).toBe('');
-    expect(result.current.categories).toBe('');
+    expect(result.current.search.searchName).toBe('');
+    expect(result.current.categoriesFilters.categories).toBe('');
     expect(result.current.filteredData).toEqual(mockAds);
   });
 
   test('Проверка дополнительных фильтров по категории', () => {
-    const { result, rerender } = renderHook(() => useFilters(), {
+    const { result, rerender } = renderHook(() => useFilters(mockAds), {
       wrapper: ({ children }) => <Provider store={store}>{children}</Provider>,
     });
     const categories = 'auto';
     act(() => {
-      result.current.handleChangeCategories(categories);
+      result.current.categoriesFilters.handleChangeCategories(categories);
     });
     store.getState = () => ({
       filters: {
@@ -232,6 +232,6 @@ describe('Тестирование фильтрации', () => {
       },
     });
     rerender();
-    expect(result.current.listAdditionalFilters).toEqual(FieldsByType[categories]);
+    expect(result.current.additionalFilters.listAdditionalFilters).toEqual(FieldsByType[categories]);
   });
 });
