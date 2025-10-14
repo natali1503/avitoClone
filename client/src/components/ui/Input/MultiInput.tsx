@@ -39,12 +39,14 @@ export const MultiInput: FC<IMultiInput> = ({
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
-            gap: '2rem',
+            gap: { xs: '1rem', sm: '2rem' },
             width: '100%',
-            height: '8rem',
+            height: { xs: '4rem', sm: '8rem' },
           }}
         >
-          <FormLabel sx={{ width: '22rem', fontSize: '1.8rem' }}>{fieldName}</FormLabel>
+          <FormLabel sx={{ width: { xs: '16rem', sm: '22rem' }, fontSize: { xs: '1.4rem', sm: '1.6rem' } }}>
+            {fieldName}
+          </FormLabel>
           <Box
             sx={{
               display: 'flex',
@@ -58,7 +60,16 @@ export const MultiInput: FC<IMultiInput> = ({
               type={type}
               fullWidth
               {...field}
-              sx={{ fontSize: '1.6rem', width: '27rem', bgcolor: 'white' }}
+              sx={{
+                bgcolor: 'white',
+                width: '100%',
+                fontSize: { xs: '1.4rem', sm: '1.6rem' },
+                '& .MuiOutlinedInput-input': {
+                  padding: {
+                    xs: '8px 2px 8px 8px',
+                  },
+                },
+              }}
               error={error}
               endAdornment={<InputAdornment position='end'>{adornment}</InputAdornment>}
               aria-label={fieldName}

@@ -11,13 +11,20 @@ export const Header: FC<IHeader> = ({ header }) => {
       display={'flex'}
       alignItems={'center'}
       justifyContent={'center'}
-      padding={'2rem 2rem'}
       sx={{
         borderBottom: '1px solid rgba(0, 0, 0, 0.2)',
+        padding: { xs: '1.8rem', md: '2rem' },
       }}
     >
       <Box>
-        <Typography variant='h1'>{header}</Typography>
+        <Typography
+          sx={{
+            typography: { xs: 'h3', sm: 'h3', md: 'h1' },
+            fontSize: { xs: '1.8rem', md: '2.2rem' },
+          }}
+        >
+          {header}
+        </Typography>
       </Box>
     </Box>
   );

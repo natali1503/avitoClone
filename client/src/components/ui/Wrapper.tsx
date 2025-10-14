@@ -13,6 +13,7 @@ export const Wrapper: FC<Props> = ({ children }) => {
       flexDirection='column'
       flex={1}
       sx={{
+        width: '100%',
         opacity: 0,
         animation: 'fadeIn 0.3s ease-in forwards',
         '@keyframes fadeIn': {

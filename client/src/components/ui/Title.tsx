@@ -8,7 +8,14 @@ interface ITitle {
 export const Title: FC<ITitle> = ({ title }) => {
   return (
     <Box display={'flex'} alignItems={'center'} justifyContent={'center'}>
-      <Typography variant='h1'>{title}</Typography>
+      <Typography
+        sx={{
+          typography: { xs: 'h3', sm: 'h3', md: 'h1' },
+          fontSize: { xs: '1.6rem', md: '2rem' },
+        }}
+      >
+        {title}
+      </Typography>
     </Box>
   );
 };

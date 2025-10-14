@@ -67,15 +67,15 @@ const formFieldRealEstate: IField[] = [
   },
   {
     id: 'area',
-    fieldName: 'Площадь в квадратных метрах',
+    fieldName: `Площадь в м\u00B2`,
     typeField: 'input',
     type: 'number',
     required: true,
-    adornment: 'кв. м',
+    adornment: 'м\u00B2',
   },
   {
     id: 'rooms',
-    fieldName: 'Количество комнат',
+    fieldName: 'Кол-во комнат',
     typeField: 'input',
     type: 'number',
     required: true,

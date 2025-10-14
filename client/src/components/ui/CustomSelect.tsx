@@ -34,10 +34,13 @@ export const CustomSelect: FC<ICustomSelect> = ({
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 2,
+        gap: { xs: '1rem', sm: '2rem' },
+        height: { xs: '4rem', sm: '8rem' },
       }}
     >
-      <FormLabel sx={{ width: '22rem', fontSize: '1.8rem' }}>{fieldName}</FormLabel>
+      <FormLabel sx={{ width: { xs: '16rem', sm: '22rem' }, fontSize: { xs: '1.4rem', sm: '1.6rem' } }}>
+        {fieldName}
+      </FormLabel>
       <Box
         sx={{
           display: 'flex',
@@ -62,10 +65,24 @@ export const CustomSelect: FC<ICustomSelect> = ({
               error={error}
               fullWidth
               aria-label={fieldName}
-              sx={{ fontSize: '1.6rem', width: '27rem', backgroundColor: 'white' }}
+              sx={{
+                bgcolor: 'white',
+                width: '100%',
+                fontSize: { xs: '1.4rem', sm: '1.6rem' },
+                '& .MuiOutlinedInput-input': {
+                  padding: {
+                    xs: '8px 2px 8px 8px',
+                  },
+                },
+              }}
             >
               {items.map((item, i) => (
-                <MenuItem key={+i} value={item.id} data-testid={`${dataTestId}-${item.id}`}>
+                <MenuItem
+                  key={+i}
+                  value={item.id}
+                  data-testid={`${dataTestId}-${item.id}`}
+                  sx={{ fontSize: { xs: '1.4rem', sm: '1.6rem', minHeight: 0 } }}
+                >
                   {item.text}
                 </MenuItem>
               ))}
