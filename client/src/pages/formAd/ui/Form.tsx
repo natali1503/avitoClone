@@ -20,52 +20,70 @@ interface IForm {
 
 export const Form: FC<IForm> = ({ formTitle, fields, control, errors, dataTestId }) => {
   return (
-    <Box display={'flex'} flexDirection={'column'} gap={'2rem'} data-testid={dataTestId} padding={'2rem 0'}>
+    <Box
+      display={'flex'}
+      flexDirection={'column'}
+      gap={'2rem'}
+      data-testid={dataTestId}
+      padding={'2rem 0'}
+      flex={1}
+      minHeight={0}
+    >
       <Title title={formTitle} />
 
-      <Box display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'} gap={'1rem'}>
+      <Box
+        display={'flex'}
+        flexDirection={'column'}
+        alignItems={'center'}
+        justifyContent={'center'}
+        gap={'2.2rem'}
+        sx={{ paddingLeft: { xs: 'rem' }, paddingRight: { xs: 'rem' } }}
+      >
         {fields.map((element, i) => {
           if (element.typeField === 'input') {
             return (
-              <CustomInput
-                key={+i}
-                type={element.type}
-                id={element.id as keyof TypeFormData}
-                control={control}
-                fieldName={element.fieldName}
-                required={element.required}
-                error={!!errors[element.id as keyof TypeFormData]}
-                errorMessage={errors[element.id as keyof TypeFormData]?.message || ''}
-                adornment={element.adornment}
-                dataTestId={element.id}
-              />
+              <Box key={+i} sx={{ width: { xs: '36rem', sm: '47rem' } }}>
+                <CustomInput
+                  type={element.type}
+                  id={element.id as keyof TypeFormData}
+                  control={control}
+                  fieldName={element.fieldName}
+                  required={element.required}
+                  error={!!errors[element.id as keyof TypeFormData]}
+                  errorMessage={errors[element.id as keyof TypeFormData]?.message || ''}
+                  adornment={element.adornment}
+                  dataTestId={element.id}
+                />
+              </Box>
             );
           } else if (element.typeField === 'select' && element?.items) {
             return (
-              <CustomSelect
-                key={+i}
-                id={element.id as keyof TypeFormData}
-                control={control}
-                fieldName={element.fieldName}
-                items={element.items}
-                required={element.required}
-                error={!!errors[element.id as keyof TypeFormData]}
-                errorMessage={errors[element.id as keyof TypeFormData]?.message || ''}
-                dataTestId={element.id}
-              />
+              <Box key={+i} sx={{ width: { xs: '36rem', sm: '47rem' } }}>
+                <CustomSelect
+                  id={element.id as keyof TypeFormData}
+                  control={control}
+                  fieldName={element.fieldName}
+                  items={element.items}
+                  required={element.required}
+                  error={!!errors[element.id as keyof TypeFormData]}
+                  errorMessage={errors[element.id as keyof TypeFormData]?.message || ''}
+                  dataTestId={element.id}
+                />
+              </Box>
             );
           } else if (element.typeField === 'textarea') {
             return (
-              <Textarea
-                key={+i}
-                id={element.id as keyof TypeFormData}
-                control={control}
-                fieldName={element.fieldName}
-                required={element.required}
-                error={!!errors[element.id as keyof TypeFormData]}
-                errorMessage={errors[element.id as keyof TypeFormData]?.message || ''}
-                dataTestId={element.id}
-              />
+              <Box key={+i} sx={{ width: { xs: '36rem', sm: '47rem' } }}>
+                <Textarea
+                  id={element.id as keyof TypeFormData}
+                  control={control}
+                  fieldName={element.fieldName}
+                  required={element.required}
+                  error={!!errors[element.id as keyof TypeFormData]}
+                  errorMessage={errors[element.id as keyof TypeFormData]?.message || ''}
+                  dataTestId={element.id}
+                />
+              </Box>
             );
           }
         })}

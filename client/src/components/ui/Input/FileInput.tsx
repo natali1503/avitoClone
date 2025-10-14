@@ -4,6 +4,7 @@ import { Box, FormControl, FormHelperText, FormLabel } from '@mui/material';
 import React, { FC, useState } from 'react';
 
 import { TypeFormData } from '../../../general/TypeFormData';
+import './index.css';
 
 interface IFileInput {
   id: keyof TypeFormData;
@@ -28,12 +29,18 @@ export const FileInput: FC<IFileInput> = ({ id, control, fieldName, required, er
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
-            gap: '2rem',
+            gap: { xs: '1rem', sm: '2rem' },
             width: '100%',
             height: '8rem',
           }}
         >
-          <FormLabel sx={{ width: '22rem', fontSize: '1.8rem', color: isFocused ? '#1E88E5 ' : 'rgba(0, 0, 0, 0.6)' }}>
+          <FormLabel
+            sx={{
+              width: { xs: '16rem', sm: '22rem' },
+              fontSize: { xs: '1.4rem', sm: '1.6rem' },
+              color: isFocused ? '#1E88E5 ' : 'rgba(0, 0, 0, 0.6)',
+            }}
+          >
             {fieldName}
           </FormLabel>
           <Box
@@ -48,9 +55,10 @@ export const FileInput: FC<IFileInput> = ({ id, control, fieldName, required, er
               type='file'
               onChange={(e) => field.onChange(e.target.files)}
               data-testid={dataTestId}
-              style={{ fontSize: '1.6rem', width: '27rem' }}
+              style={{ width: '100%' }}
               onFocus={() => setIsFocused(true)}
               onBlur={() => setIsFocused(false)}
+              className='file-input'
             />
 
             {error && <FormHelperText>{errorMessage}</FormHelperText>}

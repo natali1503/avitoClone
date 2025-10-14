@@ -1,4 +1,4 @@
-import { Box, FormControl, FormHelperText, FormLabel, TextareaAutosize } from '@mui/material';
+import { Box, FormControl, FormHelperText, FormLabel, TextField } from '@mui/material';
 import { Control, Controller } from 'react-hook-form';
 //@ts-expect-error: for test
 import React, { FC, useState } from 'react';
@@ -17,13 +17,7 @@ interface ITextarea {
 
 export const Textarea: FC<ITextarea> = ({ id, control, fieldName, required, error, errorMessage }) => {
   const [isFocused, setIsFocused] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
 
-  const getBorderColor = () => {
-    if (error) return '#d32f2f';
-    if (isHovered) return 'rgba(0, 0, 0, 0.87)';
-    return 'rgba(0, 0, 0, 0.23)';
-  };
   return (
     <Controller
       name={id}
@@ -35,7 +29,7 @@ export const Textarea: FC<ITextarea> = ({ id, control, fieldName, required, erro
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'center',
-            gap: '2rem',
+            gap: { xs: '1rem', sm: '2rem' },
             width: '100%',
           }}
         >
@@ -44,12 +38,16 @@ export const Textarea: FC<ITextarea> = ({ id, control, fieldName, required, erro
               display: 'flex',
               flexDirection: 'row',
               alignItems: 'center',
-              gap: '2rem',
+              gap: { xs: '1rem', sm: '2rem' },
               width: '100%',
             }}
           >
             <FormLabel
-              sx={{ width: '22rem', fontSize: '1.8rem', color: isFocused ? '#1E88E5 ' : 'rgba(0, 0, 0, 0.6)' }}
+              sx={{
+                width: { xs: '16rem', sm: '22rem' },
+                fontSize: { xs: '1.4rem', sm: '1.6rem' },
+                color: isFocused ? '#1E88E5 ' : 'rgba(0, 0, 0, 0.6)',
+              }}
             >
               {fieldName}
             </FormLabel>
@@ -61,25 +59,29 @@ export const Textarea: FC<ITextarea> = ({ id, control, fieldName, required, erro
                 width: '100%',
               }}
             >
-              <TextareaAutosize
+              <TextField
+                multiline
                 {...field}
+                error={error}
                 aria-label={fieldName}
                 value={String(field?.value)}
                 minRows={4}
                 maxRows={12}
                 onFocus={() => setIsFocused(true)}
                 onBlur={() => setIsFocused(false)}
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
-                style={{
+                sx={{
+                  bgcolor: 'white',
                   fontSize: '1.4rem',
-                  width: '27rem',
+                  width: '100%',
                   resize: 'vertical',
                   fontFamily: 'Roboto, Helvetica, Arial, sans-serif',
-                  padding: '8px',
-                  paddingLeft: '14px',
-                  border: `1px solid ${getBorderColor()}`,
                   borderRadius: '4px',
+                  '& .MuiInputBase-root': {
+                    padding: { xs: '8px 2px 8px 8px' },
+                  },
+                  '& .MuiInputBase-input': {
+                    fontSize: { xs: '1.4rem', sm: '1.6rem' },
+                  },
                 }}
               />
               {error && <FormHelperText>{errorMessage}</FormHelperText>}
@@ -90,5 +92,3 @@ export const Textarea: FC<ITextarea> = ({ id, control, fieldName, required, erro
     />
   );
 };
-//hover rgba(0, 0, 0, 0.87);
-//rgba(0, 0, 0, 0.23);

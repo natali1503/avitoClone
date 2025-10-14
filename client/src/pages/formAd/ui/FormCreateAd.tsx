@@ -42,7 +42,7 @@ export const FormCreateAd: FC<IFormCreateAd> = ({
           onSubmit={handleSubmit((data) => {
             formSubmit(data);
           })}
-          style={{ width: '100%' }}
+          style={{ width: '100%', height: '100%' }}
         >
           <Box
             display={'flex'}

@@ -18,11 +18,9 @@ export const AdDetails: FC<IDetailsAd> = ({ dataToDisplay, id }) => {
   return (
     <Box
       display={'flex'}
-      // flexDirection={'row'}
-      gap={'5rem'}
+      flexDirection={'row'}
       data-testid='detailsAd'
-      padding={'0 4rem '}
-      paddingTop={'5rem'}
+      paddingTop={'0.8rem'}
       bgcolor={'rgba(245, 246, 245,0.4)'}
       flexGrow={1}
       sx={{ gap: { xs: '2rem', md: '5rem' }, flexDirection: { xs: 'column', sm: 'row' } }}
@@ -34,6 +32,7 @@ export const AdDetails: FC<IDetailsAd> = ({ dataToDisplay, id }) => {
         sx={{
           flexDirection: { xs: 'row', sm: 'column' },
           justifyContent: { xs: 'space-between', sm: 'flex-start' },
+          padding: '0 1.2rem',
         }}
       >
         <Box
@@ -63,14 +62,27 @@ export const AdDetails: FC<IDetailsAd> = ({ dataToDisplay, id }) => {
           />
         </Box>
       </Box>
-      <Box display={'flex'} flexDirection={'column'} gap={'2rem'} minWidth={'25rem'} flex={1}>
+      <Box display={'flex'} flexDirection={'column'} gap={'2rem'} minWidth={'25rem'} padding={'1rem 1.6rem'}>
         {dataToDisplay &&
           dataToDisplay.data.map((el, i) => (
-            <Box key={+i} display={'flex'} flexDirection={'column'} sx={{ gap: { xs: '0.5rem', md: '1rem' } }}>
-              <Typography variant='h5' sx={{ fontWeight: 500 }}>
+            <Box key={+i} display={'flex'} flexDirection={'column'} sx={{ gap: { xs: '0.4rem', md: '0.6rem' } }}>
+              <Typography
+                sx={{
+                  typography: { xs: 'h3', sm: 'h3', md: 'h5' },
+                  fontSize: { xs: '1.8rem', md: '2.2rem' },
+                }}
+              >
                 {el?.fieldName}
               </Typography>
-              <Typography style={{ fontSize: '1.8rem' }}>{el?.value}</Typography>
+              <Box sx={{ overflowY: 'scroll', maxWidth: '40rem', maxHeight: '20rem', overflowWrap: 'break-word' }}>
+                <Typography
+                  sx={{
+                    fontSize: { xs: '1.4rem', md: '1.8rem' },
+                  }}
+                >
+                  {el?.value}
+                </Typography>
+              </Box>
             </Box>
           ))}
       </Box>

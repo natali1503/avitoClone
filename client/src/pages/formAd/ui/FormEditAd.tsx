@@ -35,22 +35,20 @@ export const FormEditAd: FC<IFormEditAd> = ({
   return (
     <Wrapper>
       <Header header='Форма редактирования' />
-      <Box display='flex' flexDirection='column' flexGrow={1} bgcolor={'rgba(245, 246, 245,0.4)'}>
+      <Box
+        display='flex'
+        flexDirection='column'
+        flexGrow={1}
+        bgcolor={'rgba(245, 246, 245,0.4)'}
+        sx={{ width: '100%', height: '100%' }}
+      >
         <form
           onSubmit={handleSubmit((data) => {
             formSubmit(data);
           })}
-          // style={{ width: '100%', height: '100%' }}
+          style={{ width: '100%', height: '100%', flexGrow: 1, display: 'flex', flexDirection: 'column', gap: '1rem' }}
         >
-          <Box
-            display={'flex'}
-            flexDirection={'column'}
-            alignItems={'center'}
-            justifyContent={'center'}
-            gap={'1rem'}
-            width={'100%'}
-            flex={1}
-          >
+          <Box display={'flex'} flexDirection={'column'} flex={1} minHeight={0} sx={{ width: '100%' }}>
             {currentStep === 1 && (
               <Form
                 fields={CommonFields}
@@ -70,7 +68,17 @@ export const FormEditAd: FC<IFormEditAd> = ({
                 dataTestId={'editAdStep2'}
               />
             )}
+          </Box>
 
+          <Box
+            sx={{
+              flexShrink: 0,
+              mt: 'auto',
+              display: 'flex',
+              justifyContent: 'center',
+              padding: { xs: '1rem 0 3rem 0', sm: '1rem 0 6rem 0' },
+            }}
+          >
             {currentStep === 1 && <CustomButton text='Далее' type='button' onClick={handleClickNextStep} />}
 
             {!!type && currentStep === 2 && (

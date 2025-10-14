@@ -40,10 +40,10 @@ export class FormAnnouncement {
     return this.getSelect('Тип недвижимости');
   }
   static async getArea() {
-    return this.getInput('Площадь в квадратных метрах');
+    return this.getInput('Площадь в м\u00B2');
   }
   static async getRooms() {
-    return this.getInput('Количество комнат');
+    return this.getInput('Кол-во комнат');
   }
   static async getPrice() {
     return this.getInput('Цена в рублях');
